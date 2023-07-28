@@ -1,0 +1,203 @@
+/*!
+ * Big Cottage Specific themeing
+ *
+ */
+ 
+.site11 {
+	
+	.main_body a:link, .main_body a:visited, .main_body a:active {
+		font-weight: 600;
+	}
+	.box_text h2 {
+		text-align:left;
+	}
+	
+	.box_text {
+		font-weight:400;
+	}
+	
+	.color1, .color_color1 {
+		background: #236d6f!important;
+		color: #fff;
+	}
+	.color2, .color_color2 {
+		background: #777f2d!important;
+		color: #fff;
+	}
+	.color3, .color_color3 {
+		background: #e3634b;
+		color: #fff;
+	}
+	.color4, .color_color4 {
+		background: #af2426!important;
+		color: #fff;
+	}
+	.color5, .color_color5 {
+		background: #dead14!important;
+		color: #fff;
+	}
+	.color6, .color_color6 {
+		background: #a8af61!important;
+		color: #fff;
+	}
+	.color7, .color_color7 {
+		background: #ca3d52!important;
+		color: #fff;
+	}
+	.color8, .color_color8 {
+		background: #72b0bb!important;
+		color: #fff;
+	}
+	.color9, .color_color9 {
+		background: #D4DACC!important;
+	}
+	.btn-4, input.btn-4[type="radio"] + label {
+		background: #e3634b;
+	}
+	.custom-background .page-title a:link, .custom-background .page-title a:active, .custom-background .page-title a:hover, .custom-background .page-title a:visited  {
+		color: #282828;
+		text-decoration: none;
+	}
+	.minus20 {
+		margin-bottom:-20px;
+	}
+	a.search-block:link, a.search-block:visited {
+		color:#574f3a;
+		font-weight: 400;
+	}
+	
+	.ktsub_nav_cont .btn-4 {
+		display:none;
+	}
+	
+	.ktsub_nav_cont .span3 {
+	}
+	
+	.ktsub_nav_cont .menu-main-menu-container {
+		float: right;
+	}
+	
+	
+
+	.color10, .color_color10 {
+		background: #F5F1CE!important;
+	}
+	.color11, .color_color11 {
+		background: #DFD9B7!important;
+	}
+	.color12, .color_color12 {
+		background: #C9CB9A!important;
+	}
+	.color13, .color_color13 {
+		background: #D6D9CE!important;
+	}
+	.color14, .color_color14 {
+		background: #F2EDDF!important;
+		// a {
+		// 	color: #000 !important;
+		// }
+	}
+	.color15, .color_color15 {
+		background: #E6DFD1!important;
+	}
+	.color16, .color_color16 {
+		background: #ffffff!important;
+	}
+	.title_color1 {
+		border-bottom-color: #dead14!important;
+	}
+	.title_color2 {
+		border-bottom-color: #72b0bb!important;
+	}
+	.title_color3 {
+		border-bottom-color: #c5c951!important;
+	}
+	a.btn-1 {
+	    color:#fff;
+	}
+	.btn-1, input.btn-1[type="radio"] + label {
+		background: #dfae00;
+	}
+	.btn-1:hover {
+		background: #F7C100;
+	}
+	.btn-1.active {
+		border-color: #778025;
+		color:#778025!important;
+	}
+	.btn-2, input.btn-2[type="radio"] + label {
+		background: #e3634b;
+	}
+	.btn-2:hover {
+		background: #FF7359;
+	}
+	.btn-2.active {
+		border-color: #236d6f;
+		color:#236d6f!important;
+	}
+	.btn-3, input.btn-3[type="radio"] + label {
+		background: #778025;
+	}
+	.btn-3:hover {
+		background: #9AA630;
+	}
+	.btn-3.active {
+		border-color: #dfae00;
+		color:#dfae00!important;
+	}
+	.btn-4:hover {
+		background: #d74b33;
+	}
+	.btn-4.active {
+		border-color: #e3634b;
+		color:#e3634b!important;
+	}
+	.single-houses .page-title_cont .btn:link, .single-houses .page-title_cont .btn:hover, .single-houses .page-title_cont .btn:visited {
+		color: #fff;
+	}
+	.page-id-61 div.widget:last-child, .page-id-63 div.widget:last-child {
+	    padding: 40px 0 40px 0;
+	}
+	.page-id-61 .widget, .page-id-63 .widget {
+	    padding: 40px 0 0px 0;
+	}
+	.page-id-61 .widget p, .page-id-63 .widget p {
+	}
+	.page-id-61 .widget h2, .page-id-63 .widget h2 {
+	    display:none;
+	}
+	
+	a.accordion-toggle {
+	    background: rgba(255, 255, 255, 0.15);
+	}
+
+}
+
+/* DH hacks */
+
+a.cus_link {
+    color: white !important;
+    font-weight: bold;
+}
+#cus_style {
+	position: relative;
+}
+#cus_style a{
+	position: absolute;
+	background-color:#e3634b;
+	padding: 10px;
+	color: white !important;
+	float: left;
+	margin-top: 10px;
+	border-radius: 3px;
+	font-size: 12px;
+	bottom: 1px;
+	width: 100%;
+	text-align: center;
+}
+
+@media only screen and (min-width: 1200px) {
+	#cus_style{
+		min-height:300px;
+	}
+}

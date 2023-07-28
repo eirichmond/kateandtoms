@@ -1,0 +1,424 @@
+<?php
+/*
+ * Get an array of post ids from the
+ * houses table that only exist on kateandtoms.com.
+ *
+ * @return array  $results
+ *
+ */
+
+// Script start
+$rustart = getrusage();	
+
+// Script end
+function rutime($ru, $rus, $index) {
+    return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
+     -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
+}
+
+
+function get_all_house_ids() {
+	global $wpdb;
+	$tablename = $wpdb->prefix . 'posts';
+	
+/*
+	$sql = $wpdb->prepare( "SELECT post_id FROM houses WHERE blog_id = 11 ORDER BY post_title ASC",$tablename );
+	$results = $wpdb->get_results( $sql , ARRAY_A );
+*/
+	
+	$results = $wpdb->get_results( "SELECT ID FROM $tablename WHERE post_type = 'houses' AND (post_status = 'private' OR post_status = 'publish')" , ARRAY_A );
+	
+	$results = wp_list_pluck($results, 'ID', true);
+	
+	return $results;
+
+}
+
+
+/*
+ * Get iPro token
+ *
+ * @return string  $token
+ *
+ */
+
+function get_ipro_token() {
+	$request = new KT_iPro;
+	$token = $request->get_access_token();
+	
+	$token = $token['access_token'];
+	
+	return $token;
+}
+
+/*
+ * Get an array of reference ids from the iPro feed
+ *
+ * @return array  $results
+ *
+ */
+
+function get_all_ipro_house_ids() {
+	$request = new KT_iPro;
+	$token = $request->get_access_token();
+	$properties = $request->get_all_properties($token['access_token']);
+	
+	$references = array();
+	$i=0;
+	foreach ($properties as $property) {
+		$references[$i]['Id'] = $property['Id'];
+		$references[$i]['ktId'] = $property['Reference'];
+		$i++;
+	}
+	
+	return $references;
+}
+
+/*
+ * Get the months from the iPro feed
+ * and change them to K&T format
+ *
+ * @return array  $months
+ *
+ */
+
+function get_the_ipro_data_in_array($property_rates, $property_availability) {
+	
+/*
+	echo '<pre>';
+	print_r($property_availability);
+	echo '</pre>';
+*/
+
+	$cal_index = count($property_rates);
+	
+	$calendar = array();
+	
+	$i=0;
+	foreach ($property_rates as $property_rate) {
+		$calendar[$i]['availability-days'] = get_dates_of_week_from($property_rate, $property_availability);
+		$calendar[$i]['month'] = date('m-Y', strtotime($property_rate['Month']));
+		$calendar[$i]['notes'] = $property_rate['Notes'];
+		$calendar[$i]['rates'] = get_this_rate_ammount($property_rate);
+		$calendar[$i]['rates_types'] = '11';
+		$calendar[$i]['periods'] = get_this_months_rate_headers($property_rate);
+
+		$i++;
+	}
+	
+	return $calendar;
+}
+
+/*
+ * Update the custom rates table in the database
+ * this modified function replicates the function availability_update_value()
+ * found in /wp-content/themes/clubsandwich/core/save_house_metadata.php
+ * the filter updates values upon save however does not update values when
+ * using the native wp_update_post() function so note if anychanges are made here
+ * they should be made in /wp-content/themes/clubsandwich/core/save_house_metadata.php
+ * until that function is deprecated
+ *
+ * @param array  $value
+ * @param int  $post_id
+ * @param array  $field
+ * @return null
+ *
+ */
+
+function update_custom_rates_table($value, $post_id, $field) {
+	
+	if ($field['key'] != 'field_availability_repeater') {
+		return $value;
+	}
+	
+	if (is_array($value)) {
+		global $wpdb;
+		$blog_id = get_current_blog_id();
+		
+		$vars = array(
+			'table_name', // table_name
+			array( // fields to include
+				'blog_id' => $blog_id, 
+				'post_id' => $post_id
+			),
+			array( // format: %s = string, %d = integer, %f = float
+				'%d', // blog_id
+				'%d'  // post_id
+			));
+		
+		$wpdb->delete( 'rates', $vars[1], $vars[2] );
+				
+		$c = -1;
+		
+		foreach ($value as $k => $v) {
+			
+			$month = $v['month'];
+			
+			if ($month == '') {
+				unset($value[$k]);
+				continue;
+			}
+
+			$c++;
+			
+			$prices = $v['rates'];
+			$meta_key = 'availability_calendar_'.$c.'_rates';
+			
+			
+			$replaced = array();
+			foreach($prices as $row => $vals) {
+				foreach ($vals as $rate_id => $amount) {
+					if (strpos($amount,',') == false) {
+						$astrix = strstr($amount,'*');
+						$amount = str_replace($astrix,'',$amount);
+					    $amount = number_format((float)$amount);
+					    if ($astrix) {
+						   $amount .= '&nbsp;' . $astrix;
+					    }
+					}
+					$replaced[$row][$rate_id] = $amount;
+				}
+			}
+			
+			$meta_value = serialize($replaced);
+			
+/*
+			$result = update_post_meta($post_id, $meta_key, $meta_value);
+
+			if ($result == false) {
+				add_action( 'admin_notices', 'failed_to_save' );
+			}
+*/
+			
+			$rates = array();
+			
+			foreach ($v['rate_types'] as $rate_id => $period_array) {
+				
+				$period = $period_array['period'];
+				
+				if ($period != '') {
+
+					for ($week_count=0; $week_count<6; $week_count++) {
+						$a = intval($rate_id)+1;
+						if (!empty($a)) {
+							$rates[$period][$week_count] = $prices[$week_count]['rate_'.$a];
+						}
+					}
+					
+				}
+			}
+			
+			// Rates
+			$vars = array(
+				'rates', // table_name
+				array( // fields to include
+					'blog_id' => $blog_id, 
+					'post_id' => $post_id,
+					'month' => $month,
+					'rates' => serialize($rates)
+				),
+				array( // format: %s = string, %d = integer, %f = float
+					'%d', // blog_id
+					'%d', // post_id
+					'%s', // month
+					'%s'  // rates
+	
+				));
+			//var_dump($vars); wp_die();
+			
+			$wpdb->insert($vars[0], $vars[1], $vars[2]);
+			
+			// Remove the rates from the field to be saved.
+			unset($value[$k]['rates']);
+		}
+	}
+
+}
+
+
+
+function sync_ipro() {
+	global $katglobals;
+	$rate_headers = $katglobals['rate_headers'];
+	$request = new KT_iPro;
+	
+	$house_ids = get_all_house_ids();
+	// echo '<pre>'; print_r($house_ids); echo '</pre>';  wp_die();
+	// isolate update of single houses by creating an array of ids that require updating
+	//$house_ids = array(25515);
+	
+	$properties = get_all_ipro_house_ids();
+	
+/*
+	echo 'KtId to check in iPro (this is the Works house )';
+	var_dump($house_ids);
+	echo 'All of the ids provided by iPro, the Works ID is above and doesn\'t exist in iPro'; 
+	echo '<pre>'; print_r($properties);echo '</pre>';
+*/
+	
+	
+	// Testing script * Testing script * Testing script * Testing script * Testing script * 
+	// for the purpose of testing we shall just use one house with data
+	// house id: 17794 = iPro: 28869
+	
+
+	// Testing script * Testing script * Testing script * Testing script * Testing script * 
+	
+	echo '<div class="iproupdater">';
+	foreach ($house_ids as $house_id){
+		
+		foreach ($properties as $iproproperty) {
+			if (in_array($house_id, $iproproperty)) {
+				
+				$post_id = $house_id;
+				
+				$token = get_ipro_token();
+				
+				$ipro_id = $iproproperty['Id'];
+				
+				$property_rates = $request->get_property_rates($token, $ipro_id);
+				$property_availability = $request->get_property_availability($token, $ipro_id);
+				
+				echo '<pre>'; print_r($property_availability); echo '</pre>';
+				
+				$availability_general_text = $property_rates['AvailabilityNotes'];
+
+				$calendar = get_the_ipro_data_in_array($property_rates['Rates'], $property_availability);
+				
+								
+				$index = count($calendar);
+								
+				
+				update_post_meta($post_id, 'availability_general_text', $availability_general_text);
+				update_post_meta($post_id, '_availability_general_text', 'field_5092771903d83');
+				
+				update_post_meta($post_id, 'availability_calendar', $index);
+				update_post_meta($post_id, '_availability_calendar', 'field_availability_repeater');
+			
+				update_post_meta($post_id, 'price_details_extra', $index);
+				update_post_meta($post_id, '_price_details_extra', 'field_506456fd0aae4');
+
+				for($x = 0; $x <= $index; $x++) {
+					
+					update_post_meta($post_id, 'availability_calendar_'.$x.'_availability-days', $calendar[$x]['availability-days']);
+					update_post_meta($post_id, '_availability_calendar_'.$x.'_availability-days', sanitize_text_field('field_5021859cbf29c'));
+					
+					update_post_meta($post_id, 'availability_calendar_'.$x.'_month', sanitize_text_field($calendar[$x]['month']));
+					update_post_meta($post_id, '_availability_calendar_'.$x.'_month', sanitize_text_field('field_5021859cbf28d'));
+					
+					update_post_meta($post_id, 'availability_calendar_'.$x.'_rates', sanitize_text_field($calendar[$x]['rates']));
+					update_post_meta($post_id, '_availability_calendar_'.$x.'_rates', sanitize_text_field('field_50267a79c0f4c'));
+					
+					update_post_meta($post_id, 'availability_calendar_'.$x.'_rate_types', sanitize_text_field($calendar[$x]['rates_types']));
+					update_post_meta($post_id, '_availability_calendar_'.$x.'_rate_types', sanitize_text_field('field_50269e64dd9fa'));
+					
+					update_post_meta($post_id, 'price_details_extra_'.$x.'_details_period', sanitize_text_field($calendar[$x]['notes']));
+					update_post_meta($post_id, '_price_details_extra_'.$x.'_details_period', sanitize_text_field('field_506456fd0b2b2'));
+					
+					update_post_meta($post_id, 'price_details_extra_'.$x.'_month_details', sanitize_text_field($calendar[$x]['month']));
+					update_post_meta($post_id, '_price_details_extra_'.$x.'_month_details', sanitize_text_field('field_506456fd0aecd'));
+					
+					for($n = 0; $n <= $calendar[$x]['rates_types']; $n++) {
+						update_post_meta($post_id, 'availability_calendar_'.$x.'_rate_types_'.$n.'_period', sanitize_text_field($calendar[$x]['periods'][$n]));
+						update_post_meta($post_id, '_availability_calendar_'.$x.'_rate_types_'.$n.'_period', sanitize_text_field('field_5059d07f957f0'));
+					}
+					
+				}
+								
+	
+				echo '<p class="iproalert iproupdated">Updated <strong>'.get_the_title($house_id).'</strong> ID: <strong>' .$house_id. '</strong> with iPro: ' .$iproproperty['Id'] . '</p>';
+				// force the custom availablity table to update outside of the usual backend save
+				$house_post = array(
+					'ID' => $post_id,
+				); 
+				wp_update_post( $house_post );
+				
+
+			}
+		}
+	}
+	
+	//wp_die();
+
+	echo '</div>';
+	
+
+	$ru = getrusage();
+	echo '<h2>Availability Cron Finished</h2>';
+	$message = '<p class="iproalert iproinfo">';
+	$message .= "This process used " . rutime($ru, $rustart, "utime") . " ms for its computations\n";
+	$message .= "It spent " . rutime($ru, $rustart, "stime") . " ms in system calls\n";
+	$message .= '</p>';
+	echo $message;
+	
+	
+
+}
+add_action( 'fire_ipro_sync', 'sync_ipro');
+
+
+function sync_ipro_update_custom_rates_table() {
+	global $katglobals;
+	$rate_headers = $katglobals['rate_headers'];
+	
+	$request = new KT_iPro;
+	
+	$house_ids = get_all_house_ids();
+	// isolate update of single houses by creating an array of ids that require updating
+	// $house_ids = array(13506);
+	
+	$properties = get_all_ipro_house_ids();
+	
+	
+	// Testing script * Testing script * Testing script * Testing script * Testing script * 
+	// for the purpose of testing we shall just use one house with data
+	// house id: 17794 = iPro: 28869
+	
+
+	// Testing script * Testing script * Testing script * Testing script * Testing script * 
+	
+	echo '<div class="iproupdater">';
+	foreach ($house_ids as $house_id){
+		
+		foreach ($properties as $iproproperty) {
+			if (in_array($house_id, $iproproperty)) {
+				
+				$post_id = $house_id;	
+				
+				// force the custom availablity table to update outside of the usual backend save
+				$fields = get_field_objects($post_id);
+								
+				foreach ($fields as $field) {
+					
+					if ($field['key'] == 'field_availability_repeater') {
+						
+						update_custom_rates_table($field['value'], $post_id, $field);
+						echo '<p class="iproalert iproupdated">Updated <strong>'.get_the_title($house_id).'</strong> ID: <strong>' .$house_id. '</strong></p>';
+						
+					}
+					
+				}
+
+			}
+		}
+	}
+	
+	//wp_die();
+
+	echo '</div>';
+	
+
+	$ru = getrusage();
+	echo '<p class="iproalert iproinfo">';
+	echo "This process used " . rutime($ru, $rustart, "utime") .
+	    " ms for its computations\n";
+	echo "It spent " . rutime($ru, $rustart, "stime") .
+	    " ms in system calls\n";
+	echo '</p>';
+	
+
+}
+add_action( 'fire_ipro_sync_update_custom_rates_table', 'sync_ipro_update_custom_rates_table');
+
+
+

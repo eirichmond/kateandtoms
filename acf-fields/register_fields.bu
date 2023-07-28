@@ -1,0 +1,210 @@
+<?php 
+add_action('acf/include_field_types', 'include_custom_field_types');
+
+function include_custom_field_types( $version ) {
+	include_once('color-radio.php');
+	include_once('day-picker.php');
+}
+
+if (function_exists("register_field_group")) {
+	include_once('register_fields_helpers.php');
+	include_once('register_fields_helpers_widgets.php');
+	include_once('register_fields_adverts.php');
+	include_once('register_fields_home_page.php');
+	include_once('register_fields_houses.php');
+	include_once('register_fields_options.php');
+	include_once('register_fields_seasonal.php');
+	include_once('register_fields_special_offers.php');
+	include_once('register_fields_suppliers.php');
+	include_once('register_fields_taxonomies.php');
+}
+
+
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_59494e117c0e7',
+	'title' => 'Added Discount Logic',
+	'fields' => array (
+		array (
+			'key' => 'field_59494ef53a4be',
+			'label' => 'Discount Logic',
+			'name' => 'discount_logic',
+			'type' => 'flexible_content',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'button_label' => 'Add Discount Logic',
+			'min' => '',
+			'max' => '',
+			'layouts' => array (
+				array (
+					'key' => '59494ef9d826d',
+					'name' => 'add_discount_logic',
+					'label' => 'Add Discount Logic',
+					'display' => 'table',
+					'sub_fields' => array (
+						array (
+							'key' => 'field_594953da38776',
+							'label' => 'Logic Type',
+							'name' => 'logic_type',
+							'type' => 'select',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => 0,
+							'wrapper' => array (
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'choices' => array (
+								'set' => 'Set Dates',
+								'rolling' => 'Rollling Days',
+							),
+							'default_value' => array (
+							),
+							'allow_null' => 0,
+							'multiple' => 0,
+							'ui' => 0,
+							'ajax' => 0,
+							'placeholder' => '',
+							'disabled' => 0,
+							'readonly' => 0,
+						),
+						array (
+							'key' => 'field_59494f263a4c0',
+							'label' => 'No Rolling Days',
+							'name' => 'no_rolling_days',
+							'type' => 'number',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => array (
+								array (
+									array (
+										'field' => 'field_594953da38776',
+										'operator' => '==',
+										'value' => 'rolling',
+									),
+								),
+							),
+							'wrapper' => array (
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'default_value' => '',
+							'placeholder' => '',
+							'prepend' => '',
+							'append' => '',
+							'min' => '',
+							'max' => '',
+							'step' => '',
+							'readonly' => 0,
+							'disabled' => 0,
+						),
+						array (
+							'key' => 'field_5949551238777',
+							'label' => 'From',
+							'name' => 'from',
+							'type' => 'date_picker',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => array (
+								array (
+									array (
+										'field' => 'field_594953da38776',
+										'operator' => '==',
+										'value' => 'set',
+									),
+								),
+							),
+							'wrapper' => array (
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'display_format' => 'd/m/Y',
+							'return_format' => 'd/m/Y',
+							'first_day' => 1,
+						),
+						array (
+							'key' => 'field_5949553138778',
+							'label' => 'To',
+							'name' => 'to',
+							'type' => 'date_picker',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => array (
+								array (
+									array (
+										'field' => 'field_594953da38776',
+										'operator' => '==',
+										'value' => 'set',
+									),
+								),
+							),
+							'wrapper' => array (
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'display_format' => 'd/m/Y',
+							'return_format' => 'd/m/Y',
+							'first_day' => 1,
+						),
+						array (
+							'key' => 'field_59494f0b3a4bf',
+							'label' => 'Discount',
+							'name' => 'discount',
+							'type' => 'number',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => 0,
+							'wrapper' => array (
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'default_value' => '',
+							'placeholder' => '',
+							'prepend' => '',
+							'append' => '%',
+							'min' => '',
+							'max' => '',
+							'step' => '',
+							'readonly' => 0,
+							'disabled' => 0,
+						),
+					),
+					'min' => '',
+					'max' => '',
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'houses',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+?>

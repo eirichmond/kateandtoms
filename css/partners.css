@@ -1,0 +1,175 @@
+/*!
+ * Big Cottage Specific themeing
+ *
+ */
+
+.brand_logo {
+	padding: 15px 0 8px;
+}
+
+.custom-background .page-title a:link, .custom-background .page-title a:active, .custom-background .page-title a:hover, .custom-background .page-title a:visited {
+	color: #282828;
+	text-decoration: none;
+}
+
+.main_body a:link, .main_body a:visited, .main_body a:active {
+	font-weight: 600;
+	color: #fff;
+}
+
+.minus20 {
+	margin-bottom: -20px;
+}
+
+a.search-block:link, a.search-block:visited {
+	color: #574f3a;
+	font-weight: 400;
+}
+
+.ktsub_nav_cont .btn-4 {
+	display: none;
+}
+
+.color1, .color_color1 {
+	background: #236d6f!important;
+	color: #fff;
+}
+
+.color2, .color_color2 {
+	background: #777f2d!important;
+	color: #fff;
+}
+
+.color3, .color_color3 {
+	background: #e3634b!important;
+	color: #fff;
+}
+
+.color4, .color_color4 {
+	background: #af2426!important;
+	color: #fff;
+}
+
+.color5, .color_color5 {
+	background: #dead14!important;
+	color: #fff;
+}
+
+.color6, .color_color6 {
+	background: #72b0bb!important;
+	color: #fff;
+}
+
+.color7, .color_color7 {
+	background: #c5c951!important;
+	color: #fff;
+}
+
+.color8, .color_color8 {
+	background: #a45e5c!important;
+	color: #fff;
+}
+
+.color9, .color_color9 {
+	background: #f3f4ef!important;
+}
+
+.color10, .color_color10 {
+	background: #f8f8f8!important;
+}
+
+.color11, .color_color11 {
+	background: #f7f3ea!important;
+}
+
+/*.color12, .color_color12 {
+	background: #!important;
+}
+.color13, .color_color13 {
+	background: #!important;
+}
+.color14, .color_color14 {
+	background: #!important;
+}
+.color15, .color_color15 {
+	background: #!important;
+}
+.color16, .color_color16 {
+	background: #!important;
+}*/
+
+.title_color1 {
+	border-bottom-color: #dead14!important;
+}
+
+.title_color2 {
+	border-bottom-color: #72b0bb!important;
+}
+
+.title_color3 {
+	border-bottom-color: #c5c951!important;
+}
+
+.btn-1, input.btn-1[type="radio"]+label {
+	background: #dfae00;
+}
+
+.btn-1:hover {
+	background: #5f661e;
+}
+
+.btn-1.active {
+	border-color: #778025;
+	color: #778025!important;
+}
+
+.btn-2, input.btn-2[type="radio"]+label {
+	background: #e3634b;
+}
+
+.btn-2:hover {
+	background: #1e6568;
+}
+
+.btn-2.active {
+	border-color: #236d6f;
+	color: #236d6f!important;
+}
+
+.btn-3, input.btn-3[type="radio"]+label {
+	background: #778025;
+}
+
+.btn-3:hover {
+	background: #d2a400;
+}
+
+.btn-3.active {
+	border-color: #dfae00;
+	color: #dfae00!important;
+}
+
+.btn-4, input.btn-4[type="radio"]+label {
+	background: #e3634b;
+}
+
+.btn-4:hover {
+	background: #d74b33;
+}
+
+.btn-4.active {
+	border-color: #e3634b;
+	color: #e3634b!important;
+}
+
+.single-houses .page-title_cont .btn:link, .single-houses .page-title_cont .btn:hover, .single-houses .page-title_cont .btn:visited {
+	color: #fff;
+}
+
+.speech-quotes {
+	background-image: url('../images/partner-icons/left-quote.png');
+	background-size: cover;
+	width: 40px;
+	height: 40px;
+	margin-bottom: 30px;
+}

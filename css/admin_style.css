@@ -1,0 +1,495 @@
+code {
+	font-size: 10px;
+}
+
+#acf_k1f3w4i6dgets {
+    clear: both;
+}
+
+.repeater a.acf-button-add {
+	display: none!important;
+}
+html .mcecontentbody {
+	width:100px!important;
+}
+/*#menu-posts-houses .wp-menu-image {
+	background:url(/wp-content/uploads/2012/08/building-old.png) no-repeat 6px -17px!important;
+}
+
+#menu-posts-suppliers .wp-menu-image {
+	background:url(/wp-content/plugins/kate-and-toms-master-settings/img/party-hat.png) no-repeat 6px -17px!important;
+}
+
+#menu-posts-seasonal .wp-menu-image {
+	background:url(/wp-content/uploads/2012/10/star.png) no-repeat 6px -17px!important;
+}*/
+
+/*#menu-posts-houses:hover .wp-menu-image,#menu-posts-houses.wp-has-current-submenu .wp-menu-image,#menu-posts-suppliers:hover .wp-menu-image,#menu-posts-suppliers.wp-has-current-submenu .wp-menu-image,#menu-posts-seasonal:hover .wp-menu-image,#menu-posts-seasonal.wp-has-current-submenu .wp-menu-image {
+	background-position:6px 7px!important;
+}*/
+
+/*.icon32-posts-houses {
+	background-image:url(/wp-content/themes/bigcottage/images/houseicon.png)!important;
+	background-position:0!important;
+}*/
+
+#location-21,#location-6,#location-20 {
+	font-weight:700;
+}
+
+.acf-field-color-radio li {
+    width: 16px;
+    display: inline;
+}
+
+.acf_flexible_content .mce_justifycenter, .acf_flexible_content .mce_justifyleft, .acf_flexible_content .mce_justifyright, .acf_flexible_content .wp-editor-tools {
+	display:none!important;
+}
+
+.acf-field-keyfacts-1, .acf-field-keyfacts-2, .acf-field-keyfacts-3 {
+	width:32%;
+	float:left;
+	margin-right:10px;
+}
+
+.acf-field-day-picker .ui-datepicker {
+    width: 100%;
+}
+
+.acf-field-day-picker .ui-widget-header {
+	display: none;
+}
+
+.acf-field-day-picker td.ui-state-highlight {
+	background-color:#e3634b;
+}
+.acf-field-day-picker td.ui-state-highlight a {
+	color: #fff;
+}
+
+.acf-field-availability-repeater .acf-field-repeater th, .acf-field-availability-repeater .acf-field-repeater .order {
+	display: none!important;
+}
+
+.acf-field-availability-repeater .acf-field-repeater td {
+	padding:0;
+}
+/*#acf-availability_calendar .checkbox_list li {
+	width:31px;
+	display:inline-block;
+	padding:6px 4px;
+	margin:0;
+	border-right:1px solid #ededed;
+	border-bottom:1px solid #ededed;
+	background:#fff;
+	margin-right:none!important;
+	border-collapse:collapse;
+	text-align:right;
+}
+
+#acf-availability_calendar .checkbox_list .line_under li {
+	border-bottom:none;
+}
+
+#acf-availability_calendar .checkbox_list .line_under {
+	border-bottom:1px solid #ededed;
+	display:inline-block;
+}
+
+#acf-availability_calendar input[type="checkbox"] {
+	-webkit-appearance:none;
+	background-color:none;
+	border:none;
+	padding:5px;
+	border-radius:3px;
+	display:inline-block;
+	position:relative;
+}
+
+#acf-availability_calendar input[type="checkbox"]:checked:after {
+	content:'\2717';
+	font-size:14px;
+	position:absolute;
+	top:-2px;
+	left:0;
+	color:#99a1a7;
+}
+
+#acf-availability_calendar input[type="checkbox"]:checked {
+	background-color:none;
+	color:#99a1a7;
+}
+
+#acf-availability_calendar .checkbox_header {
+	text-align:center!important;
+	background-color:#f1f1f1;
+	background-image:-ms-linear-gradient(top,#f9f9f9,#ececec);
+	background-image:-moz-linear-gradient(top,#f9f9f9,#ececec);
+	background-image:-o-linear-gradient(top,#f9f9f9,#ececec);
+	background-image:-webkit-gradient(linear,left top,left bottom,from(#f9f9f9),to(#ececec));
+	background-image:-webkit-linear-gradient(top,#f9f9f9,#ececec);
+	background-image:linear-gradient(top,#f9f9f9,#ececec);
+	width:280px;
+}
+
+#acf-availability_calendar .checkbox_header li {
+	background:none!important;
+	color:#aaa;
+	text-align:center!important;
+	text-shadow:#fff 0 1px 0;
+	border-bottom:2px solid #dfdfdf;
+	border-right:1px solid #dfdfdf;
+}
+
+#acf-availability_calendar .checkbox_list ul {
+	border-left:1px solid #ededed;
+}
+
+#acf-availability_calendar .checkbox_list ul {
+	border-left:1px solid #ededed;
+}
+
+#acf-availability_calendar .checkbox_container {
+	border-left:1px solid #ededed;
+	border-top:1px solid #ededed;
+	border-radius:0 0 0 0;
+	box-shadow:0 1px 3px rgba(0,0,0,0.1);
+	background:#fff;
+	width:280px;
+}*/
+
+.acf_postbox .field textarea {
+	min-height:50px!important;
+}
+
+/*#acf-availability_calendar select {
+	width:100px!important;
+	overflow:hidden;
+	border:none;
+	outline:none;
+	background:none;
+	display:inline-block;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance:none;
+	cursor:pointer;
+}*/
+
+/*#acf-availability_calendar .rates_column select {
+	width:100%!important;
+	font-size:10px;
+	font-family:sans-serif;
+	overflow:hidden;
+	color:#aaa;
+	text-shadow:#fff 0 1px 0;
+}
+
+#acf-availability_calendar .disabled td {
+	padding:0!important;
+}
+
+#acf-availability_calendar .disabled td {
+	padding:0!important;
+}
+
+#acf-availability_calendar .select_date {
+	margin-top:4px;
+}
+
+#acf-availability_calendar .availability-days {
+	width:282px!important;
+}
+
+#acf-availability_calendar .month {
+	width:120px!important;
+}
+
+#acf-availability_calendar .rates_column .Rates thead {
+	display:none;
+}
+
+#acf-availability_calendar .rates_column .order {
+	width:16px!important;
+}
+
+#acf-availability_calendar .Rates td {
+	padding:1px!important;
+}
+
+#acf-availability_calendar .Rates textarea,#acf-availability_calendar .Rates input[type="text"],#acf-availability_calendar .Rates input[type="number"], #acf-availability_calendar .disabled input {
+	border:none!important;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border-width: 0;
+}
+
+#acf-availability_calendar .rates_column th {
+	padding:3px 7px!important;
+}*/
+
+.acf-field-50267a79c0f4c > .acf-input {
+	overflow-x: scroll;
+    width: 600px;
+}
+.Navigation thead {
+	display:none;
+}
+
+.Set thead {
+	display:table-header-group;
+}
+
+#tabs_houses {
+	border:none;
+	background:transparent;
+}
+
+#tabs_houses .inside {
+	padding-left:0!important;
+}
+
+.acf-gallery {
+	z-index: 0;
+}
+
+.acf-gallery .thumbnail img, #acf-adverts img {
+	width: 70px;
+}
+
+
+#toplevel_page_edit-post_type-acf {
+	display:none;
+}
+
+.acf-gallery .thumbnails {
+	min-height: 150px;
+}
+
+#acf_house_properties .field-text, #acf_house_properties .field-true_false {
+	width: 45%;
+	display: inline-block;
+	padding-right: 5%!important;
+}
+
+#acf-house_pages .acf-gallery .thumbnails {
+	min-height: 220px;
+}
+
+#tabs_houses h3,#custom_editor h3 {
+	display:none;
+}
+
+#post-status-info {
+	line-height:1.4em;
+	font-size:13px;
+}
+
+.handlediv {
+	display:none;
+}
+
+thead #thumbnail {
+	width:100px!important;
+}
+
+thead #sleeps_min,thead #sleeps_max {
+	width:120px!important;
+}
+
+.toplevel_page_acf-options-design .acf-image-uploader img {
+	box-shadow: none!important;
+}
+
+#acf-field_css_file {
+	font-family: Consolas,Monaco,monospace;
+}
+
+.color_radio input {
+	-webkit-appearance:none;
+	box-shadow:0 1px 2px rgba(0,0,0,0.05),inset 0 -15px 10px -12px rgba(0,0,0,0.05);
+	 padding:9px!important;
+	border-radius:50px;
+	display:inline-block;
+	position:relative;
+	width:15px!important;
+	height:15px!important;
+}
+
+.color_radio li {
+	margin-right:0!important;
+}
+
+.color_radio input:checked:after {
+	width:7px!important;
+	height:7px!important;
+	border-radius:50px;
+	position:absolute;
+	top:4px;
+	background:#fff;
+	left:4px;
+	font-size:8px;
+	content:' ';
+	opacity:.7;
+}
+
+.color_radio input:checked {
+/* 	background-color:#e9ecee; */
+	box-shadow:0 1px 2px rgba(0,0,0,0.05),inset 0 -15px 10px -12px rgba(0,0,0,0.05),inset 15px 10px -12px rgba(255,255,255,0.1),inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.color_radio input:active,.color_radio input:checked:active {
+	box-shadow:0 1px 2px rgba(0,0,0,0.05),inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.settings_page_live-edit-panel #wpfooter {
+	display:none!important;
+}
+
+td.acf-field-573c355f7e3ba.expired {
+    background: #e3634b;
+}
+
+#special-offers .CMB_Group_Field.cmb-sortable > .field-item > .cmb-handle {
+	height: 16px;
+	background: #ECECEC;
+	border: none;
+}
+
+#special-offers .cmb_metabox .CMB_Group_Field.repeatable > .field-item {
+	padding-top: 15px;
+}
+
+#special-offers  .cmb_metabox .CMB_Group_Field.repeatable > .field-item > .cmb-delete-field {
+    top: 20px;
+    right: 15px;
+}
+
+.cmb-insert-field span.dashicons.dashicons-plus {
+    font-size: 15px;
+    line-height: 18px;
+    padding: 0px;
+    margin: 0px;
+    width: inherit;
+}
+
+#special-offers .CMB_Image_Field .field-item {
+	margin: 0 16px 0px 0 !important;
+}
+
+#special-offers .CMB_Group_Field .cmb_metabox > .cmb-row:last-child {
+    padding: 0px 0px;
+}
+
+#special-offers .cmb_metabox .CMB_Group_Field.repeatable > .field-item {
+	margin-bottom: -1px;
+}
+
+#special-offers .cmb_metabox .repeat-field {
+    margin: 15px 0px;
+}
+
+#special-offers .cmb_metabox .field {
+	padding: 5px 0;
+}
+
+#special-offers button.cmb-insert-field {
+    position: absolute;
+    right: 14px;
+    z-index: 2;
+    top: 45px;
+	display: inline-block;
+    text-decoration: none;
+    font-size: 11px;
+    height: 22px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-border-radius: 3px;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #555;
+    border-color: #ccc;
+    background: #f7f7f7;
+    -webkit-box-shadow: inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+    box-shadow: inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+    vertical-align: top;
+    overflow: hidden;
+    white-space: nowrap;}
+
+#special-offers .field-item {
+    position: relative;
+}
+
+#special_offer .field-item:nth-of-type(4n+3) {
+    background: #c2c2c2;
+}
+
+
+#core-color-cmb-field-0-item-color1 {
+	background: #236d6f!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color2 {
+	background: #777f2d!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color3 {
+	background: #e3634b;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color4 {
+	background: #af2426!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color5 {
+	background: #dead14!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color6 {
+	background: #f2a600!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color7 {
+	background: #ca3d52!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color8 {
+	background: #18b4ea!important;
+	color: #fff;
+}
+#core-color-cmb-field-0-item-color9 {
+	background: #D4DACC!important;
+}
+#core-color-cmb-field-0-item-color10 {
+	background: #F5F1CE!important;
+}
+#core-color-cmb-field-0-item-color11 {
+	background: #DFD9B7!important;
+}
+#core-color-cmb-field-0-item-color12 {
+	background: #C9CB9A!important;
+}
+#core-color-cmb-field-0-item-color13 {
+	background: #D6D9CE!important;
+}
+#core-color-cmb-field-0-item-color14 {
+	background: #F2EDDF!important;
+}
+#core-color-cmb-field-0-item-color15 {
+	background: #E6DFD1!important;
+}
+#core-color-cmb-field-0-item-color16 {
+	background: #ffffff!important;
+}
+
+
+div#core-color input {
+    margin-bottom: 10px;
+}
+
+div#core-color .field-item label {
+    display: none;
+}

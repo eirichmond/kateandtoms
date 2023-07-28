@@ -1,0 +1,48 @@
+[13-Dec-2019 03:28:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[14-Dec-2019 01:51:57 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[14-Dec-2019 02:13:14 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[14-Dec-2019 02:36:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[14-Dec-2019 04:56:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[14-Dec-2019 06:41:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[15-Dec-2019 03:47:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[16-Dec-2019 02:03:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[16-Dec-2019 02:42:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[16-Dec-2019 02:59:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[16-Dec-2019 04:49:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1
+[16-Dec-2019 06:34:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/kateandtoms/public_html/wp-content/themes/clubsandwich/404.php on line 1

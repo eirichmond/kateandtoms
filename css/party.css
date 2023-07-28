@@ -1,0 +1,195 @@
+/*!
+ * Party Weekends Specific themeing
+ *
+ */
+
+/* @import must be at top of file, otherwise CSS will not work */
+  
+@font-face {font-family: 'BrandonGrotesque-Medium';src: url('fonts/2590EA_1_0.eot');src: url('fonts/2590EA_1_0.eot?#iefix') format('embedded-opentype'),url('fonts/2590EA_1_0.woff') format('woff'),url('fonts/2590EA_1_0.ttf') format('truetype');}
+
+h1, h2, .box_text {
+	font-family: 'BrandonGrotesque-Medium'!important; 
+	font-weight: normal; 
+	font-style: normal; 
+	text-transform: uppercase;
+}
+
+.box_text {
+	font-size:1.5em;
+}
+
+#wpadminbar {
+	border-top: 2px solid #cc3852!important;
+}
+
+.ktsub_nav_cont .btn-4 {
+	display:none;
+}
+
+.custom-background {
+	color:#1e160e;
+}
+
+.minus20 {
+	margin-bottom:-20px;
+}
+
+.page .page-title a:link,.page-title a:active,.page-title a:hover,.page-title a:visited {
+	color:#282828;
+	text-decoration:none;
+}
+
+.main_body a:link,.main_body a:visited,.main_body a:active {
+	font-weight:600;
+	color: #fff;
+}
+
+.topnav1 {
+	border-color:#236d6f!important;
+}
+
+.topnav2 {
+	border-color:#777f2d!important;
+}
+
+.topnav3 {
+	border-color:#e3634b!important;
+}
+
+.topnav4 {
+	border-color:#af2426!important;
+}
+
+.topnav5 {
+	border-color:#dead14!important;
+}
+
+a.search-block:link,a.search-block:visited {
+	color:#574f3a;
+	font-weight:400;
+}
+
+.color1,.color2, .color3, .color4, .color5 {
+	color:#fff;
+}
+
+.color1,.color_color1 {
+	background: #b0c400!important;
+}
+
+.color2,.color_color2 {
+	background:#f3a425!important;
+}
+
+.color3,.color_color3 {
+	background: #e55a81!important;
+}
+
+.color4,.color_color4 {
+	background: #b92420!important;
+}
+
+.color5,.color_color5 {
+	background: #ad365c!important;
+}
+
+.color6,.color_color6 {
+	background: #d6d9cb!important;
+}
+
+.color7,.color_color7 {
+	background: #f2eddf!important;
+}
+
+.color8,.color_color8 {
+	background: #e6dfce!important;
+}
+
+.color9,.color_color9 {
+	background: #fff!important;
+}
+
+.box_text h2 {
+	text-align:left;
+	font-weight:400;
+	font-size:1.6em;
+	margin-top:5px;
+}
+.box_text {
+	font-weight:400;
+}
+
+.title_color1 {
+	border-bottom-color:#dead14!important;
+}
+
+.title_color2 {
+	border-bottom-color:#72b0bb!important;
+}
+
+.title_color3 {
+	border-bottom-color:#c5c951!important;
+}
+
+.houses-sidebar a:link, .houses-sidebar a:visited, .houses-sidebar a:active {
+	color: #fff!important;
+}
+
+.single-houses .page-title_cont .btn:link,.single-houses .page-title_cont .btn:active,.single-houses .page-title_cont .btn:hover,.single-houses .page-title_cont .btn:visited {
+	color:#fff;
+}
+.btn-2, .color_btn-2, input.btn-2[type="radio"] + label {
+	background: #f3a425;
+	color:#fff!important;
+}
+
+.btn-2:hover {
+	background:#3f2b1f;
+}
+
+.btn-3, .color_btn-3, input.btn-3[type="radio"] + label {
+	background: #b0c400;
+}
+
+.btn-3:hover {
+	background:#c5c951;
+}
+
+.btn-4 {
+	background:#cc036b;
+}
+
+.btn-4:hover {
+	background:#b5035f;
+}
+
+.btn-5.active, .btn-5:link {
+	background-color: #fff;
+}
+
+.btn-1, .color_btn-1, input.btn-1[type="radio"] + label {
+	background: #ffc736;
+	color: #fff!important;
+}
+
+.btn-1 i {
+	background-image: url("../img/glyphicons-halflings.png")!important;
+}
+
+.btn-1:hover {
+	background:#f2ea00;
+	color:#000!important;
+}
+
+.houses-sidebar {
+	background: #3f2b1f;
+	color: #fff!important;
+}
+
+#slideDeck {
+	height: 400px!important;
+}
+
+.dhide.mobilesearch {
+	display: none;
+}

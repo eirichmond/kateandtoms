@@ -1,0 +1,146 @@
+/*!
+ * Big Cottage Specific themeing
+ *
+ */
+.custom-background .page-title a:link, .custom-background .page-title a:active, .custom-background .page-title a:hover, .custom-background .page-title a:visited  {
+	color: #282828;
+	text-decoration: none;
+}
+.main_body a:link, .main_body a:visited, .main_body a:active {
+	font-weight: 600;
+	color: #fff;
+}
+.single .main_body a:link, .single.site24 .main_body a:visited, .blog.site24 .main_body a:link, .blog.site24 .main_body a:visited, .blog.site24 .main_body a:active {
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.45);
+}
+.single-houses .main_body a:link {
+	color:inherit;
+	font-weight: 400;
+}
+.minus20 {
+	margin-bottom:-20px;
+}
+a.search-block:link, a.search-block:visited {
+	color:#574f3a;
+	font-weight: 400;
+}
+
+.color1, .color_color1 {
+	background: #236d6f!important;
+	color: #fff;
+}
+.color2, .color_color2 {
+	background: #777f2d!important;
+	color: #fff;
+}
+.color3, .color_color3 {
+	background: #e3634b!important;
+	color: #fff;
+}
+.color4, .color_color4 {
+	background: #af2426!important;
+	color: #fff;
+}
+.color5, .color_color5 {
+	background: #dead14!important;
+	color: #fff;
+}
+.color6, .color_color6 {
+	background: #72b0bb!important;
+	color: #fff;
+}
+.color7, .color_color7 {
+	background: #a8af61!important;
+	color: #fff;
+}
+.color8, .color_color8 {
+	background: #a45e5c!important;
+	color: #fff;
+}
+.color9, .color_color9 {
+	background: #D4DACC!important;
+}
+.color10, .color_color10 {
+	background: #F5F1CE!important;
+}
+.color11, .color_color11 {
+	background: #DFD9B7!important;
+}
+.color12, .color_color12 {
+	background: #C9CB9A!important;
+}
+.color13, .color_color13 {
+	background: #D6D9CE!important;
+}
+.color14, .color_color14 {
+	background: #F2EDDF!important;
+}
+.color15, .color_color15 {
+	background: #E6DFD1!important;
+}
+.color16, .color_color16 {
+	background: #ffffff!important;
+}
+.title_color1 {
+	border-bottom-color: #dead14!important;
+}
+.title_color2 {
+	border-bottom-color: #72b0bb!important;
+}
+.title_color3 {
+	border-bottom-color: #c5c951!important;
+}
+.btn-1, .color_btn-1, input.btn-1[type="radio"] + label {
+	background: #dead14;
+}
+.btn-1:hover {
+	background: #F2BD16;
+}
+.btn-1.active {
+	border-color: #778025;
+	color:#778025!important;
+}
+.btn-2, .color_btn-2, input.btn-2[type="radio"] + label {
+	background: #d3634b;
+}
+.btn-2:hover {
+	background: #EF7055;
+}
+.btn-2.active {
+	border-color: #EF7055;
+	color:#EF7055!important;
+}
+.btn-3, .color_btn-3, input.btn-3[type="radio"] + label {
+	background: #777f2d;
+}
+.btn-3:hover {
+	background: #A2AD3D;
+}
+.btn-3.active {
+	border-color: #777f2d;
+	color:#777f2d!important;
+}
+.btn-4, .color_btn-4, input.btn-4[type="radio"] + label {
+	background: #e3634b!important;
+}
+.btn-4:hover {
+	background: #d74b33;
+}
+.btn-4.active {
+	border-color: #e3634b;
+	color:#e3634b!important;
+}
+.btn-5, .color_btn-5, input.btn-5[type="radio"] + label {
+	background: #fff!important;
+}
+.btn-5:hover {
+	background: #e2e2e2;
+}
+.btn-5.active, .btn-5:link {
+	border-color: #fff;
+	color:#000!important;
+}
+.single-houses .page-title_cont .btn:link, .single-houses .page-title_cont .btn:hover, .single-houses .page-title_cont .btn:visited {
+	color: #fff;
+}

@@ -1,0 +1,73 @@
+/*
+#wp-admin-bar-blog-1 {
+	border-left: 3px solid #777f2d;
+}
+#wp-admin-bar-blog-11, #wp-admin-bar-blog-8 {
+	border-left: 3px solid #bd2520;
+}
+#wp-admin-bar-blog-4 {
+	border-left: 3px solid #cc3852;
+}
+#wp-admin-bar-blog-7 {
+	border-left: 3px solid #01b3e3;
+}
+#wp-admin-bar-blog-5, #wp-admin-bar-blog-6, #wp-admin-bar-blog-9, #wp-admin-bar-blog-10 {
+	border-left: 3px solid #efa235;
+}
+.blavatar {
+	display: none;
+}
+#wpadminbar {
+	border-top: 2px solid red;
+	height: 26px;
+	min-width:689px;
+}
+#wpadminbar .quicklinks a, #wpadminbar .quicklinks .ab-empty-item, #wpadminbar .shortlink-input {
+	height: 26px;
+}
+.settings_page_live-edit-panel #wpfooter {
+	display:none!important;
+}
+.settings_page_live-edit-panel #wpcontent {
+	margin-left: 0!important;
+}
+.live_edit-edit-button {
+	content: ""!important;
+	text-indent: -1999px;
+	overflow:hidden;
+	background-color: transparent!important;
+	border: 0!important;
+	box-shadow: none!important;
+	width:14px!important;
+	height:14px!important;
+	padding:0!important;
+	background-position: -96px -72px!important;
+	margin:5px!important;
+	opacity:0.8;
+}
+.live_edit-edit-button:hover {
+	opacity:1;
+}
+*/
+
+
+@media screen and (max-width: 782px) {
+	.logged-in .affix {
+		top: 46px !important;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.logged-in .affix {
+		top: 0 !important;
+		position: relative !important;
+	}
+
+	.openpad {
+		padding-top: 1px;
+	}
+
+	#header {
+		margin-bottom: 0;
+	}
+}

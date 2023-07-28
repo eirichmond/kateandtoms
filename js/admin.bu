@@ -1,0 +1,89 @@
+(function($){
+	
+	$(document).ready(function(){
+		function makeKatDatePickers() {
+			$('.acf-field-availability-repeater > div > div > table > tbody > tr').each(function( index ) {
+				if ($(this).find('.selector').hasClass('hasDatepicker')) {
+					return;
+				}
+				if ($(this).hasClass('acf-clone')) {
+					return;
+				}
+				var selector = $(this).find('.acf-field-select select'),
+					selected_date = selector.val(),
+					//input_box_full = $(this).find('.full'),
+					input_box_days = $(this).find('.acf-field-day-picker .days'),
+					date = getDateFromSelection(selected_date),
+					settings = {
+					//dateFormat: 'y-m-d', 
+					//altField: '#'+input_box_full.attr('id'),
+					defaultDate: date,
+					firstDay: 5,
+					onSelect: function() {
+						var dates = $(this).multiDatesPicker('getDates', 'object');
+						    days = '';
+						if (dates.length>0) {
+							$.each(dates, function (index, value) {
+								days += value.getDate() + ',';
+							});
+							days = days.slice(0, -1);
+						}
+						$(this).parent().parent().parent().find('.days').val(days);
+					}
+				};
+				
+				if (input_box_days.val().length>0) {
+					addDates = getAddDates(input_box_days.val(), date);
+					$.extend(settings, {addDates: addDates});
+				}
+
+				$(this).find('.selector').multiDatesPicker(settings);
+	
+			});
+		}
+		
+		function getDateFromSelection(selected_date) {
+			if (!selected_date) {
+				return new Date();
+			}
+			else {
+				var month = selected_date.substr(0,2)-1,
+					year =  selected_date.substr(3,4);
+				return new Date(year, month, 1);
+			}
+		}
+		
+		function getAddDates(daysString, date) {
+			var days = daysString.split(','),
+				addDates = [];
+			$.each( days, function( index, value ){
+				addDates.push(date.setDate(value));
+			});
+			return addDates;
+		}
+		
+		function noticeChangesInSelect() {
+			$('.acf-field-availability-repeater select').change(function(){
+				var row        		= jQuery(this).parent().parent().parent(),
+					datePicker 		= row.find('.hasDatepicker');
+				
+				datePicker.multiDatesPicker('destroy');
+				makeKatDatePickers();
+			});
+		}
+		
+		makeKatDatePickers();
+		noticeChangesInSelect();
+		
+		$('.acf-field-availability-repeater').on('click', 'a.acf-repeater-add-row', function(){
+			setTimeout(function() {
+				makeKatDatePickers();
+				noticeChangesInSelect();
+			}, 500);
+		});
+
+
+	});
+
+
+})(jQuery);

@@ -1,0 +1,384 @@
+jQuery('#searchBar input[type="hidden"]').change(function(){
+	updateDisplayedMetaData(this);
+    jQuery('#searchBar').submit();
+});
+
+function updateDisplayedMetaData(changedInput) {
+	var hiddenName = jQuery(changedInput).attr('name');
+	var hiddenValue = jQuery(changedInput).val();
+	var hiddenText = (hiddenName == 'dtype' || hiddenName == 'date' ? dateTextToDisplay() : jQuery(changedInput).attr('title'));
+	
+	hiddenText = replaceShortWords(hiddenText);
+	
+	jQuery('#searchBar button[name='+hiddenName+']').each(function(){
+		var button = jQuery(this);
+		if (button.val() == hiddenValue) {
+	    	button.addClass('active');
+	  	}
+		else {
+	    	button.removeClass('active');
+		}
+	});
+	
+	// Change date field if dtype changes
+	if (hiddenName == 'dtype') hiddenName = 'date';
+
+	if (hiddenValue) {
+		jQuery('.search_dropdown_current_'+hiddenName+', .search_desc_'+hiddenName).text(hiddenText);
+		jQuery('.search_area_'+hiddenName).removeClass('hidden');
+	}
+	else {
+		jQuery('.search_dropdown_current_'+hiddenName).text('Any');
+		jQuery('.search_area_'+hiddenName).addClass('hidden');
+
+	}
+}
+
+function replaceShortWords(word) {
+	var conversions = {
+		'Pool'      : 'Swimming pool',
+		'Beach'     : 'Walk to the Beach',
+		'Cotswolds' : 'In the Cotswolds',
+		'Coast'     : 'By the Coast',
+		'Country'   : 'In the Country'
+	};
+	return (conversions[word] != undefined ? conversions[word] : word);
+}
+
+function dateTextToDisplay() {
+	var modifiers = { 
+		// Sunday is 0, Monday is 1...
+		1 : { 5 : +0, 6 : -1, 0 : -2, 1 : +4, 2 : +3, 3 : +2, 4 : +1 }, // Weekends
+		2 : { 5 : +0, 6 : -1, 0 : +1, 1 : +0, 2 : -1, 3 : +2, 4 : +1 }, // Weeks
+		3 : { 5 : -4, 6 : -5, 0 : -6, 1 : +0, 2 : -1, 3 : -2, 4 : -3 }  // Midweeks
+	};
+	var dType	= jQuery('input[name="dtype"]').val();
+	var dTypeT 	= (dType == 1) ? 'Weekends' : (dType == 2) ? 'Weeks' : 'Midweeks';
+	var dateT	= jQuery('input[name="date"]').val();
+	var d=dateT.split("-");
+	var selectedDate = new Date(d[2], d[1]-1, d[0]);
+	var dayOfWeek = selectedDate.getDay();
+	var modifier = modifiers[dType][dayOfWeek];
+	var correctedDate = new Date(selectedDate);
+	correctedDate.setDate(selectedDate.getDate()+modifier);
+	var formattedDate = jQuery.datepicker.formatDate('DD d MM yy', correctedDate);
+	return dTypeT + ' from ' + formattedDate;
+}
+
+jQuery('.datepicker').live('click', function() {
+	jQuery(this).datepicker({
+		showOn:'focus',
+		dateFormat: 'dd-mm-yy',
+		minDate: 0,
+		firstDay: 5,
+		onSelect: function() {
+			var value = jQuery(this).val();
+			var date = jQuery('input[name=date][type="hidden"]');
+			var dtype = jQuery('input[name=dtype][type="hidden"]');
+ 			if (!dtype.val()) {
+				 dtype.val(1);
+ 			}
+			updateDisplayedMetaData(dtype);
+ 			date.val(value).trigger('change');
+		}
+	}).focus();
+});
+
+jQuery('div.btn-group').each(function(){
+	var group   = jQuery(this);
+	var form    = group.parents('form').eq(0);
+	var name    = group.attr('data-toggle-name');
+	var hidden  = jQuery('input[name="' + name + '"]', form);
+
+	jQuery('button', group).each(function($){
+	  var button = jQuery(this);
+	  button.live('click', function(){
+		var text = jQuery(this).text();
+		var value = jQuery(this).val();
+ 		hidden.val(value).attr('title', text).trigger('change');
+ 		jQuery('.dropdown-'+name).removeClass('active');
+	  })
+	});
+});
+
+jQuery('#searchBar .dropdown-menu a').bind('click touchstart', function(event) { 
+	var fieldName = jQuery(this).data('type');
+	var fieldValue = jQuery(this).data('value');
+	var fieldTitle = jQuery(this).text();
+	jQuery('#searchBar').find('input[name='+fieldName+']').val(fieldValue).attr('title',fieldTitle).trigger('change');
+});
+
+jQuery('.mautosel').on('change', function () {
+	var fieldName = jQuery(this).attr('name');
+	var fieldValue = jQuery(this).find(":selected").val();
+	var fieldTitle = jQuery(this).find(":selected").text();
+	jQuery('#searchBar').find('input[name='+fieldName+']').val(fieldValue).attr('title',fieldTitle).trigger('change');
+});
+
+if (!jQuery.browser.msie) {
+	var desktop = window.matchMedia( '(min-width: 480px)' );
+	jQuery('#searchBar').submit(function (e) { //check when pagination link is clicked and stop its action.
+		e.preventDefault();
+		var link = jQuery(this)
+			.prop('action') + '?' + 
+				jQuery("#searchBar :input[type=hidden]")
+				.filter(function() { return this.value; }).serialize(); //Get the href attribute
+		if (history.pushState) history.pushState('data', '', link);
+		jQuery('#search-ajax').fadeTo(300,0.3, function () { //fade out the content area
+			//jQuery("#loader").show(); // show the loader animation
+			jQuery('#mseloader').show().css('display', 'inline-block');
+			}).load(link + ' #search-ajax', function () { jQuery("#loader").hide(); jQuery('#mseloader').hide();
+				if (!desktop.matches) {
+					jQuery('.letsgo').on('click', function() {
+						jQuery(this).text('Refine');
+						jQuery('#searchBar').toggleClass('slide');
+						jQuery('#pin').css('height','auto');
+					});
+					jQuery('#pin').css({
+						'height':'none'
+					});
+				}
+			//hide the loader
+			jQuery('#search-ajax').fadeTo(100, 1, function () {}); 
+		});
+	});
+}
+
+/* <![CDATA[ */
+	var sf_expand = 0;
+	var sf_position = 0;
+	var sf_delay = 500;
+	var sf_width = 180;
+	var sf_swidth = 315;
+	var sf_templates = "<a href=\"{search_url_escaped}\"><span class=\"sf_text\">See more results for \"{search_value}\"<\/span><span class=\"sf_small\">Displaying top {total} results<\/span><\/a>";
+	var sf_ajaxurl = "/wp-admin/admin-ajax.php";
+	var sf_defaultText = "";
+	var sf_url = "/?s=%s";
+/* ]]> */
+var sf_current_id = 0;
+jQuery(document).click(function(){ jQuery("#sf_sb").hide(); });
+jQuery(document).ready(function(){
+	jQuery(".sf_input").focus(function (){
+		if(jQuery(this).val() == sf_defaultText){
+			jQuery(this).val('');
+			jQuery(this).attr('class', jQuery(this).attr('class') + ' sf_focused');
+			if(sf_expand){
+				jQuery("#" + jQuery(this).attr('container') + " .sf_search").animate({width:sf_width});
+			}
+		}
+	});
+	jQuery(".sf_input").blur(function () {
+		if(jQuery(this).val() == ''){
+			jQuery(this).val(sf_defaultText);
+			jQuery(this).attr('class', jQuery(this).attr('class').replace(/ sf_focused/g, ''));
+			if(sf_expand){
+				jQuery("#" + jQuery(this).attr('container') + " .sf_search").animate({width:sf_expand});
+			}
+		}
+	});
+});
+function sf_get_results(id)
+{
+	sf_current_id = id;
+	jQuery("#" + id + " .sf_input").attr('autocomplete', 'off');
+	if(jQuery('#sf_sb').length == 0){
+		jQuery('body').append('<div id="sf_sb" class="sf_sb" style="position:absolute;display:none;width:'+ sf_swidth + 'px;z-index:9999">'+
+								'<div class="sf_sb_cont">' +
+									'<div class="sf_sb_top"></div>' +
+									'<div id="sf_results" style="width:100%">' +
+										'<div id="sf_val" ></div>' +
+										'<div id="sf_more"></div>' +
+									'</div>' +
+									'<div class="sf_sb_bottom"></div>' +
+								'</div>' +
+							'</div>');
+	}
+	if(jQuery("#" + id + " .sf_input").val() != "")
+	{
+		var loading  = 	"<li class=\"sf_lnk sf_more sf_selected\">"+
+			"<a id=\"sf_loading\" href=\"" + sf_url.replace('%s', encodeURI(jQuery("#" + id + " .sf_input").val())) + "\">"+
+			"</a>"+
+		"</li>";
+		jQuery("#sf_val").html("<ul>"+loading+"</ul>");
+		var pos = false;
+		if(jQuery("#sf_search").length > 0){
+			pos = jQuery("#sf_search").offset();
+			jQuery("#sf_sb").css({top:pos.top + jQuery("#sf_search").innerHeight(), left:pos.left});
+			jQuery("#sf_sb").show();
+		}
+		else if(jQuery("#" + id + " .sf_input").length > 0){
+			pos = jQuery("#" + id + " .sf_input").offset();
+			jQuery("#sf_sb").css({top:pos.top + jQuery("#" + id + " .sf_input").innerHeight(), left:pos.left-176});
+			jQuery("#sf_sb").show();
+		}
+		var data = { action: "ajaxy_sf", sf_value: jQuery("#" + id + " .sf_input").val()};
+		jQuery.post(sf_ajaxurl, data, function(resp) { 
+			var results = eval("("+ resp + ")");
+			var m = "";
+			var s = 0;
+			if(typeof(results.order) != "undefined")
+			{
+				for(var mindex in results.order)
+				{
+					var c = sf_load(results[mindex]);
+					m += c[0];
+					s += c[1];
+				}
+			}
+			
+			
+			var sf_selected = "";
+			if(s == 0)
+			{
+				sf_selected = " sf_selected";
+			}
+			m += "<li class=\"sf_lnk sf_more" + sf_selected + "\">" + sf_templates + "</li>";
+			m = m.replace(/{search_value_escaped}/g, jQuery("#" + id + " .sf_input").val());
+			m = m.replace(/{search_url_escaped}/g, sf_url.replace('%s', encodeURI(jQuery("#" + id + " .sf_input").val())));
+			m = m.replace(/{search_value}/g, jQuery("#" + id + " .sf_input").val());
+			m = m.replace(/{total}/g, s);
+			if(s > 0)
+			{
+				jQuery("#sf_val").html("<ul>"+m+"</ul>");
+			}
+			else
+			{
+				jQuery("#sf_val").html("<ul>"+m+"</ul>");
+			}
+			sf_load_events();
+			jQuery("#sf_sb").show();
+		 });
+
+	 }
+	 else
+	 {
+		jQuery("#sf_sb").hide();
+	 }
+}
+function sf_load_events()
+{
+	jQuery("#sf_val li.sf_lnk").mouseover(function(){
+		jQuery(".sf_lnk").each(function() { jQuery(this).attr("class",jQuery(this).attr("class").replace(" sf_selected" , "")); });
+		jQuery(this).attr("class", jQuery(this).attr("class") + " sf_selected");
+	});
+	
+}
+function sf_replace_results(results, template)
+{
+	for(var s in results)
+	{
+		template = template.replace(new RegExp("{"+s+"}", "g"), results[s]);
+	}
+	return template;
+}
+
+function sf_load(results)
+{
+	var m = "";
+	var s = 0;
+	if(typeof(results) != "undefined")
+	{
+		if(results.all.length > 0)
+		{
+			m += "<li class=\"sf_header\">" + results.title + "</li><li><div class=\"sf_result_container\"><ul>";
+			for(var i = 0; i < results.all.length; i ++)
+			{
+				s ++;
+				m += "<li class=\"sf_lnk "+results.class_name +"\">"+ sf_replace_results(results.all[i], results.template) + "</li>";
+			}
+			m += "</ul></div></li>";
+		}
+	}
+	return new Array(m, s);
+}
+
+jQuery(window).keydown(function(event){
+	if(jQuery("#sf_sb").css("display") != "none" && jQuery("#sf_sb").css("display") != "undefined" && jQuery("#sf_sb").length > 0)
+	{
+		if(event.keyCode == "38" || event.keyCode == "40")
+		{
+			if(jQuery.browser.webkit)
+			{
+				jQuery("#sf_sb").focus();
+			}
+			var s_item = null;
+			var after_s_item = null;
+			var s_sel = false;
+			var all_items = jQuery("#sf_val li.sf_lnk");
+			var s_found = false;
+			event.stopPropagation();
+			event.preventDefault();
+			for(var i = 0; i < all_items.length; i++)
+			{
+				if(jQuery(all_items[i]).attr("class").indexOf("sf_selected") >= 0 && s_found == false)
+				{
+					s_sel = true;
+					if(i < all_items.length - 1 && event.keyCode == "40")
+					{
+						jQuery(all_items[i]).attr("class",jQuery(all_items[i]).attr("class").replace(" sf_selected", ""));
+						jQuery(all_items[i+1]).attr("class", jQuery(all_items[i+1]).attr("class")+ " sf_selected");
+						i = i+1;
+						s_found = true;
+					}
+					else if(i > 0 && event.keyCode == "38")
+					{
+						jQuery(all_items[i]).attr("class",jQuery(all_items[i]).attr("class").replace(" sf_selected", ""));
+						jQuery(all_items[i-1]).attr("class", jQuery(all_items[i-1]).attr("class")+ " sf_selected");
+						i = i+1;
+						s_found = true;
+					}
+				}
+				else
+				{
+					jQuery(all_items[i]).attr("class",jQuery(all_items[i]).attr("class").replace(" sf_selected", ""));
+				}
+			}
+			if(s_sel == false)
+			{
+				if(all_items.length > 0)
+				{
+					jQuery(all_items[0]).attr("class", jQuery(all_items[0]).attr("class")+ " sf_selected");
+				}
+			}
+			//jQuery(window).unbind("keypress");
+
+		}
+		else if(event.keyCode == 27)
+		{
+			jQuery("#sf_sb").hide();
+		}
+		else if(event.keyCode == 13)
+		{
+			var b = jQuery("#sf_val li.sf_selected a").attr("href");
+			if(typeof(b) != 'undefined' && b != '')
+			{
+				window.location.href = b;
+				return false;
+			}
+			else
+			{
+				if(sf_current_id > 0){
+					window.location.href = sf_url.replace('%s', encodeURI(jQuery("#" + sf_current_id + " .sf_input").val()));
+				}
+				return false;
+			}
+		}
+	}
+});
+
+// jQuery(function () {
+//     if ('ontouchstart' in window || 'onmsgesturechange' in window)                    
+//         jQuery('.datepicker').prop('readonly', true);
+// });
+
+jQuery(function() {
+	jQuery('#msbhslide').on('click', function() {
+		jQuery('#msbh').slideToggle();
+		jQuery('.ktsub_nav_cont').toggleClass('toggled');
+	});
+	jQuery('.close.house-search').on('click', function() {
+		jQuery('#msbh').slideToggle();
+		jQuery('.ktsub_nav_cont').toggleClass('toggled');
+
+	});
+});

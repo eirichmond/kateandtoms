@@ -1,0 +1,13 @@
+#login h1 a {
+	background-image: url("../images/logo-kat.png") !important;
+	background-size: 262px 98px!important;
+	height: 98px!important;
+}
+body {
+	background-align: top center!important;
+	background-size: cover!important;
+}
+.login #backtoblog a, a, .login #nav a, .login #backtoblog a, .login #backtoblog a:hover, a:hover, .login #nav a:hover, .login #backtoblog a:hover  {
+	color: #fff!important;
+	text-shadow: none!important;
+}

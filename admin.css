@@ -1,0 +1,18 @@
+/** Block editor **/
+body {
+    font-family: open sans,sans-serif !important;
+}
+/* Main column width */
+.wp-block {
+    max-width: 1180px;
+}
+ 
+/* Width of "wide" blocks */
+.wp-block[data-align="wide"] {
+    max-width: 1180px;
+}
+ 
+/* Width of "full-wide" blocks */
+.wp-block[data-align="full"] {
+    max-width: none;
+}
