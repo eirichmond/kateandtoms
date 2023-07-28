@@ -1235,32 +1235,6 @@ class HouseAvailability extends ProductAvailability {
 	}
 
 	/**
-	 * check if a house qualifies
-	 *
-	 * @param [type] $id
-	 * @return void
-	 */
-	public function house_is_qualfied($id) {
-		$boolean = false;
-		$array = array(
-			16914,
-			19733,
-			19660,
-			81970,
-			56703,
-			11105,
-			11069,
-			34285,
-			34215,
-			14767
-		);
-		if(in_array($id,$array)){
-			$boolean = true;
-		}
-		return $boolean;
-	}
-
-	/**
 	 * Check a specified month.
 	 * 0=Sunday, 1=Monday, 2=Tues, 3=Weds, 4=Thurs, 5=Fri, 6=Sat
 	 *
@@ -1320,11 +1294,6 @@ class HouseAvailability extends ProductAvailability {
 				if ($blogid == 12) {
 					echo '<th class="bk_header_price">'.str_ireplace(' WV', '', $period).'</th>';
 				} elseif ($blogid == 16 || $blogid == 11)  {
-					if($date == '12-2023' && $period == '5 nights' && $this->house_is_qualfied($this->ID)) {
-						$period = '6 nights';
-					} else {
-						$period = $period;
-					}
 					echo '<th class="bk_header_price">'.str_ireplace(' CV', '', $period).'</th>';
 				} else {
 					echo '<th class="bk_header_price">'.$period.'</th>';
