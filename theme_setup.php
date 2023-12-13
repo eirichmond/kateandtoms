@@ -204,7 +204,7 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		
 		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
 		
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
+		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => 'publish', 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
 		
 		//array( 'id' => 'offer_house', 'type' => 'select', 'name' => 'Select field', 'options' => array( 'option-1' => 'Option 1', 'option-2' => 'Option 2', 'option-3' => 'Option 3' ) ),
 

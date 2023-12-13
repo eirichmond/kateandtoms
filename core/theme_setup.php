@@ -64,6 +64,17 @@ function kts_global_header_google_tag_manager() {
 }
 
 /**
+ * Add Font Awesome Kit
+ */
+add_action( 'wp_head', 'kts_global_header_font_awesome_kit', 10 );
+function kts_global_header_font_awesome_kit() {
+	$output = "<!-- Font Awesome Kit -->
+	<script src='https://kit.fontawesome.com/20f36f4160.js' crossorigin='anonymous'></script>
+	<!-- End Font Awesome Kit -->";
+	echo $output;
+}
+
+/**
  * Add tacking to footer
  */
 add_action( 'wp_footer', 'kts_global_footer_tag_manager' );
@@ -99,23 +110,7 @@ function kts_global_footer_tag_manager() {
 add_action( 'wp_footer', 'kat_include_linkedin_tracker' );
 function kat_include_linkedin_tracker() {
 	$output = '<!-- Begin LinkedIn -->
-	<script type="text/javascript">
-	_linkedin_partner_id = "4630634";
-	window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-	window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-	</script><script type="text/javascript">
-	(function(l) {
-	if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-	window.lintrk.q=[]}
-	var s = document.getElementsByTagName("script")[0];
-	var b = document.createElement("script");
-	b.type = "text/javascript";b.async = true;
-	b.src = `https://snap.licdn.com/li.lms-analytics/insight.min.js`;
-	s.parentNode.insertBefore(b, s);})(window.lintrk);
-	</script>
-	<noscript>
-	<img height="1" width="1" style="display:none;" alt="" src=https://px.ads.linkedin.com/collect/?pid=4630634&fmt=gif />
-	</noscript>
+	<script type="text/javascript"> _linkedin_partner_id = "5415716"; window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || []; window._linkedin_data_partner_ids.push(_linkedin_partner_id); </script><script type="text/javascript"> (function(l) { if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])}; window.lintrk.q=[]} var s = document.getElementsByTagName("script")[0]; var b = document.createElement("script"); b.type = "text/javascript";b.async = true; b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js"; s.parentNode.insertBefore(b, s);})(window.lintrk); </script> <noscript> <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=5415716&fmt=gif" /> </noscript>
 	<!-- End LinkedIn -->';
 	echo $output;
 }
@@ -372,7 +367,7 @@ function geebee_scripts() {
 
 	if(!is_page( 'syncipro' ) && !is_page( 'syncipro-update-rates' )) {
 
-		wp_enqueue_style('kandt-main-styles', get_template_directory_uri() .'/style.min.css', array(), '1.5', 'all');	
+		wp_enqueue_style('kandt-main-styles', get_template_directory_uri() .'/style.min.css', array(), '1.6', 'all');	
 
 		wp_enqueue_style( 'kandt-font-awesome', get_template_directory_uri() .'/css/font-awesome.min.css' );
 
@@ -529,7 +524,7 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 
 		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
 
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
+		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => 'publish', 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
 
 		//array( 'id' => 'offer_house', 'type' => 'select', 'name' => 'Select field', 'options' => array( 'option-1' => 'Option 1', 'option-2' => 'Option 2', 'option-3' => 'Option 3' ) ),
 

@@ -50,6 +50,7 @@ if( function_exists('acf_add_local_field_group') ):
 			kat_widget_row('button_widget', 'Button Widget', 'button_widget', $c++),
 			kat_widget_row('wide_widget', 'Wide Image Widget', 'wide_widget', $c++),
 			kat_widget_row('matrix_widget', 'Matrix Widget', 'matrix_widget', $c++),
+			kat_widget_row('matrix_widget_5', 'Matrix Widget x 5', 'matrix_widget_5', $c++),
 			kat_widget_row('single_image_link', 'Single Image Link', 'single_image_link', $c++),
 			kat_widget_row('faq_group', 'FAQs Group', 'faq_group', $c++),
 			kat_widget_row('cta_widget', 'CTA', 'cta_widget', $c++),

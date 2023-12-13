@@ -27,6 +27,8 @@
 		$houses = HouseSearch::$houses;
 
 		foreach (HouseSearch::$houses as $house) {
+
+
 			//if($house->post_id == 75633) {
 
 				if ($house->locations !== false && $house->locations !== "0.000000") {

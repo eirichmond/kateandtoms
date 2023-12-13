@@ -327,9 +327,10 @@
 
     	$image = wp_get_attachment_image_src($image_id,'post-thumbnail');
 		$image = $image[0];
+		$image_alt_text        = get_post_meta($image_id, '_wp_attachment_image_alt', true);
 		
 		echo '<div style="height:400px;"><div class="" style="height: 400px; overflow:hidden; ">';
-	    echo '<div class="cropped"><img src="'.$image.'" class="'.$align.' wp-post-image" /></div>';
+	    echo '<div class="cropped"><img src="'.$image.'" alt="'.$image_alt_text.'" class="'.$align.' wp-post-image" /></div>';
 	    echo '</div></div>';
 	}
 	

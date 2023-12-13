@@ -251,7 +251,23 @@ function getAlttag($id) {
  * @return void
  */
 function getSrcset($id, $size) {
-	$srcset = str_replace('.test', '.com', wp_get_attachment_image_srcset( $id, $size ));
+	
+	$testurl = 'kateandtoms.test';
+	$stagedurl = 'staging.kateandtoms.com';
+
+	switch ( wp_get_environment_type() ) {
+        case 'local':
+			$srcset = str_replace($testurl, 'kateandtoms.com', wp_get_attachment_image_srcset( $id, $size ));
+			break;
+        case 'staging':
+			$srcset = str_replace($stagedurl, 'kateandtoms.com', wp_get_attachment_image_srcset( $id, $size ));
+			break;
+        default:
+			$srcset = wp_get_attachment_image_srcset( $id, $size );
+			break;
+    }
+
+	// $srcset = str_replace('.test', '.com', wp_get_attachment_image_srcset( $id, $size ));
 	return $srcset;
 }
 
@@ -486,6 +502,24 @@ function get_core_colour($post_id) {
 		$core_color = 'color3';
 	}
 	return $core_color;
+}
+
+function get_attachment_id_from_url($image_url) {
+    global $wpdb;
+
+    // Escape the URL to prevent SQL injection.
+    $image_url = esc_url_raw($image_url);
+
+    // Query the database to find the attachment ID based on the image URL.
+    $attachment_id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM wp_11_posts WHERE guid='%s'", $image_url));
+
+    return $attachment_id;
+}
+
+add_action( 'check_image_url_alt', 'check_image_url_alt_callback', 10, 1 );
+function check_image_url_alt_callback() {
+	$image_url = 'https://kateandtoms.com/wp-content/uploads/2013/05/14.-Gym-280x280.jpg';
+	$attachment_id = get_attachment_id_from_url($image_url);
 }
 
 /*

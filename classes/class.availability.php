@@ -741,22 +741,37 @@ class HouseAvailability extends ProductAvailability {
 					// kate&toms house ids
 					19660,
 					19733,
-					11069,
+					11069, // Pedington
 					16914,
 					56703,
-					// bigcottage house ids not applicable yet
+					14767, // marsden manor
+					90200, // ascot house
+					// bigcottage house ids
 					// 45772
 					// 45755
 					// 45723
 					// 16914
 					// 56703
+					// 39234 // marsden manor from KTs
 				);
 
 				// begin nested conditional
 				$rates = $this->rates;
 				$date_commencing = $this->key[$key];
 				if($date_commencing == '12-2023' && $week == 4 && in_array($this->ID, $included) && $rates[$key][$week]['rate_'.($r+1)] != '-1') {
-					echo '<td class="table_price">£'.$rates[$key][$week]['rate_'.($r+1)];'</td>';
+					
+					if (stripos($rates[$key][$week]['rate_'.($r+1)], '+') !== false) {
+						$from = true;
+					}
+
+					if($from) {
+						$rate = str_replace('+', 'From '.$currency, $rates[$key][$week]['rate_'.($r+1)]);
+					} else {
+						$rate = $currency. $rates[$key][$week]['rate_'.($r+1)];
+					}
+
+					echo '<td class="table_price">'.$rate.'</td>';
+
 				} else {
 					// when time has past this should be the default and can be refactored
 					echo '<td class="table_price booked_text">Booked</td>';

@@ -6,6 +6,7 @@ add_image_size('cross_promo_narrow', 280, 300, true);
 add_image_size('cross_promo_narrow_prev', 100, 150, true);
 add_image_size('huge', 1600, 900, true);
 add_image_size('square', 580, 580, true);
+add_image_size('matrix', 780, 780, true);
 add_image_size('square-partners', 550, 450, true);
 add_image_size('square-vendor-stats', 470, 365, array('center', 'center'));
 add_image_size('large', 1180, 450, true);

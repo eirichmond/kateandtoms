@@ -34,13 +34,14 @@ class ImageSet {
 				$color		= $row['colour_scheme'];
 				$link	= ($custom_url ? $custom_url : $link);
 				$size		= ($layout == 'half' ? 'house_slider' : 'thumbnail');
-				
+				$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 				if ($layout == 'image') $this->getSquareImg($image, $link);
 				elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
 				else {
 					echo 	'<div class="span3">' ,
 							($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.'">';
-					if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+					if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 					echo 	'<div class="box_text"><h2>' , $row['title_text'] , '</h2>',
 							($this->showSubtitle($layout) ? $row['subtitle_text'] : '') , 
 							'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -80,11 +81,12 @@ class ImageSet {
 	
 	private function getTriangle($image, $link, $color)
 	{
-					echo 	'<div class="span3">' ,
-							($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_triangle">';
-					if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_triangle"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" /></div>';
-					echo 	'<div class="arrow-right-'.$color.'"></div><div class="box_text"><h2>' , $row['title_text'] , '</h2>',
-							'</div>' , ($link ? '</a>' : '</div>') , '</div>';
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+		echo 	'<div class="span3">' ,
+				($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_triangle">';
+		if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_triangle"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
+		echo 	'<div class="arrow-right-'.$color.'"></div><div class="box_text"><h2>' , $row['title_text'] , '</h2>',
+				'</div>' , ($link ? '</a>' : '</div>') , '</div>';
 	}
 	
 }

@@ -45,9 +45,7 @@
 		var textSlider = $('#newtextSlider').cycle({
 			timeout: 7000,
             speed: 1000,
-			prev: '> .before',
 			slides: '> .sliders div',
-			next: '> .after',
 			slideClass: 'span9 offset2 cycle-slide'
         });
 
