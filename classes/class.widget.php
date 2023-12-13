@@ -326,6 +326,9 @@ class Widget {
 			if ($value == 'matrix_widget') {
 				new MatrixSetWidget($ID, $key);
 			}
+			if ($value == 'matrix_widget_5') {
+				new Matrix5SetWidget($ID, $key);
+			}
 			elseif ($value == 'image_set') {
 				new ImageSetWidget($ID, $key, $term = null);
 			}
@@ -615,6 +618,7 @@ class StandardWidget extends Widget {
 				$imageSrcs[$k]['thumbnail'] = getImage($v, 'thumbnail');				
 				$imageSrcs[$k]['srcset'] = wp_get_attachment_image_srcset( $v, 'huge' );
 				$imageSrcs[$k]['alt'] = get_post_meta($v, '_wp_attachment_image_alt', true);
+				$imageSrcs[$k]['id'] = $v;
 			}
 			$this->images = $imageSrcs;
 			$this->imageid = $v;
@@ -668,7 +672,8 @@ class StandardWidget extends Widget {
 			// added as an error check to reduce error rates added 27th June 2013
 			if ($this->images) {
 				foreach ($this->images as $k => $image) {
-					echo '<img loading="lazy" '.getAlttag($this->imageid).' class="span3" '. ( $k < 2 ? 'style="margin-bottom:20px;"' : '' ).' src="'.$image['thumbnail'].'" />';
+					$alt_text = get_post_meta( $this->imageid, '_wp_attachment_image_alt', true );
+					echo '<img loading="lazy" '.getAlttag($image['id']).' class="span3 '.$this->imageid.'" '. ( $k < 2 ? 'style="margin-bottom:20px;"' : '' ).' src="'.$image['thumbnail'].'" />';
 				}
 			}
 		echo '</div></div>';
@@ -1193,6 +1198,8 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 							
 							$size = 'thumbnail';
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							
 							if ($layout == 'image') $this->getSquareImg($image, $link);
 							elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
@@ -1201,7 +1208,7 @@ class StandardWidgetHybrid extends Widget {
 								echo 	'<div id="'.$titleid.'" class="span3 '.($image ? 'has-image' : 'no-image').'">' ,
 										($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.'">';
 								if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout
-											.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+											.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 								echo 	'<div class="box_text"><h2>' , $title_text , '</h2>',
 										($this->showSubtitle($layout) ? $subtitle_text : '') , 
 										'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -1239,7 +1246,8 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 							
 							$size = 'thumbnail';
-							
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							if ($layout == 'image') $this->getSquareImg($image, $link);
 							
 							elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
@@ -1250,7 +1258,7 @@ class StandardWidgetHybrid extends Widget {
 							
 								echo 	'<div id="'.$titleid.'" class="span3 '.($image ? 'has-image' : 'no-image').'">' ,
 										($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.'">';
-								if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout .'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+								if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout .'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 								echo 	'<div class="box_text"><h2>' , $title_text , '</h2>',
 										($this->showSubtitle($layout) ? $subtitle_text : '') , 
 										'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -1290,11 +1298,12 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 							
 							$size = 'thumbnail';
-							
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 							echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 							echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 							echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 							echo '</a>';
 							echo '</div>';
@@ -1324,10 +1333,12 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 				
 							$size = 'thumbnail';
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 							echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 							echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 							echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 							echo '</a>';
 							echo '</div>';
@@ -1483,11 +1494,13 @@ class StandardWidgetHybrid extends Widget {
 								if ($custom_url) $link = $custom_url;
 								
 								$size = 'thumbnail';
+								$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 								
 								echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 								echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 								echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-								echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+								echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 								echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 								echo '</a>';
 								echo '</div>';
@@ -1517,10 +1530,12 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 				
 							$size = 'thumbnail';
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 							echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 							echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 							echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 							echo '</a>';
 							echo '</div>';
@@ -1559,11 +1574,12 @@ class StandardWidgetHybrid extends Widget {
 								if ($custom_url) $link = $custom_url;
 								
 								$size = 'thumbnail';
-								
+								$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 								echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 								echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 								echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-								echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+								echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 								echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 								echo '</a>';
 								echo '</div>';
@@ -1593,10 +1609,13 @@ class StandardWidgetHybrid extends Widget {
 							if ($custom_url) $link = $custom_url;
 				
 							$size = 'thumbnail';
+
+							$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 							echo '<div class="span3 has-image '. ($n < 2 ? 'twotop' : '') .'">';
 							echo '<a href="' . $link . '" class="imgset_box_fill '.$color.'" >';
 							echo '<div class="absoluteCenterWrapper imgset_wrap_fill">';
-							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+							echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 							echo '<div class="box_text"><h2>'.$title_text.'</h2>'.$subtitle_text.'</div>';
 							echo '</a>';
 							echo '</div>';
@@ -1652,9 +1671,10 @@ class StandardWidgetHybrid extends Widget {
 	
 	private function getSquareImg($image, $link)
 	{
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
 		echo 	'<div class="span3 absoluteCenterWrapper imgset_box_fill">' ,
 				($link ? '<a href="' . $link . '"': '<div') . '>';
-		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" />';
+		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" />';
 		echo 	'</div>', ($link ? '</a>' : '</div>') , '</div>';
 	}
 	
@@ -1753,15 +1773,21 @@ class MatrixSetWidget extends Widget {
 		$layindex = str_replace(' ','-',$this->layout);
 		$layindex = strtolower($layindex);
 
+		/**
+		 * 
+		 * add new images size to fit all matrix crops
+		 * also check all scrset are working for all matrix
+		 * 
+		 */
 		$imagesize = array(
 			'1-3' => array(
-				'square','square','thumbnail','thumbnail'
+				'matrix','matrix','matrix','matrix'
 			),
 			'3-1' => array(
-				'thumbnail','thumbnail','square','square'
+				'matrix','matrix','matrix','matrix'
 			),
 			'flat-x-4' => array(
-				'thumbnail','thumbnail','thumbnail','thumbnail'
+				'matrix','matrix','matrix','matrix'
 			)
 		);
 		
@@ -1782,7 +1808,8 @@ class MatrixSetWidget extends Widget {
 				'colour' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_colour_scheme', true),
 				'title' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_matrix_item_title', true),
 				'subtitle' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_matrix_item_subtitle', true),
-				'alt' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_image', true)
+				'id' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_image', true),
+				'alt' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_set_'.$i.'_matrix_item_title', true)
 			);
 		}
 		
@@ -1799,9 +1826,8 @@ class MatrixSetWidget extends Widget {
 		$image = $array[$i]['image'];
 		$image = str_replace('.test', '.com', $image);
 		$image = str_replace('staging.', '', $image);
-
 		?>
-		<a href="<?php echo esc_attr($array[$i]['link']); ?>" class="imgset_box_fill <?php echo esc_attr($array[$i]['colour']); ?>"><div class="absoluteCenterWrapper imgset_wrap_fill"><img loading="lazy" <?php echo getAlttag($array[$i]['alt']); ?> class="absoluteCenter" <?php echo esc_attr( getAlttag($id) ); ?> src="<?php echo esc_attr($image); ?>" srcset="<?php echo getSrcset($image, $size); ?>" ></div><div class="box_text matrix"><h2><?php echo esc_attr($array[$i]['title']); ?></h2><?php echo esc_attr($array[$i]['subtitle']); ?></div></a>
+		<a href="<?php echo esc_attr($array[$i]['link']); ?>" class="imgset_box_fill <?php echo esc_attr($array[$i]['colour']); ?>"><div class="absoluteCenterWrapper imgset_wrap_fill"><img loading="lazy" alt="<?php echo esc_attr( $array[$i]['alt'] ); ?>" class="absoluteCenter" src="<?php echo esc_attr($image); ?>" srcset="<?php echo getSrcset($array[$i]['id'], 'matrix'); ?>" ></div><div class="box_text matrix"><h2><?php echo esc_attr($array[$i]['title']); ?></h2><?php echo esc_attr($array[$i]['subtitle']); ?></div></a>
 		<?php
 	}
 
@@ -1813,7 +1839,7 @@ class MatrixSetWidget extends Widget {
 		$array = $this->get_matrix_array();
 		?>
 
-		<div class="widget widget_0 widget_imagematrix color14">
+		<div class="widget widget_0 widget_imagematrix color14 one_three">
 			<div class="container main_body">
 				<div class="row">
 				
@@ -1863,7 +1889,7 @@ class MatrixSetWidget extends Widget {
 		$array = $this->get_matrix_array();
 		?>
 
-		<div class="widget widget_0 widget_imagematrix color14">
+		<div class="widget widget_0 widget_imagematrix color14 three_one">
 			<div class="container main_body">
 				<div class="row">
 					
@@ -1920,7 +1946,284 @@ class MatrixSetWidget extends Widget {
 		$array = $this->get_matrix_array();
 		?>
 
-		<div class="widget widget_0 widget_imagematrix color14">
+		<div class="widget widget_0 widget_imagematrix color14 flat_four">
+			<div class="container main_body">
+				<div class="row">
+					<div class="span12">
+						<div class="row">
+		
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 0); ?>
+													
+							</div>
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 1); ?>
+								
+							</div>
+		
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 2); ?>
+													
+							</div>
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 3); ?>
+								
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<?php
+	}	
+}
+
+/**
+ * Defines functionality for matrix widgets.
+ *
+ * @package kate-and-toms
+ * @author  Elliott Richmond
+ * @copyright Kate and Tom's Ltd 2013
+ */
+
+class Matrix5SetWidget extends Widget {
+	
+	private $id;
+	private $key;
+	private $layout;
+
+	/**
+	 * Setup the contruct for this class
+	 * @param int|string Integer of post
+	 * @param int The key of the widget on page (starting from 0), so if fourth ID = 3
+	 * @echo the layout of a possible 3 types
+	 */
+	public function __construct($ID, $key) {
+		$this->id = $ID;
+		$this->key = $key;
+		echo $this->get_layout();
+	}
+	
+	/**
+	 * Setup layout output depending on the $value option
+	 * @param string $value the value of the layout choosen
+	 * @returns the function relating to the layout of $value
+	 */
+	public function render_markup($value) {
+		
+		if ($value == '4-1') {
+			$this->one_four();
+		}
+		if ($value == '1-4') {
+			$this->four_one();
+		}
+		
+	}
+
+	/**
+	 * get the value of the layout save to the database
+	 * @returns the function to render the markup
+	 */
+	public function get_layout() {
+		$this->layout = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_layout', true);
+		$this->render_markup($this->layout);
+	}
+
+	/**
+	 * get the values of the indexed matrix options saved to the database
+	 * @returns array $array an indexed array of the options saved
+	 */
+	public function get_matrix_array() {
+		$rowCount = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set', true);
+		$this->layout = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_layout', true);
+		$test = 'Flat x 4';
+		$layindex = str_replace(' ','-',$this->layout);
+		$layindex = strtolower($layindex);
+
+		$imagesize = array(
+			'1-4' => array(
+				'huge','huge','huge','huge','huge'
+			),
+			'4-1' => array(
+				'huge','huge','huge','huge','huge'
+			)
+		);
+		
+		$array = array();
+		for ($i=0; $i < $rowCount; $i++) {
+			
+			
+			if (is_numeric(get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_links_to', true))) {
+				$link = get_permalink(get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_links_to', true));
+			} else {
+				$link = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_links_to', true);
+			}
+			$image = wp_get_attachment_image_src(get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_image', true), $imagesize[$layindex][$i]);
+			
+			$array[] = array(
+				'link' => $link,
+				'image' => $image[0],
+				'colour' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_colour_scheme', true),
+				'title' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_title', true),
+				'subtitle' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_subtitle', true),
+				'id' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_image', true),
+				'alt' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_title', true)
+			);
+		}
+		
+		return $array;
+	}
+
+	/**
+	 * render the html markup for the linked href panel with its options
+	 * @param array $array the array of saved options
+	 * @param int $i the index numer from the widgets key value
+	 * @output html markup
+	 */
+	public function render_href_panel($array, $i) {
+		$image = $array[$i]['image'];
+		$image = str_replace('.test', '.com', $image);
+		$image = str_replace('staging.', '', $image);
+		$image_id = $array[$i]['id'];
+
+		?>
+		<a href="<?php echo esc_attr($array[$i]['link']); ?>" class="imgset_box_fill <?php echo esc_attr($array[$i]['colour']); ?>"><div class="absoluteCenterWrapper imgset_wrap_fill"><img loading="lazy" alt="<?php echo $array[$i]['alt']; ?>" class="absoluteCenter" <?php echo esc_attr( getAlttag($id) ); ?> src="<?php echo esc_attr($image); ?>" srcset="<?php echo getSrcset($image_id, 'blog-square'); ?>" ></div><div class="box_text matrix"><h2><?php echo esc_attr($array[$i]['title']); ?></h2><?php echo esc_attr($array[$i]['subtitle']); ?></div></a>
+		<?php
+	}
+
+	/**
+	 * output two column layout 1 single large image and 3 smaller to the right column
+	 * @output html markup
+	 */
+	public function one_four() {
+		$array = $this->get_matrix_array();
+		?>
+
+		<div class="widget widget_0 widget_imagematrix color14 one_four">
+			<div class="container main_body">
+				<div class="row" style="margin-bottom:40px;">
+				
+				
+					<div class="span6">
+						<div class="row top" style="margin-bottom:15px;">
+		
+							<div class="span3 square">
+								<?php $this->render_href_panel($array, 0); ?>
+							</div>
+							
+							<div class="span3 square">
+								<?php $this->render_href_panel($array, 1); ?>
+							</div>
+		
+						</div>
+						<div class="row bottom">
+
+							<div class="span3 square">
+								<?php $this->render_href_panel($array, 2); ?>
+							</div>
+							
+							<div class="span3 square">
+								<?php $this->render_href_panel($array, 3); ?>
+							</div>
+
+						</div>
+					</div>
+					
+					
+					<div class="span6">
+						<div class="row">
+							<div class="span6 square">
+								<?php $this->render_href_panel($array, 4); ?>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+	
+		<?php
+
+	}
+	
+	/**
+	 * output two column layout 3 smaller to the left and 1 large to the right column
+	 * @output html markup
+	 */
+	public function four_one() {
+		$array = $this->get_matrix_array();
+		?>
+
+		<div class="widget widget_0 widget_imagematrix color14 four_one">
+			<div class="container main_body">
+				<div class="row" style="margin-bottom:40px;">
+					
+					<div class="span6">
+						
+						<div class="row">
+							<div class="span6 square">
+								
+								<?php $this->render_href_panel($array, 0); ?>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="span6">
+						
+						<div class="row" style="margin-bottom:15px;">
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 1); ?>
+													
+							</div>
+							<div class="span3 square">
+
+								<?php $this->render_href_panel($array, 2); ?>
+								
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 3); ?>
+													
+							</div>
+							<div class="span3 square">
+		
+								<?php $this->render_href_panel($array, 4); ?>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	
+		<?php
+
+	}
+
+	/**
+	 * output 4 column layout of equal size
+	 * @output html markup
+	 */
+	public function flat_four() {
+		$array = $this->get_matrix_array();
+		?>
+
+		<div class="widget widget_0 widget_imagematrix color14 flat_four">
 			<div class="container main_body">
 				<div class="row">
 					<div class="span12">
@@ -2389,9 +2692,10 @@ class ImageSetWidget extends Widget {
 	
 	private function getSquareImg($image, $link)
 	{
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
 		echo 	'<div class="span3 absoluteCenterWrapper imgset_box_fill">' ,
 				($link ? '<a href="' . $link . '"': '<div') . '>';
-		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" />';
+		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" />';
 		echo 	'</div>', ($link ? '</a>' : '</div>') , '</div>';
 	}
 }
@@ -2454,7 +2758,8 @@ class LowerImageSetWidget extends Widget {
 					if ($custom_url) $link = $custom_url;
 					
 					$size = 'thumbnail';
-					
+					$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 					if ($layout == 'image') $this->getSquareImg($image, $link);
 					elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
 					elseif (empty($title_text)) $this->getSquareImg($image, $link);
@@ -2462,7 +2767,7 @@ class LowerImageSetWidget extends Widget {
 						echo 	'<div id="'.$titleid.'" class="span3 '.($image ? 'has-image' : 'no-image').'">' ,
 								($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.'">';
 						if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout
-									.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+									.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 						echo 	'<div class="box_text"><h2>' , $title_text , '</h2>',
 								($this->showSubtitle($layout) ? $subtitle_text : '') , 
 								'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -2500,7 +2805,8 @@ class LowerImageSetWidget extends Widget {
 					if ($custom_url) $link = $custom_url;
 					
 					$size = 'thumbnail';
-					
+					$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 					if ($layout == 'image') $this->getSquareImg($image, $link);
 					elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
 					elseif (empty($title_text)) $this->getSquareImg($image, $link);
@@ -2508,7 +2814,7 @@ class LowerImageSetWidget extends Widget {
 						echo 	'<div id="'.$titleid.'" class="span3 '.($image ? 'has-image' : 'no-image').'">' ,
 								($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.' slideto">';
 						if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout
-									.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+									.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 						echo 	'<div class="box_text"><h2>' , $title_text , '</h2>',
 								($this->showSubtitle($layout) ? $subtitle_text : '') , 
 								'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -2543,9 +2849,10 @@ class LowerImageSetWidget extends Widget {
 	
 	private function getSquareImg($image, $link)
 	{
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
 		echo 	'<div class="span3 absoluteCenterWrapper imgset_box_fill">' ,
 				($link ? '<a href="' . $link . '"': '<div') . '>';
-		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" />';
+		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" />';
 		echo 	'</div>', ($link ? '</a>' : '</div>') , '</div>';
 	}
 }
@@ -2593,7 +2900,8 @@ class KfImageSetWidget extends Widget {
 				if ($custom_url) $link = $custom_url;
 				
 				$size = 'thumbnail';
-				
+				$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
+
 				if ($layout == 'image') $this->getSquareImg($image, $link);
 				elseif ($layout == 'triangle') $this->getTriangle($image, $link, $color); 
 				elseif (empty($title_text)) $this->getSquareImg($image, $link);
@@ -2601,7 +2909,7 @@ class KfImageSetWidget extends Widget {
 					echo 	'<div id="'.$titleid.'" class="span3 '.($image ? 'has-image' : 'no-image').'">' ,
 							($link ? '<a href="' . $link . '"': '<div') . ' class="imgset_box_'.$layout.' '.$color.'">';
 					if 		($image) echo '<div class="absoluteCenterWrapper imgset_wrap_'.$layout
-								.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" /></div>';
+								.'"><img loading="lazy" class="absoluteCenter" src=' . getImage($image, $size) . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" /></div>';
 					echo 	'<div class="box_text"><h2>' , $title_text , '</h2>',
 							($this->showSubtitle($layout) ? $subtitle_text : '') , 
 							'</div>' , ($link ? '</a>' : '</div>') , '</div>';
@@ -2634,9 +2942,10 @@ class KfImageSetWidget extends Widget {
 	
 	private function getSquareImg($image, $link)
 	{
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
 		echo 	'<div class="span3 absoluteCenterWrapper imgset_box_fill">' ,
 				($link ? '<a href="' . $link . '"': '<div') . '>';
-		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" />';
+		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" />';
 		echo 	'</div>', ($link ? '</a>' : '</div>') , '</div>';
 	}
 }
@@ -2684,7 +2993,6 @@ class ReviewsWidget extends Widget {
 					</div>
 					
 					<div id="newtextSlider" class="row">
-						<div class="span2 before"><img src="'.get_stylesheet_directory_uri().'/images/prev.png" alt="navigation arrow"></div>
 						<div class="sliders">';
 
 						for ($i=0; $i < $rowCount; $i++) {
@@ -2694,7 +3002,6 @@ class ReviewsWidget extends Widget {
 						}
 
 						echo '</div>';
-						echo '<div class="span2 after"><img src="'.get_stylesheet_directory_uri().'/images/next.png" alt="navigation arrow"></div>';
 
 
 

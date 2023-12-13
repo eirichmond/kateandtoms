@@ -63,6 +63,24 @@
 <?php if( extension_loaded('newrelic') ) { echo newrelic_get_browser_timing_header(); } ?>
 	<div class="ktmain_nav_cont">
 		<div class="container">
+
+			<h1 class="visually-hidden">
+				<?php
+					if (is_home() || is_front_page()) {
+						// You are on the homepage
+						echo "Large Holiday Homes | Extraordinary Holidays, Celebrations & Adventures";
+					} elseif ( is_category() ) {
+						// You are on a category archive page
+						single_cat_title();
+					} elseif ( is_tag() ) {
+						// You are on a category archive page
+						single_tag_title();
+					} else {
+						echo "Large Holiday Homes | Extraordinary Holidays, Celebrations & Adventures";
+					}
+				?>
+			</h1>
+
 			<div class="logo span2">
 				<a href="<?php echo get_blogaddress_by_id(11); ?>" title="Kate &amp; Tom's" rel="home" ></a>
 				<span class="dhide mobnav" id="site-navigation">

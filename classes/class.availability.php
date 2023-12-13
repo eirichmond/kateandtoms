@@ -8,6 +8,8 @@
 	3 night weekend = Friday(1) +2day checkout Monday
 	Week = Friday(1) +6day checkout Friday
 	Midweek = Monday(1) +3day checkout Friday
+	2 night midweek = Monday, Tues or Weds(1) +1day checkout +1day from checkin
+
 
 **/
 
@@ -661,7 +663,7 @@ class HouseAvailability extends ProductAvailability {
 	 * @return bool Whether star is present
 	 *
 	 */
-	private function showPrices($key, $week, $periods, $daysOfWeek = null, $endOfMonth = false, $bookedDaysNext, $nextSatAvail = true, $group = false)
+	private function showPrices($key, $week, $periods, $daysOfWeek = null, $endOfMonth = false, $bookedDaysNext = null, $nextSatAvail = true, $group = false)
 	{
 
 
@@ -724,7 +726,58 @@ class HouseAvailability extends ProductAvailability {
 		foreach ($periods as $r => $period) {
 
             if ($period == 'blank') echo '<td class="table_price"></td>';
-			elseif ($period == 'booked') echo '<td class="table_price booked_text">Booked</td>';
+			elseif ($period == 'booked') {
+
+				// *****************************
+				// Begin hack
+				// *****************************
+				// THIS IS A VERY VERY BAD HACK
+				// AND MUST NEVER BE ATTRIBUTED
+				// TO MR ELLIOTT RICHMOND
+				// HE WAS MADE TO DO IT!
+				// *****************************
+
+				$included = array(
+					// kate&toms house ids
+					19660,
+					19733,
+					11069, // Pedington
+					16914,
+					56703,
+					14767, // marsden manor
+					90200, // ascot house
+					// bigcottage house ids
+					// 45772
+					// 45755
+					// 45723
+					// 16914
+					// 56703
+					// 39234 // marsden manor from KTs
+				);
+
+				// begin nested conditional
+				$rates = $this->rates;
+				$date_commencing = $this->key[$key];
+				if($date_commencing == '12-2023' && $week == 4 && in_array($this->ID, $included) && $rates[$key][$week]['rate_'.($r+1)] != '-1') {
+					
+					if (stripos($rates[$key][$week]['rate_'.($r+1)], '+') !== false) {
+						$from = true;
+					}
+
+					if($from) {
+						$rate = str_replace('+', 'From '.$currency, $rates[$key][$week]['rate_'.($r+1)]);
+					} else {
+						$rate = $currency. $rates[$key][$week]['rate_'.($r+1)];
+					}
+
+					echo '<td class="table_price">'.$rate.'</td>';
+
+				} else {
+					// when time has past this should be the default and can be refactored
+					echo '<td class="table_price booked_text">Booked</td>';
+				}
+				// end nested conditional
+			}
 
 			// *****************************
 			// Begin hack
@@ -1235,6 +1288,46 @@ class HouseAvailability extends ProductAvailability {
 	}
 
 	/**
+	 * check if a house qualifies
+	 *
+	 * @param [type] $id
+	 * @return void
+	 */
+	public function house_is_qualfied($id) {
+		$boolean = false;
+		$array = array(
+			16914,
+			19733,
+			19660,
+			81970,
+			56703,
+			11105,
+			11069,
+			34285,
+			34215,
+			14767,
+			11105,
+			39234,
+			39236,
+			39595,
+			39584,
+			39253,
+			39223,
+			39234,
+			45716,
+			45725,
+			45723,
+			45755,
+			45772,
+			45721
+		);
+		if(in_array($id,$array)){
+			$boolean = true;
+		}
+		return $boolean;
+	}
+
+	/**
 	 * Check a specified month.
 	 * 0=Sunday, 1=Monday, 2=Tues, 3=Weds, 4=Thurs, 5=Fri, 6=Sat
 	 *
@@ -1293,7 +1386,8 @@ class HouseAvailability extends ProductAvailability {
 
 				if ($blogid == 12) {
 					echo '<th class="bk_header_price">'.str_ireplace(' WV', '', $period).'</th>';
-				} elseif ($blogid == 16 || $blogid == 11)  {
+				} elseif ($blogid == 16 || $blogid == 11|| $blogid == 1)  {
+					
 					echo '<th class="bk_header_price">'.str_ireplace(' CV', '', $period).'</th>';
 				} else {
 					echo '<th class="bk_header_price">'.$period.'</th>';

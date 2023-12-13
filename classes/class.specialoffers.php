@@ -64,9 +64,10 @@ class SpecialOffers {
 
 	private function getSquareImg($image, $link)
 	{
+		$alt_text = get_post_meta($image, '_wp_attachment_image_alt', true);
 		echo 	'<div class="span3 absoluteCenterWrapper imgset_box_fill">' ,
 				($link ? '<a href="' . $link . '"': '<div') . '>';
-		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" />';
+		if 		($image) echo '<img loading="lazy" class="absoluteCenter" src=' . getImage($image, 'thumbnail') . ' srcset="'.getSrcset($image, $size).'" alt="'.$alt_text.'" />';
 		echo 	'</div>', ($link ? '</a>' : '</div>') , '</div>';
 	}
 

@@ -63,31 +63,31 @@
 			
 			<div class="span2">
 				
-				
-
 
 				<ul class="sharing-icons pull-right">
 					<li>
 						<a href="https://twitter.com/kateandtoms" target="_blank">
-							<i class="fa fa-twitter-square fa-2x"></i>
+							<!-- <i class="fa fa-twitter-square fa-2x"></i> -->
+							<i class="fa-brands fa-square-x-twitter fa-2xl"></i>
+							
 						</a>
 					</li>
 					
 					<li>
 						<a href="https://www.facebook.com/kateandtoms" target="_blank">
-							<i class="fa fa-facebook-square fa-2x"></i>
+							<i class="fa-brands fa-square-facebook fa-2xl"></i>
 						</a>
 					</li>
 					
 					<li>
 						<a href="https://uk.pinterest.com/kateandtoms" target="_blank">
-							<i class="fa fa-pinterest-square fa-2x"></i>
+							<i class="fa-brands fa-pinterest-square fa-2xl"></i>
 						</a>
 					</li>
 					
 					<li>
 						<a href="https://www.instagram.com/kateandtoms" target="_blank">
-							<i class="fa fa-instagram fa-2x"></i>
+							<i class="fa-brands fa-instagram fa-2xl"></i>
 						</a>
 					</li>
 					

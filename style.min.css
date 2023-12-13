@@ -312,7 +312,7 @@ span.tittag{background:#e3634b;display:inline-block;padding:5px 10px;margin-top:
 #newtextSlider{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-bottom:3em}
 #newtextSlider :nth-child(1){-webkit-box-ordinal-group:3;-ms-flex-order:2;order:2}
 #newtextSlider :nth-child(2){-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}
-#newtextSlider .cycle-slide{margin-left:170px;overflow:scroll;height:250px}
+#newtextSlider .cycle-slide{margin-left:170px;overflow:scroll;height:auto;display:-webkit-box !important;display:-ms-flexbox !important;display:flex !important;top:50% !important;right:0;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:20px;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}
 #newtextSlider :nth-child(4){-webkit-box-ordinal-group:4;-ms-flex-order:3;order:3}
 .widget p{margin-bottom:20px}
 .widget_imgleft h2,.widget_imgright h2,.widget_galleryleft h2,.widget_galleryright h2{margin-top:20px}
@@ -766,6 +766,7 @@ a.wide.btn{width:100%}
 .widget .span3{padding-bottom:0}
 .span3{padding-bottom:20px}
 .text-center{text-align:center}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;-webkit-clip-path:inset(50%);clip-path:inset(50%);border:0}
 .m00{margin:0}
 .m1{margin:1em}
 .m2{margin:2em}
@@ -3864,7 +3865,7 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 .seventeen h2{text-align:left}
 .seventeen .entry-content{font-size:13px;min-height:30px}
 .h-responsive{height:300px}
-}@media(max-width:668px){#newtextSlider .cycle-slide{margin-left:20vw;width:60vw}
+}@media(max-width:668px){#newtextSlider .cycle-slide{margin-left:5vw;width:90vw;height:200px}
 #newtextSlider .cycle-slide.cycle-sentinel{width:200%;margin:0}
 .page-template-page-advent-calendar .widget_fourimage .row img:nth-child(4n+1){display:initial}
 .page-template-page-advent-calendar .dhide.mobilesearch{display:none}

@@ -226,19 +226,30 @@ function kat_field($type, $key, $label, $name, $order, $row_id = null, $colors =
                 'allow_null' => '0',
                 'multiple' => '0'
             );
-        case 'radio_layout':
-            // When used in widgets, 'image' isn't an option. Should remove it?
-            return $default + array(
-				'choices' => array (
-					'1-3' => '1-3',
-					'3-1' => '3-1',
-					'Flat x 4' => 'Flat x 4',
-				),
-                'type' => 'radio',
-                'layout' => 'vertical',
-                'default_value' => '',
-            );
-        case 'page_selector':
+            case 'radio_layout':
+                // When used in widgets, 'image' isn't an option. Should remove it?
+                return $default + array(
+                    'choices' => array (
+                        '1-3' => '1-3',
+                        '3-1' => '3-1',
+                        'Flat x 4' => 'Flat x 4',
+                    ),
+                    'type' => 'radio',
+                    'layout' => 'vertical',
+                    'default_value' => '',
+                );
+            case 'radio_layout_5':
+                // When used in widgets, 'image' isn't an option. Should remove it?
+                return $default + array(
+                    'choices' => array (
+                        '1-4' => '1-4',
+                        '4-1' => '4-1',
+                    ),
+                    'type' => 'radio',
+                    'layout' => 'vertical',
+                    'default_value' => '',
+                );
+            case 'page_selector':
             return $default + array(
                 'type' => 'select',
                 'choices' => kat_set_pages_array(),
@@ -264,6 +275,27 @@ function kat_field($type, $key, $label, $name, $order, $row_id = null, $colors =
                 'instructions' => '',
 					'min' => 4,
 					'max' => 4,
+					'layout' => 'table',
+					'button_label' => 'Add Matrix',
+					'sub_fields' => array (
+						kat_field('page_selector', 'links_to', 'Links to', 'links_to', 0, $row_id),
+						kat_field('image', 'image_override', 'Image', 'image', 1, $row_id),
+						kat_field('text', 'item_title', 'Title', 'matrix_item_title', 2, $row_id),
+						kat_field('text', 'item_subtitle', 'Subtitle', 'matrix_item_subtitle', 2, $row_id),
+						kat_field('color_radio', 'field_set_color', 'Colour', 'colour_scheme', 3, $row_id, 'dark and greys'),
+						//kat_field('color_picker', 'field_custom_color', 'Custom Colour', 'custom_colour_scheme', 4, $row_id, '#ffffff'),
+					),
+                'row_min' => '1',
+                'row_limit' => '',
+                'layout' => 'table',
+                'button_label' => 'Add Row'
+            );
+        case 'repeater_matrix_5':
+            return $default + array(
+                'type' => 'repeater',
+                'instructions' => '',
+					'min' => 5,
+					'max' => 5,
 					'layout' => 'table',
 					'button_label' => 'Add Matrix',
 					'sub_fields' => array (
@@ -609,7 +641,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
         case 'partner_header_section':
             return $default + array(
                 'sub_fields' => array(
-                    kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'dark'),
+                    kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
                     kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
                     kat_field('wysiwyg_basic', 'field_wysiwyg_row_col_left', 'Column Left', 'wysiwyg_row_col_left', $c++, $row_id),
                     kat_field('basic_button', 'field_button_row_widget_set', 'Column Right Button', 'basic_button', $c++, $row_id),
@@ -620,7 +652,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('select_alignment', 'alignment', 'Align Image', 'align_image', $c++, $row_id),
-					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'dark'),
+					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'all'),
 					kat_field('image', 'left_aligned_image', 'Left Aligned Image', 'left_aligned_image', $c++, $row_id),
 					kat_field('text', 'section_title', 'Title', 'section_title', $c++, $row_id),
 					kat_field('wysiwyg_basic', 'section_text_top', 'Content', 'section_text_top', $c++, $row_id),
@@ -631,14 +663,14 @@ function kat_widget_row($type, $label, $name, $row_id) {
 		case 'partner_chequered_section':
 			return $default + array(
 				'sub_fields' => array(
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'dark'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('chequered_inner_section', 'field_chequered_inner_section', 'Sections', 'chequered_inner_section', $c++, $row_id),
 				)
 			);
 		case 'partner_vendor_stats_section':
 			return $default + array(
 				'sub_fields' => array(
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'dark'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('vendor_stats_inner_section', 'vendor_stats_inner_section', 'List items', 'vendor_stats_inner_section', $c++, $row_id),
 				)
 			);	
@@ -646,7 +678,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('partner_feature', 'field_partner_feature', 'Feature', 'partner_feature', $c++, $row_id),
 				)
 			);
@@ -654,7 +686,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 		case 'partner_call_to_action':
 			return $default + array(
 				'sub_fields' => array(
-					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'dark'),
+					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'all'),
 					kat_field('text', 'left_col_title', 'Left Column Title', 'left_col_title', $c++, $row_id),
 					kat_field('wysiwyg_basic', 'left_col_text', 'Left Column Text', 'left_col_text', $c++, $row_id),
 					kat_field('basic_button', 'right_cta_button', 'Right call to action button', 'right_cta_button', $c++, $row_id),
@@ -667,7 +699,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('text', 'stats_title', 'Title', 'stats_title', $c++, $row_id),
-					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'all'),
 					kat_field('partner_stat', 'partner_stat', 'Partner Stat', 'partner_stat', $c++, $row_id),
 					kat_field('wysiwyg_basic', 'stats_text_top', 'Text', 'stats_text_top', $c++, $row_id),
 					kat_field('basic_button', 'stat_button', 'Call to action button', 'stat_button', $c++, $row_id),
@@ -679,7 +711,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('partner_testimonials', 'partner_testimonial', 'Testimonials', 'partner_testimonials', $c++, $row_id),
 				)
 			);
@@ -688,7 +720,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('partner_steps', 'field_partner_feature', 'Feature', 'partner_feature', $c++, $row_id),
 				)
 			);
@@ -696,7 +728,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 		case 'partner_content_section':
 			return $default + array(
 				'sub_fields' => array(
-					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'background_colour', 'Background colour', 'background_colour', $c++, $row_id, 'all'),
 					kat_field('wysiwyg_basic', 'field_widget_title', 'Title', 'title', $c++, $row_id),
 					kat_field('wysiwyg_basic', 'field_wysiwyg_row_col_left_top', 'Column Left Top Text', 'wysiwyg_row_col_left_top', $c++, $row_id),
 					kat_field('list_items', 'field_list_items', 'List Items', 'list_items', $c++, $row_id),
@@ -708,7 +740,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 			return $default + array(
 				'sub_fields' => array(
 					kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
-					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'light'),
+					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('wysiwyg_basic', 'field_wysiwyg_row_col_left', 'Column Left Top Text', 'wysiwyg_row_col_left', $c++, $row_id),
 					kat_field('image', 'field_center_image_one', 'Center Image Top', 'field_center_image_one', $c++, $row_id),
 					kat_field('image', 'field_center_image_two', 'Center Image Bottom', 'field_center_image_two', $c++, $row_id),
@@ -764,6 +796,13 @@ function kat_widget_row($type, $label, $name, $row_id) {
                 'sub_fields' => array(
                     kat_field('radio_layout', 'field_matrix_widget_layout', 'Layout', 'matrix_layout', $c++, $row_id),
                     kat_field('repeater_matrix', 'field_matrix_widget_set', 'Items', 'matrix_set', $c++, $row_id)
+                )
+            );
+        case 'matrix_widget_5':
+            return $default + array(
+                'sub_fields' => array(
+                    kat_field('radio_layout_5', 'field_matrix_widget_layout', 'Layout', 'matrix_5_layout', $c++, $row_id),
+                    kat_field('repeater_matrix_5', 'field_matrix_widget_set', 'Items', 'matrix_5_set', $c++, $row_id)
                 )
             );
         case 'single_image_link':

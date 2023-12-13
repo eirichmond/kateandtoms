@@ -1662,10 +1662,17 @@ span.tittag {
 #newtextSlider .cycle-slide {
 	margin-left: 170px;
 	overflow: scroll;
-	height: 250px;
+	height: auto;
+	display: flex !important;
+	top: 50% !important;
+	right: 0;
+	transform: translateY(-50%);
+	padding: 20px;
+	flex-direction: column;
 	@media (max-width: 668px) {
-		margin-left: 20vw;
-		width: 60vw;
+		margin-left: 5vw;
+		width: 90vw;
+		height: 200px;
 		&.cycle-sentinel {
 			width: 200%;
 			margin: 0;
@@ -4287,6 +4294,16 @@ a.wide.btn {
 	text-align: center;
 }
 
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	border: 0;
+}
 
 $margin: m;
 
