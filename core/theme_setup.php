@@ -372,23 +372,23 @@ function geebee_scripts() {
 		wp_enqueue_style( 'kandt-font-awesome', get_template_directory_uri() .'/css/font-awesome.min.css' );
 
 		wp_enqueue_style( 'kandt-omponents', get_template_directory_uri() .'/css/component.css' );
-		wp_enqueue_script( 'kandt-modernizr', get_template_directory_uri() . '/js/modernizr.custom.js');
+		wp_enqueue_script( 'kandt-modernizr', get_template_directory_uri() . '/js/modernizr.custom.js', array(), date('Y-m'), array( 'strategy' => 'defer' ) );
 
-		wp_enqueue_script( 'kandt-classie', get_template_directory_uri() . '/js/classie.js',array(),'',true);
-		wp_enqueue_script( 'kandt-sidebar', get_template_directory_uri() . '/js/sidebarEffects.js',array(),'',true);
+		wp_enqueue_script( 'kandt-classie', get_template_directory_uri() . '/js/classie.js',array(), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+		wp_enqueue_script( 'kandt-sidebar', get_template_directory_uri() . '/js/sidebarEffects.js',array(), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 
 		wp_enqueue_style( 'kandt-zoom-style', get_template_directory_uri() .'/css/zoom.css' );
-		wp_enqueue_script( 'kandt-zoom', get_template_directory_uri() . '/js/jquery.zoom.min.js', array('jquery'));
-		wp_enqueue_script( 'kandt-zoom-fired', get_template_directory_uri() . '/js/zoom-script.js');
+		wp_enqueue_script( 'kandt-zoom', get_template_directory_uri() . '/js/jquery.zoom.min.js', array('jquery'), date('Y-m'), array( 'strategy' => 'defer' ) );
+		wp_enqueue_script( 'kandt-zoom-fired', get_template_directory_uri() . '/js/zoom-script.js', array(), date('Y-m'), array( 'strategy' => 'defer' ) );
 
-		wp_enqueue_script( 'kandt-autocomplete', get_template_directory_uri() . '/js/jquery.autocomplete.js', array('jquery','jquery-ui-autocomplete'), true );
-		wp_enqueue_script( 'kandt-bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array('jquery'), '051120', true);
-		wp_enqueue_script( 'kandt-search', get_template_directory_uri() . '/js/search.js', array('jquery', 'jquery-ui-datepicker'), '051120', true);
-		wp_enqueue_script( 'kandt-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '051120', true);
-		wp_enqueue_script( 'kandt-cycle2', get_template_directory_uri() . '/js/cycle2.js', array('jquery'), '111122', false);
-		wp_enqueue_script( 'kandt-cycle-slider', get_template_directory_uri() . '/js/cycle-slider.js', array('jquery'), '111122', true);
+		wp_enqueue_script( 'kandt-autocomplete', get_template_directory_uri() . '/js/jquery.autocomplete.js', array('jquery','jquery-ui-autocomplete'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+		wp_enqueue_script( 'kandt-bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
+		wp_enqueue_script( 'kandt-search', get_template_directory_uri() . '/js/search.js', array('jquery', 'jquery-ui-datepicker'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
+		wp_enqueue_script( 'kandt-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
+		wp_enqueue_script( 'kandt-cycle2', get_template_directory_uri() . '/js/cycle2.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
+		wp_enqueue_script( 'kandt-cycle-slider', get_template_directory_uri() . '/js/cycle-slider.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
 
-		wp_enqueue_script( 'kandt-katheader', get_template_directory_uri() . '/js/katHeader.jquery.js', array('jquery'), '051120', true);
+		wp_enqueue_script( 'kandt-katheader', get_template_directory_uri() . '/js/katHeader.jquery.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
 
 	
 		$search_items = get_search_items_refactor();
@@ -396,7 +396,7 @@ function geebee_scripts() {
 		wp_localize_script( 'kandt-autocomplete', 'object_name', $search_items );
 
 		// load script
-		wp_enqueue_script( 'ajax-search', get_template_directory_uri() . '/js/ajax-search.js', array('jquery'), '', true );
+		wp_enqueue_script( 'ajax-search', get_template_directory_uri() . '/js/ajax-search.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ) );
 		wp_localize_script( 'ajax-search', 'search_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'nextNonce' => wp_create_nonce( 'kt-search-nonce' ) ) );
 
 

@@ -3463,7 +3463,6 @@ class LowerStandardWidget extends Widget {
 				$imageSrcs[$k]['large'] = getImage($v, 'large');
 				$imageSrcs[$k]['square'] = getImage($v, 'square');
 				$imageSrcs[$k]['thumbnail'] = getImage($v, 'thumbnail');
-				$imageSrcs[$k]['image_id'] = $v;
 			}
 			$this->images = $imageSrcs;
 			$this->imageid = $v;
@@ -3517,7 +3516,7 @@ class LowerStandardWidget extends Widget {
 			// added as an error check to reduce error rates added 27th June 2013
 			if ($this->images) {
 				foreach ($this->images as $k => $image) {
-					echo '<img loading="lazy" '.getAlttag($image['image_id']).' class="span3" '. ( $k < 2 ? 'style="margin-bottom:20px;"' : '' ).' src="'.$image['thumbnail'].'"  />';
+					echo '<img loading="lazy" '.getAlttag($this->imageid).' class="span3" '. ( $k < 2 ? 'style="margin-bottom:20px;"' : '' ).' src="'.$image['thumbnail'].'"  />';
 				}
 			}
 		echo '</div></div>';

@@ -7,8 +7,6 @@
 
 include 'config/config.php';
 
-date_default_timezone_set("Europe/London");
-
 // run this first
 //kat_include('core/dbstuff.php');
 
