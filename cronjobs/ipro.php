@@ -87,8 +87,10 @@ function get_updated_ipro_house_ids_refactor() {
 	
 	$properties = $request->get_updated_properties($token['access_token']);
 	$properties = confirmed_rate_changed($properties);
-	$property_availability_check = $request->get_updated_availability_properties($token['access_token']);
-	$properties = confirmed_availability_changed($properties, $property_availability_check);
+
+	// $property_availability_check = $request->get_updated_availability_properties($token['access_token']);
+	// $properties = confirmed_availability_changed($properties, $property_availability_check);
+
 	$properties = array_unique($properties);
 	$references = array();
 	foreach ($properties as $property) {
@@ -128,9 +130,9 @@ function confirmed_availability_changed($properties, $property_availability_chec
 function confirmed_rate_changed($properties) {
 	$array = array();
 	foreach($properties as $k => $property) {
-		//if($property["Details"]["Rates"] == "Yes") {
+		// if($property["Details"]["Rates"] == "Yes") {
 			$array[] = $property["PropertyId"];
-		//}
+		// }
 	}
 	return $array;
 }
@@ -347,6 +349,7 @@ function update_custom_rates_table($value, $post_id, $field) {
 	}
 
 }
+
 
 function resolve_rates_hangover($post_id) {
 	
@@ -589,8 +592,10 @@ function sync_ipro_refactor($update = null) {
 				update_post_meta($post_id, 'availability_general_text', $availability_general_text);
 				// update_post_meta($post_id, '_availability_general_text', 'field_5092771903d83');
 				
-				error_log('firing resolve_rates_hangover()');
-				resolve_rates_hangover($post_id);
+				// resolve_rates_hangover($post_id)
+				// commented out to resolve removal of rates during cron update
+				// monitor from 10th Jan 2024 to establish if this is needed and for what????????????
+				// resolve_rates_hangover($post_id);
 				
 				update_post_meta($post_id, 'availability_calendar', $index);
 				//update_post_meta($post_id, '_availability_calendar', 'field_availability_repeater');
