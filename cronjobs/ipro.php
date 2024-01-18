@@ -85,11 +85,11 @@ function get_updated_ipro_house_ids_refactor() {
 	$property_reference_lookup = $request->get_ipro_property_reference_lookup($token['access_token']);
 	$property_reference_lookup = resolve_ipro_kt_ids($property_reference_lookup);
 	
-	$properties = $request->get_updated_properties($token['access_token']);
+	$properties = $request->get_updated_properties($token['access_token']); // rates
 	$properties = confirmed_rate_changed($properties);
 
-	// $property_availability_check = $request->get_updated_availability_properties($token['access_token']);
-	// $properties = confirmed_availability_changed($properties, $property_availability_check);
+	$property_availability_check = $request->get_updated_availability_properties($token['access_token']);
+	$properties = confirmed_availability_changed($properties, $property_availability_check); // availability
 
 	$properties = array_unique($properties);
 	$references = array();
@@ -521,7 +521,8 @@ function sync_ipro_refactor($update = null) {
 	// isolate update of single houses by creating an array of ids that require updating
     // $house_ids = array('41563' => '20355', '33101' => '14560');
 	
-	$properties = get_updated_ipro_house_ids_refactor();
+	$properties = get_updated_ipro_house_ids_refactor(); // rates and availability
+
 	
 	// hack during testing
 	// if($update) {
