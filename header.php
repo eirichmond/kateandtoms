@@ -34,9 +34,6 @@
 
 <?php wp_head(); ?>
 
-<script type="text/javascript" src="https://www.bugherd.com/sidebarv2.js?apikey=rqbdu1czooecjp8croiurq" async="true"></script>
-
-
 </head>
 
 

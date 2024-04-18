@@ -19,10 +19,12 @@ remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'wp_head', 'remote_login_js_loader' );
 add_action( 'wp_loaded', 'overwrite_cf7_dynamic_shortcode' );
 
+
+
+
 /**
  * Add google tag manager code to head
  */
-
  
 /**
  * setup GMT tag container ids
@@ -58,6 +60,7 @@ function kts_global_header_google_tag_manager() {
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','".$tag_manager[$blog_id]."');</script>
 	<!-- End Google Tag Manager -->";
+	$gtm_code .= '<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1068089463"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "AW-1068089463"); </script>';
 	if ( !is_admin() && $gtm_code ) {
 		echo $gtm_code;
 	}
@@ -413,27 +416,27 @@ add_action( 'wp_enqueue_scripts', 'geebee_scripts' );
  * @param [type] $url
  * @return void
  */
-// function kandt_defer_parsing_of_js( $url ) {
+function kandt_defer_parsing_of_js( $url ) {
 
-// 	// don't break WP Admin
-//     if ( is_user_logged_in() ) {
-// 		return $url; 
-// 	}
+	// don't break WP Admin
+    if ( is_user_logged_in() ) {
+		return $url; 
+	}
 
-// 	// don't break other scripts
-//     if ( FALSE === strpos( $url, '.js' ) ) {
-// 		return $url;
-// 	}
+	// don't break other scripts
+    if ( FALSE === strpos( $url, '.js' ) ) {
+		return $url;
+	}
 
-// 	// don't defer jquery
-//     if ( strpos( $url, 'jquery.js' ) || strpos( $url, 'jquery.min.js' ) ) {
-// 		return $url;
-// 	}
+	// don't defer jquery
+    if ( strpos( $url, 'jquery.js' ) || strpos( $url, 'jquery.min.js' ) ) {
+		return $url;
+	}
 
-// 	// include defer for all other scripts
-//     return str_replace( ' src', ' defer src', $url );
-// }
-// add_filter( 'script_loader_tag', 'kandt_defer_parsing_of_js', 10 );
+	// include defer for all other scripts
+    return str_replace( ' src', ' defer src', $url );
+}
+add_filter( 'script_loader_tag', 'kandt_defer_parsing_of_js', 10 );
 
 /**
  * Preload CSS to help page speed
@@ -444,14 +447,14 @@ add_action( 'wp_enqueue_scripts', 'geebee_scripts' );
  * @param [type] $media
  * @return void
  */
-// function preload_filter( $html, $handle, $href, $media ){
-// 	if ( ! is_admin() ) {
-//         $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
-//             . '<noscript>' . $html . '</noscript>';
-// 	}
-//     return $html;
-// }
-// add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
+function preload_filter( $html, $handle, $href, $media ){
+	if ( ! is_admin() ) {
+        $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
+            . '<noscript>' . $html . '</noscript>';
+	}
+    return $html;
+}
+add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
 
 
 // hookup the ajax scripts to connect the browser js talk to the server #complete

@@ -15,10 +15,10 @@ get_header(); ?>
 			<div>
 				<?php if ($linkto) {
 					echo '<a href="'.esc_attr( $linkto ).'">';
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive" ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive", "loading" => "lazy" ) );
 					echo '</a>';
 				} else {
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive" ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive", "loading" => "lazy" ) );
 				}
 
 				// if ($tag_tit) {

@@ -575,9 +575,9 @@ array (
   array (
       array('url' => 'https://kateandtoms.com/about-us/', 'title' => 'about us',),
       array('url' => 'https://kateandtoms.com/our-blog/', 'title' => 'our blog',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-privacy-policy2-March-23.pdf', 'title' => 'privacy policy',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-cookie-policy-FEB22.pdf', 'title' => 'cookie policy',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-terms-and-conditions-March-2023.pdf', 'title' => 'terms and conditions',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-privacy-policy2-March-24.pdf', 'title' => 'privacy policy',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-cookie-policy-March-24.pdf', 'title' => 'cookie policy',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-terms-and-conditions-March-2024.pdf', 'title' => 'terms and conditions',),
       array('url' => 'https://kateandtoms.com/company-information', 'title' => 'company information',),
       array('url' => 'https://kateandtoms.com/faqs/', 'title' => 'faqs',),
       array('url' => 'https://kateandtoms.com/meet-the-team/', 'title' => 'meet the team',),

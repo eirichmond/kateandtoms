@@ -96,23 +96,11 @@ function create_robotstxt($output, $public) {
 		$output .= "Disallow: /syncipro\n";
 		$output .= "Disallow: /wp-admin\n";
 		$output .= "Disallow: /?s=\n";
-		$output .= "User-agent: Sosospider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: Baiduspider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: AhrefsBot\n";
-		$output .= "Disallow: /\n";
 	}
 	if ($id == 24) {
 		$output = "";
 		$output .= "User-agent: *\n";
 		$output .= "Disallow: \n";
-		$output .= "User-agent: Sosospider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: Baiduspider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: AhrefsBot\n";
-		$output .= "Disallow: /\n";
 	}
 	if($id == 1){
 		$output .= "Sitemap: https://bigcottage.com/sitemap_index.xml";
@@ -141,6 +129,29 @@ function create_robotstxt($output, $public) {
 	return $output;
 }
 add_filter('robots_txt', 'create_robotstxt', 10, 2);
+
+/**
+ * Fix Yoast SEO robots.txt changes.
+ * https://wordpress.org/support/topic/disable-robots-txt-changing-by-yoast-seo/#post-16648736
+ */
+function kateandtoms_fix_yoast_seo_robots_txt() {
+
+	global $wp_filter;
+
+	if ( isset( $wp_filter['robots_txt']->callbacks ) && is_array( $wp_filter['robots_txt']->callbacks ) ) {
+
+		foreach ( $wp_filter['robots_txt']->callbacks as $callback_priority => $callback ) {
+			foreach ( $callback as $function_key => $function ) {
+
+				if ( 'filter_robots' === $function['function'][1] ) {
+					unset( $wp_filter['robots_txt']->callbacks[ $callback_priority ][ $function_key ] );
+				}
+			}
+		}
+	}
+}
+
+add_action( 'wp_loaded', 'kateandtoms_fix_yoast_seo_robots_txt' );
 
 //require_once('Custom-Meta-Boxes/custom-meta-boxes.php');
 
@@ -331,6 +342,14 @@ function cleanup_revisions_callback() {
 	}
 }
 
+function custom_calculate_image_sizes($sizes, $size, $image_src) {
+    // Modify the sizes attribute based on your requirements
+    $custom_sizes = '(max-width: 300px) 300px';
+    // Return the modified sizes attribute
+    return $custom_sizes;
+}
+add_filter('wp_calculate_image_sizes', 'custom_calculate_image_sizes', 10, 3);
+
 function swap_image_source_to_production($attr, $attachment, $size) {
 	// make filter magic happen here... 
 	$testurl = 'kateandtoms.test';
@@ -366,4 +385,65 @@ function tweakjp_rm_comments_att( $open, $post_id ) {
 }
 add_filter( 'comments_open', 'tweakjp_rm_comments_att', 10 , 2 );
 
+
+add_action('admin_init', function () {
+    // Redirect any user trying to access comments page
+    global $pagenow;
+     
+    if ($pagenow === 'edit-comments.php') {
+        wp_safe_redirect(admin_url());
+        exit;
+    }
+ 
+    // Remove comments metabox from dashboard
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+ 
+    // Disable support for comments and trackbacks in post types
+    foreach (get_post_types() as $post_type) {
+        if (post_type_supports($post_type, 'comments')) {
+            remove_post_type_support($post_type, 'comments');
+            remove_post_type_support($post_type, 'trackbacks');
+        }
+    }
+});
+ 
+// Close comments on the front-end
+add_filter('comments_open', '__return_false', 20, 2);
+add_filter('pings_open', '__return_false', 20, 2);
+ 
+// Hide existing comments
+add_filter('comments_array', '__return_empty_array', 10, 2);
+ 
+// Remove comments page in menu
+add_action('admin_menu', function () {
+    remove_menu_page('edit-comments.php');
+});
+ 
+// Remove comments links from admin bar
+add_action('init', function () {
+    if (is_admin_bar_showing()) {
+        remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+    }
+});
+
+add_action('custom_save_houses', 'custom_save_houses_callback');
+function  custom_save_houses_callback(){
+	switch_to_blog( 1 );
+	// Retrieve all posts of custom post type 'houses'
+	$houses = get_posts(array(
+		'post_type' => 'houses',
+		'posts_per_page' => -1, // Get all posts
+	));
+
+	// Loop through each house post
+	foreach ($houses as $house) {
+		// Update and resave the post
+		wp_update_post(array(
+			'ID' => $house->ID,
+		));
+
+		// Optionally, you can output the post ID for each post processed
+		error_log( 'Post updated: ' . $house->ID );
+	}
+}
 ?>

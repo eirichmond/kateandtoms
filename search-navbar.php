@@ -322,6 +322,7 @@
 	}
 	
 	function makeTaxonomyImage($image_id) {
+		$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ? get_post_meta($image_id, '_wp_attachment_image_alt', true) : 'kate and tom\'s taxonomy';
 		$align = get_img_description($image_id);
 		$align = (!empty($align) ? $align : 'absoluteCenter');
 
@@ -329,7 +330,7 @@
 		$image = $image[0];
 		
 		echo '<div style="height:400px;"><div class="" style="height: 400px; overflow:hidden; ">';
-	    echo '<div class="cropped"><img src="'.$image.'" class="'.$align.' wp-post-image" /></div>';
+	    echo '<div class="cropped"><img src="'.$image.'" class="'.$align.' wp-post-image" alt="'.$image_alt.'" /></div>';
 	    echo '</div></div>';
 	}
 	

@@ -66,6 +66,20 @@
 
 				<ul class="sharing-icons pull-right">
 					<li>
+						<a href="https://uk.linkedin.com/company/the-big-cottage-company" target="_blank">
+							<i class="fa-brands fa-linkedin fa-2xl"></i>
+							
+						</a>
+					</li>
+					
+					<li>
+						<a href="https://www.tiktok.com/@kateandtoms" target="_blank">
+							<i class="fa-brands fa-tiktok fa-2xl"></i>
+							
+						</a>
+					</li>
+					
+					<li>
 						<a href="https://twitter.com/kateandtoms" target="_blank">
 							<!-- <i class="fa fa-twitter-square fa-2x"></i> -->
 							<i class="fa-brands fa-square-x-twitter fa-2xl"></i>
@@ -76,12 +90,6 @@
 					<li>
 						<a href="https://www.facebook.com/kateandtoms" target="_blank">
 							<i class="fa-brands fa-square-facebook fa-2xl"></i>
-						</a>
-					</li>
-					
-					<li>
-						<a href="https://uk.pinterest.com/kateandtoms" target="_blank">
-							<i class="fa-brands fa-pinterest-square fa-2xl"></i>
 						</a>
 					</li>
 					
@@ -162,6 +170,7 @@
 			<div class="span2">
 				<strong>get in touch</strong>
 				<ul id="menu-third-footer" class="unstyled">
+					<li class="menu-item"><a href="https://docs.google.com/forms/d/e/1FAIpQLSckqF_XLAzYdD7Mxi16UXDydjGbfpMaPQRtJz_JkZeUf4LSZg/viewform" target="_blank">newsletter sign up</a></li>
 					<li class="menu-item"><a href="https://kateandtoms.com/press-enquiries/">press enquiries</a></li>
 					<li class="menu-item"><span id="st-trigger-effects"><a href="#getintouch" data-effect="st-effect-3" data-toggle="modal">contact us</a></span></li>
 					<!-- <li class="menu-item"><span id="st-trigger-effects-dis"><a href="/get-intouch/" data-effect="st-effect-3" data-toggle="modal">contact us</a></span></li> -->

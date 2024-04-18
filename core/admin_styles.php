@@ -41,14 +41,14 @@ function admin_bar_head() {
 }
 // Custom login URL logo link
 function kat_url_login(){
-	return "http://kateandtoms.com/"; // your URL here
+	return "https://kateandtoms.com/"; // your URL here
 } 
 // Custom WordPress Login Logo
 function login_css() {
 	wp_enqueue_style( 'login_css', '/wp-content/themes/clubsandwich/css/login.css?r=1' );
-	$images = array('http://kateandtoms.com/files/2012/11/railway.jpg', 
-		'http://kateandtoms.com/files/2012/11/River-View-House-Pool-2.jpeg', 
-		'http://kateandtoms.com/files/2012/11/Marver-House-Beach-View.jpg');
+	$images = array('https://kateandtoms.com/files/2012/11/railway.jpg', 
+		'https://kateandtoms.com/files/2012/11/River-View-House-Pool-2.jpeg', 
+		'https://kateandtoms.com/files/2012/11/Marver-House-Beach-View.jpg');
 	shuffle($images);
 	echo '<style>body {	background-image: url('.$images[0].')!important; }</style>';
 }
