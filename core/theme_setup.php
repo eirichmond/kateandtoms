@@ -44,6 +44,21 @@ function google_tag_manager_ids() {
 }
 
 /**
+ * ticktock 
+ */
+add_action('wp_head', 'kts_ticktock_script');
+function kts_ticktock_script() {
+	echo '<script>
+	!function (w, d, t) {
+	  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+	
+	  ttq.load("COL543JC77U8K5AP3PPG");
+	  ttq.page();
+	}(window, document, "ttq");
+	</script>';
+}
+
+/**
  * Add tracking to head
  */
 add_action( 'wp_head', 'kts_global_header_google_tag_manager' );
@@ -449,12 +464,12 @@ add_filter( 'script_loader_tag', 'kandt_defer_parsing_of_js', 10 );
  */
 function preload_filter( $html, $handle, $href, $media ){
 	if ( ! is_admin() ) {
-        $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
+        $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'preload\'">'
             . '<noscript>' . $html . '</noscript>';
 	}
     return $html;
 }
-add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
+//add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
 
 
 // hookup the ajax scripts to connect the browser js talk to the server #complete
@@ -525,13 +540,17 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
 		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
 
-		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
+		// array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
 
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => 'publish', 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
+		array( 'id' => 'offer_details_bc_only', 'desc' => 'offer details (BC only)', 'type' => 'text', 'cols' => 2 ),
+		
+		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => array( 'publish', 'private' ), 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
 
 		//array( 'id' => 'offer_house', 'type' => 'select', 'name' => 'Select field', 'options' => array( 'option-1' => 'Option 1', 'option-2' => 'Option 2', 'option-3' => 'Option 3' ) ),
 
-		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
+
+		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 2 ),
+		
 
 		array( 'id' => 'offer_date', 'type' => 'date', 'cols' => 2 ),
 

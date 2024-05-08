@@ -25,8 +25,8 @@
 ?></title>
 
 
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/<?php echo get_option('options_site_style'); ?>?r=1" media="screen" />
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile.css" media="screen" />
+<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/<?php echo get_option('options_site_style'); ?>?r=1" media="screen" />
+<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile.css" media="screen" />
 <link href='https://fonts.googleapis.com/css?family=News+Cycle:400,700|Oswald:400,300' rel='preload' type='text/css' as='style'>
 <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/images/favicon.ico" />
 <!--[if IE 7]><link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/style-ie7.css?r=1" type="text/css" /><![endif]-->
