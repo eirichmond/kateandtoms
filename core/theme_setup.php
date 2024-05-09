@@ -610,49 +610,12 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'ah_section_country',  'name' => 'Section Country', 'type' => 'checkbox' ),
 		array( 'id' => 'ah_section_town',  'name' => 'Section Town', 'type' => 'checkbox' ),
 
+	);
 
+	$availability_settings = array(
 
-
-/*
-		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
-		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
-
-		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
-
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
-
-		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
-
-		array( 'id' => 'offer_date', 'type' => 'date', 'cols' => 2 ),
-		array( 'id' => 'field-2', 'name' => 'Read-only text input field', 'type' => 'text', 'readonly' => true, 'default' => 'READ ONLY' ),
- 		array( 'id' => 'field-3', 'name' => 'Repeatable text input field', 'type' => 'text', 'desc' => 'Add up to 5 fields.', 'repeatable' => true, 'repeatable_max' => 5, 'sortable' => true ),
-
-		array( 'id' => 'field-4',  'name' => 'Small text input field', 'type' => 'text_small' ),
-		array( 'id' => 'field-5',  'name' => 'URL field', 'type' => 'url' ),
-
-
-
-		array( 'id' => 'field-8',  'name' => 'WYSIWYG field', 'type' => 'wysiwyg', 'options' => array( 'editor_height' => '100' ), 'repeatable' => true, 'sortable' => true ),
-
-		array( 'id' => 'field-9',  'name' => 'Textarea field', 'type' => 'textarea' ),
-		array( 'id' => 'field-10',  'name' => 'Code textarea field', 'type' => 'textarea_code' ),
-
-		array( 'id' => 'field-12', 'name' => 'Image upload field', 'type' => 'image', 'repeatable' => true, 'show_size' => true ),
-
-		array( 'id' => 'field-17', 'name' => 'Post select field (AJAX)', 'type' => 'post_select', 'use_ajax' => true ),
-		array( 'id' => 'field-17b', 'name' => 'Post select field (AJAX)', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'posts_per_page' => 8 ), 'multiple' => true  ),
-
-		array( 'id' => 'field-19', 'name' => 'Time input field', 'type' => 'time' ),
-		array( 'id' => 'field-20', 'name' => 'Date (unix) input field', 'type' => 'date_unix' ),
-		array( 'id' => 'field-21', 'name' => 'Date & Time (unix) input field', 'type' => 'datetime_unix' ),
-
-		array( 'id' => 'field-22', 'name' => 'Color', 'type' => 'colorpicker' ),
-
-		array( 'id' => 'field-23', 'name' => 'Location', 'type' => 'gmap' ),
-
-		array( 'id' => 'field-24', 'name' => 'Title Field', 'type' => 'title' ),
-
-*/
+		array( 'id' => 'show_associated_houses',  'name' => 'Enable', 'type' => 'checkbox' ),
+		array( 'id' => 'avail_from_features', 'name' => 'Feature includes', 'type' => 'taxonomy_select',  'taxonomy' => 'feature',  'multiple' => true ),
 
 	);
 
@@ -663,6 +626,15 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		'context'    => 'side',
         'priority'   => 'high',
   		'fields' => $settings
+	);
+
+	// include
+	$meta_boxes[] = array(
+		'title' => 'Only Applicable to Houses',
+		'pages' => array( 'availability' ),
+		'context'    => 'side',
+        'priority'   => 'high',
+  		'fields' => $availability_settings
 	);
 
 

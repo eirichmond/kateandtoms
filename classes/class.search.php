@@ -27,6 +27,25 @@ class OnlineSearch {
 	protected static $seasonal = false;
 
 	/**
+	 * Late availability period.
+	 * Used when producing seasonal availability pages.
+	 * @var string
+	 */
+	protected static $periodLateAvailability;
+
+	/**
+	 * Whether a late availability search.
+	 * @var bool
+	 */
+	protected static $lateAvailability = false;
+
+	/**
+	 * Whether a late availability search.
+	 * @var bool
+	 */
+	protected static $specified_availability_dates;
+
+	/**
 	 * Whether to only show one category.
 	 * Used to identify if the houses should not be split up.
 	 * @var bool|string which location is being shown
@@ -111,6 +130,74 @@ class OnlineSearch {
 			}
 		}
 		self::$periodSeasonal = $periodSeasonal;
+
+	}
+
+	public static function get_availability_for_these_periods( $rolling_period, $periods_to_include ) {
+		self::$lateAvailability = true;
+		self::$additional_height = count($periods_to_include);
+		if (self::$additional_height > 4) self::$additional_height = 4;
+
+		// Set the timezone to a European location, for example, Paris
+		$timezone = new DateTimeZone('Europe/London');
+		// Create a new DateTime object with the current date and time in the specified timezone
+		$currentDateTime = new DateTime('now', $timezone);
+		
+		// Clone the current DateTime object to create a new one
+		$endDateTime = clone $currentDateTime;
+		$endDateTime->modify('+'.$rolling_period.' weeks');
+
+		// Format the DateTime object as a string
+		$currentDateTimeString = $currentDateTime->format('Y-m-d');
+		$endDateTimeString = $endDateTime->format('Y-m-d');
+
+		self::$specified_availability_dates = self::createDateRangeArray($currentDateTimeString,$endDateTimeString);
+
+		$periodLateAvailability = array();
+
+		foreach($periods_to_include as $period_to_include) {
+
+			if (stristr($period_to_include, 'weekend') || $period_to_include == '5 nights') {
+				$start_day_num = 5;
+				$count_of_days = 2;
+			}
+			elseif ($period_to_include == 'WeekFridays') {
+				$period_to_include = 'Week';
+				$start_day_num = 5;
+				$count_of_days = 5;
+			}
+			elseif ($period_to_include == 'Week') {
+				$start_day_num = 2;
+				$count_of_days = 5;
+			}
+			else {
+				$start_day_num = 2;
+				$count_of_days = 2;
+			}
+
+			$periodLateAvailability[$period_to_include]['name'] = $period_to_include;
+
+			$count = -1;
+			$addCount = 0;
+			foreach(self::$specified_availability_dates as $availability_date) :
+
+				if ($addCount != 0) {
+					$periodLateAvailability[$period_to_include]['dates'][$count][$dateCount] = $availability_date;
+					$addCount--;
+					$dateCount++;
+				} elseif (date('N',strtotime($availability_date)) == $start_day_num) {
+					$count++;
+					$periodLateAvailability[$period_to_include]['dates'][$count][0] = $availability_date;
+					$addCount = $count_of_days;
+					$dateCount = 1;
+				}
+
+			endforeach;
+			if ($addCount != 0) {
+				array_pop($periodLateAvailability[$period_to_include]['dates']);
+			}
+		}
+		self::$periodLateAvailability = $periodLateAvailability;
 
 	}
 
@@ -366,8 +453,15 @@ class HouseSearch extends OnlineSearch {
 				$day_end = self::$specified_seasonal_dates[count(self::$specified_seasonal_dates) - 1]; // Last day
 				self::availabilitySetup($day_start, $day_end);
 			}
-		}
-		elseif (array_key_exists('date', $inputs) && array_key_exists('dtype', $inputs)) {
+		} elseif (array_key_exists('availability', $inputs)) {
+			if ($inputs['availability'] !== false) {
+				$day_start = self::$specified_availability_dates[0];  // First day
+				$day_end = self::$specified_availability_dates[count(self::$specified_availability_dates) - 1]; // Last day
+				self::availabilitySetup($day_start, $day_end);
+			}
+
+
+		} elseif (array_key_exists('date', $inputs) && array_key_exists('dtype', $inputs)) {
 			$date = $inputs['date'];
 			$day_number = date('N', strtotime($date));
 			$dtype = $inputs['dtype'];
@@ -764,6 +858,12 @@ class HouseSearch extends OnlineSearch {
 			$this->availabilityCheck($vars['date'], $vars['dtype']);
 
 		}
+		if (array_key_exists('availability', $vars)) {
+			if ($vars['availability'] !== false) {
+				$this->lateAvailabilityCheck();
+			}
+		}
+
 	}
 
 	/**
@@ -845,6 +945,57 @@ class HouseSearch extends OnlineSearch {
 
 		$day_start = self::$specified_seasonal_dates[0];  // First day
 		$day_end = self::$specified_seasonal_dates[count(self::$specified_seasonal_dates) - 1]; // Last day
+
+		$meta = $this->getBlogAndPostWithBroadcasting();
+		$table_name = $meta['table_name'];
+		$lookup_id = $meta['post_id'];
+		$blog_id = $meta['blog_id'];
+
+		$days_booked = $this->getDaysBooked($blog_id, $lookup_id);
+		if ($days_booked === false) return;
+
+		foreach (self::$periodSeasonal as $c => $period) {
+			$name = $period['name'];
+			if(!isset($period['dates'])) {
+				continue;
+			}
+			foreach ($period['dates'] as $date_range) {
+				$day_start_range = $date_range[0];  // First day
+				if (!$this->isAvailableForPeriod($date_range, $days_booked)) continue;
+				$price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
+
+				if ($price_array != null) {
+					$price = $price_array[$name];
+					if (!isset($this->availableDates[$name])) {
+						$this->availableDates[$name] = array($price);
+					}
+					else {
+						array_push($this->availableDates[$name], $price);
+					}
+				}
+			}
+		}
+
+		if (empty($this->availableDates)) return $this->display = false;
+
+	 	$this->display = !empty($this->availableDates);
+	}
+
+	/**
+	 * Complete late availability check. #TODO ensure this works
+	 */
+	public function lateAvailabilityCheck() {
+		$display = $this->display;
+		if ($this->display === false) return;
+
+		if (!is_singular( 'availability' )){
+			$this->display = false;
+		}
+
+		//if (strtotime($day_start) < strtotime("now")) continue; // Maybe use somewhere else?
+
+		$day_start = self::$specified_availability_dates[0];  // First day
+		$day_end = self::$specified_availability_dates[count(self::$specified_availability_dates) - 1]; // Last day
 
 		$meta = $this->getBlogAndPostWithBroadcasting();
 		$table_name = $meta['table_name'];

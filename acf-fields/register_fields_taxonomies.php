@@ -102,11 +102,16 @@ register_field_group(array (
 				'value' => 'suppliers',
 				'order_no' => '0',
 			),
-			2 => 
-			array (
+			2 => array (
 				'param' => 'post_type',
 				'operator' => '==',
 				'value' => 'seasonal',
+				'order_no' => '0',
+			),
+			3 => array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'availability',
 				'order_no' => '0',
 			),
 		),
