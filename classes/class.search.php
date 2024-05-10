@@ -44,6 +44,12 @@ class OnlineSearch {
 	 * @var bool
 	 */
 	protected static $specified_availability_dates;
+	
+	/**
+	 * What features should be included.
+	 * @var array
+	 */
+	protected static $lateAvailabilityFeatures;
 
 	/**
 	 * Whether to only show one category.
@@ -133,7 +139,10 @@ class OnlineSearch {
 
 	}
 
-	public static function get_availability_for_these_periods( $rolling_period, $periods_to_include ) {
+	public static function get_availability_for_these_periods( $rolling_period, $periods_to_include, $avail_from_features = null ) {
+		if($avail_from_features) {
+			self::$lateAvailabilityFeatures = $avail_from_features;
+		}
 		self::$lateAvailability = true;
 		self::$additional_height = count($periods_to_include);
 		if (self::$additional_height > 4) self::$additional_height = 4;
@@ -570,9 +579,10 @@ class HouseSearch extends OnlineSearch {
 					booked_days
 				FROM availability
 				WHERE
-					STR_TO_DATE(month,'%m-%Y') >= STR_TO_DATE('".$day_start."','%Y-%m-%d') - INTERVAL 1 MONTH - INTERVAL 1 DAY AND -- MIN DATE (one day for pricing)
-					STR_TO_DATE(month,'%m-%Y') <= STR_TO_DATE('".$day_end."','%Y-%m-%d') -- MAX DATE
-			", OBJECT );
+					CONCAT(RIGHT(month, 4), '-', LEFT(month, 2), '-01') >= '".$day_start."' - INTERVAL 1 MONTH - INTERVAL 1 DAY
+					AND CONCAT(RIGHT(month, 4), '-', LEFT(month, 2), '-01') <= '".$day_end."'
+				",
+					OBJECT );
 
 			set_transient( 'setup_availability-'.$day_start.'-'.$day_end, self::$availability, HOUR_IN_SECONDS );
 		}
@@ -992,6 +1002,11 @@ class HouseSearch extends OnlineSearch {
 			$this->display = false;
 		}
 
+		if (!$this->includes_features( $this->ID, self::$lateAvailabilityFeatures )) {
+			$this->display = false;
+			return;
+		}
+
 		//if (strtotime($day_start) < strtotime("now")) continue; // Maybe use somewhere else?
 
 		$day_start = self::$specified_availability_dates[0];  // First day
@@ -1005,7 +1020,7 @@ class HouseSearch extends OnlineSearch {
 		$days_booked = $this->getDaysBooked($blog_id, $lookup_id);
 		if ($days_booked === false) return;
 
-		foreach (self::$periodSeasonal as $c => $period) {
+		foreach (self::$periodLateAvailability as $c => $period) {
 			$name = $period['name'];
 			if(!isset($period['dates'])) {
 				continue;
@@ -1030,6 +1045,25 @@ class HouseSearch extends OnlineSearch {
 		if (empty($this->availableDates)) return $this->display = false;
 
 	 	$this->display = !empty($this->availableDates);
+	}
+
+	/**
+	 * Check if house includes features set by the late availability period
+	 *
+	 * @param int $id
+	 * @param array $features
+	 * @return bool
+	 */
+	public function includes_features($id, $features) {
+		$bool = false;
+		$taxonomy = 'feature';
+		$terms = wp_get_post_terms($id, $taxonomy);
+		$term_ids = wp_list_pluck( $terms, 'term_id' );
+		$matches = array_intersect($features, $term_ids);
+		if($matches) {
+			$bool = true;
+		}
+		return $bool;
 	}
 
 
@@ -1663,7 +1697,7 @@ var_dump($active_day);
 	private function getPricesToShow($periods, $day_start) {
 
 		$dtype = $this->get_seasonal_date_range($periods);
-		if (self::$seasonal) {
+		if (self::$seasonal || self::$lateAvailability) {
 			//$dtype = $this->get_seasonal_date_range($periods);
 			self::$dates_to_check = self::getDateRange($day_start, $dtype);
 		}
@@ -1812,7 +1846,7 @@ var_dump($active_day);
 		$seas = self::$seasonal;
 		$availableDates = count($this->availableDates);
 
-		if(self::$seasonal && count($this->availableDates) == 0) {
+		if(self::$seasonal || self::$lateAvailability && count($this->availableDates) == 0) {
 			$this->display = false; return false;
 		}
 
@@ -1883,7 +1917,7 @@ var_dump($active_day);
 //}
 		if ($this->price != NULL && count($this->price) > 0) $this->displaySingularPrice();
 
-		elseif (self::$seasonal) $this->displaySeasonalPrices();
+		elseif ( self::$seasonal || self::$lateAvailability ) $this->displaySeasonalPrices();
 		elseif ($offer) {
 			//$more = (strlen($offer) >= 77 ? '...' : '');
 			//$offer = substr($offer,0,77) . $more;

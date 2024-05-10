@@ -128,8 +128,10 @@
 			$rolling_period = get_field('rolling_upcoming_period');
 			$periods_to_include = get_field('periods_to_include');
 			$show_associated_houses = get_field('show_associated_houses');
-			$avail_from_features = get_field('avail_from_features');
-			HouseSearch::get_availability_for_these_periods( $rolling_period, $periods_to_include );
+			if($show_associated_houses) {
+				$avail_from_features = get_field('avail_from_features');
+			}
+			HouseSearch::get_availability_for_these_periods( $rolling_period, $periods_to_include, $avail_from_features );
 		}
 
 		
