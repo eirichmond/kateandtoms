@@ -53,6 +53,11 @@ function kat_init_options(){
 	add_settings_field('kat_audience', 'Enable audience for suppliers?', 'setting_chk5_fn', __FILE__, 'fields_section');
 }
 
+function section_text_fn(  $arg ) {
+	// echo section intro text here
+}
+
+
 function setting_chk1_fn() {
 	$options = get_option('plugin_options');
 	if($options['activate_houses']) { $checked = ' checked="checked" '; }
