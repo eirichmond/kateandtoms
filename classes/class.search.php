@@ -1475,19 +1475,54 @@ var_dump($active_day);
 		return in_array($active_month, $winter_months);
 	}
 
+	/**
+	 * Db query rates
+	 *
+	 * @param [type] $blog_id
+	 * @param [type] $post_id
+	 * @param [type] $month
+	 * @return void
+	 */
+	public function findMatchingArrays( $blog_id, $post_id, $month ) { // Function to find arrays matching three values
+		global $wpdb;
+
+		$rates = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT *
+				FROM rates
+				WHERE blog_id = %s
+				AND post_id = %s
+				AND month = %s",
+				array( $blog_id, $post_id, $month )
+			)
+		);
+		
+		return $rates[0];
+	}
+
 	// NEW version
 	private function queryMetaPricesFromDate($blog_id, $lookup_id, $day_start) {
 
-		$output = self::getHouseRates($blog_id, $lookup_id);
+		if( self::$lateAvailability ) {
 
-		//var_dump($output);
+			$month = date('m-Y', strtotime( $day_start ));
+			$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
+			
+			$days_booked = unserialize($output->rates);
 
-		if (empty($output)) return false;
+		} else {
 
-		$sliced = array_slice($output, 0, 1);
-		$first_month = array_shift($sliced);
+			$output = self::getHouseRates($blog_id, $lookup_id);
+	
+			if (empty($output)) return false;
+	
+			$sliced = array_slice($output, 0, 1);
+			$first_month = array_shift($sliced);
+	
+			$days_booked = unserialize($first_month->rates);
 
-		$days_booked = unserialize($first_month->rates);
+		}
+
 		return $days_booked;
 	}
 
@@ -1728,33 +1763,10 @@ var_dump($active_day);
 
 			$prices = $this->check_if_to_show_price_and_reorder_array($prices);
 
-/*
-			var_dump($get_weeks_number);
-			var_dump($prices);
-*/
-
 			foreach ($get_weeks_number as $week_number) {
-				// if($week_number > 4) {
-				// 	--$week_number; //@TODO week number doesn't translate to the the array index so minus the index
-				// }
 				if( array_key_exists($week_number, $prices) ) {
 
 	                $cost = $prices[$week_number];
-
-	/*
-	                var_dump($this);
-	                var_dump($prices);
-	                var_dump($week_number);
-	*/
-
-				   //var_dump(self::change_week_based_on_date());
-
-	/*
-	                if(self::change_week_based_on_date()) {
-		                $week_number = --$week_number;
-		                $cost = $prices[$week_number];
-	                }
-	*/
 
 	                if(self::check_end_of_month_cockup()) {
 	                    $cost = $prices[5];
@@ -1775,22 +1787,6 @@ var_dump($active_day);
 				break;
 
 			}
-/*
-			foreach ($prices as $i => $price) {
-
-				if ($price != "0" && $price != "") {
-					$prices_to_show[$period_name] = $price;
-				}
-				if ($price == "-1" || $price == "-2") {
-				    unset($prices_to_show[$period_name]);
-                }
-			}
-*/
-
-
-//			if (array_key_exists($period_name, $prices_to_show)) {
-//				if ($prices_to_show[$period_name] == "-1") return false;
-//			}
 		}
 
 
