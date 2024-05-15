@@ -1001,7 +1001,7 @@ class HouseSearch extends OnlineSearch {
 		if (!is_singular( 'availability' )){
 			$this->display = false;
 		}
-
+		// check what features are included.
 		if (!$this->includes_features( $this->ID, self::$lateAvailabilityFeatures )) {
 			$this->display = false;
 			return;
