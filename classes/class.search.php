@@ -476,9 +476,9 @@ class HouseSearch extends OnlineSearch {
 					booked_days
 				FROM availability
 				WHERE
-					CONCAT(RIGHT(month, 4), '-', LEFT(month, 2), '-01') >= '".$day_start."' - INTERVAL 1 MONTH - INTERVAL 1 DAY
-					AND CONCAT(RIGHT(month, 4), '-', LEFT(month, 2), '-01') <= '".$day_end."';
-				", OBJECT );
+					STR_TO_DATE(month,'%m-%Y') >= STR_TO_DATE('".$day_start."','%Y-%m-%d') - INTERVAL 1 MONTH - INTERVAL 1 DAY AND -- MIN DATE (one day for pricing)
+					STR_TO_DATE(month,'%m-%Y') <= STR_TO_DATE('".$day_end."','%Y-%m-%d') -- MAX DATE
+			", OBJECT );
 
 			set_transient( 'setup_availability-'.$day_start.'-'.$day_end, self::$availability, HOUR_IN_SECONDS );
 		}
