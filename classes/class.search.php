@@ -556,16 +556,9 @@ class HouseSearch extends OnlineSearch {
 
 	public static function availabilitySetup($day_start, $day_end) {
 
-		//var_dump($this);
-
 		global $wpdb;
 		$month = substr($day_start, 5,2).'-'.substr($day_start, 0,4);
 
-		// $cockup = self::check_end_of_month_cockup();
-
-        // if($cockup && $_GET['date'] == '28-08-2020') {
-        //     $month = '08-2020';
-        // }
 
 		// Get any existing copy of our transient data
 		if ( false === ( self::$availability = get_transient( 'setup_availability-'.$day_start.'-'.$day_end ) ) ) {
@@ -588,10 +581,7 @@ class HouseSearch extends OnlineSearch {
 		}
 		// Use the data like you would have normally...
 
-// @TODO 
-
-		// Get any existing copy of our transient data
-		if ( false === ( self::$rates = get_transient( 'setup_availability_rates-'.$month ) ) ) {
+		if ( false === ( self::$rates = get_transient( 'setup_availability_rates-'.$month ) ) ) { // Get any existing copy of our transient data
 			// It wasn't there, so regenerate the data and save the transient
 			self::$rates = $wpdb->get_results("
 				SELECT
@@ -605,10 +595,48 @@ class HouseSearch extends OnlineSearch {
 			", OBJECT );
 			set_transient( 'setup_availability_rates-'.$month, self::$rates, HOUR_IN_SECONDS );
 		}
-		// Use the data like you would have normally...
+		// prep trasients for late availability offers
+		if( self::$lateAvailability ) {
+			$months = self::generateMonthArray($day_start, $day_end);
+			// Convert months array to SQL-friendly format
+			$sqlMonths = "'" . implode("','", $months) . "'";
+
+			self::$rates = $wpdb->get_results("
+				SELECT blog_id, post_id, month, rates
+				FROM rates
+				WHERE month IN ($sqlMonths)
+			", OBJECT );
+
+		}
+				// Use the data like you would have normally...
+
 		
 
 	}
+
+	/**
+	 * setup array of months between start and end date
+	 *
+	 * @param [type] $startDate
+	 * @param [type] $endDate
+	 * @return void
+	 */
+	public static function generateMonthArray($startDate, $endDate) { // Function to generate an array of months between two dates
+		$start = new DateTime($startDate);
+		$end = new DateTime($endDate);
+	
+		$months = array();
+	    // Include the start month
+		$months[] = $start->format('m-Y');
+		// Iterate through each month and add it to the array
+		while ($start < $end) {
+			$start->modify('+1 month');
+			$months[] = $start->format('m-Y');
+		}
+	
+		return $months;
+	}
+	
 
 	public static function getHouseAvailability($blog_id, $post_id) {
         return self::getFilteredArrayWithObjects(self::$availability, $blog_id, $post_id);
@@ -1028,9 +1056,16 @@ class HouseSearch extends OnlineSearch {
 			foreach ($period['dates'] as $date_range) {
 				$day_start_range = $date_range[0];  // First day
 				if (!$this->isAvailableForPeriod($date_range, $days_booked)) continue;
-				$price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
 
-				if ($price_array != null) {
+				$month = date('m-Y', strtotime( $day_start_range ));
+				$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
+				$output = unserialize( $output[0]->rates );
+				$wn = $this->weekOfMonth( $day_start_range );
+		
+				// $price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
+				$price_array = array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
+
+				if ( $price_array != null && !empty($price_array[$name]) ) {
 					$price = $price_array[$name];
 					if (!isset($this->availableDates[$name])) {
 						$this->availableDates[$name] = array($price);
@@ -1040,9 +1075,14 @@ class HouseSearch extends OnlineSearch {
 					}
 				}
 			}
+
 		}
 
 		if (empty($this->availableDates)) return $this->display = false;
+
+		foreach( $this->availableDates as $name => $array ) {
+			array_filter( $this->availableDates[$name] );
+		}
 
 	 	$this->display = !empty($this->availableDates);
 	}
@@ -1484,6 +1524,14 @@ var_dump($active_day);
 	 * @return void
 	 */
 	public function findMatchingArrays( $blog_id, $post_id, $month ) { // Function to find arrays matching three values
+		$matchingObjects = array();
+		foreach ($this::$rates as $k => $obj) {
+			if ($obj->blog_id === $blog_id && $obj->post_id === $post_id && $obj->month === $month) {
+				$matchingObjects[] = $obj;
+			}
+		}
+		return $matchingObjects;
+
 		global $wpdb;
 
 		$rates = $wpdb->get_results(
@@ -1503,14 +1551,14 @@ var_dump($active_day);
 	// NEW version
 	private function queryMetaPricesFromDate($blog_id, $lookup_id, $day_start) {
 
-		if( self::$lateAvailability ) {
+		// if( self::$lateAvailability ) {
 
-			$month = date('m-Y', strtotime( $day_start ));
-			$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
+		// 	$month = date('m-Y', strtotime( $day_start ));
+		// 	$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
 			
-			$days_booked = unserialize($output->rates);
+		// 	$days_booked = unserialize($output->rates);
 
-		} else {
+		// } else {
 
 			$output = self::getHouseRates($blog_id, $lookup_id);
 	
@@ -1521,7 +1569,7 @@ var_dump($active_day);
 	
 			$days_booked = unserialize($first_month->rates);
 
-		}
+		//}
 
 		return $days_booked;
 	}

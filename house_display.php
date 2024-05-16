@@ -29,7 +29,7 @@
 		foreach (HouseSearch::$houses as $house) {
 
 
-			//if($house->post_id == 16914) {
+			// if($house->post_id == 16914) {
 
 				if ($house->locations !== false && $house->locations !== "0.000000") {
 					$locations = unserialize($house->locations);
@@ -72,7 +72,7 @@
 					}
 				}
 
-			//}
+			// }
 
 		}
 		HouseSearch::displayAdverts($section, $n);
