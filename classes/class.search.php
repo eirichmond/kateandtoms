@@ -166,22 +166,18 @@ class OnlineSearch {
 
 		foreach($periods_to_include as $period_to_include) {
 
-			if (stristr($period_to_include, 'weekend') || $period_to_include == '5 nights') {
-				$start_day_num = 5;
-				$count_of_days = 2;
-			}
-			elseif ($period_to_include == 'WeekFridays') {
-				$period_to_include = 'Week';
-				$start_day_num = 5;
+			if ($period_to_include == 'Week') {
+				$start_day_num = 6;
 				$count_of_days = 5;
-			}
-			elseif ($period_to_include == 'Week') {
-				$start_day_num = 2;
-				$count_of_days = 5;
-			}
-			else {
-				$start_day_num = 2;
-				$count_of_days = 2;
+			} elseif ($period_to_include == '2 night weekend' ) {
+				$start_day_num = 6;
+				$count_of_days = 0;
+			} elseif ($period_to_include == '3 night weekend' ) {
+				$start_day_num = 6;
+				$count_of_days = 1;
+			} elseif ( $period_to_include == 'Midweek' ) {
+				$start_day_num = 1;
+				$count_of_days = 3;
 			}
 
 			$periodLateAvailability[$period_to_include]['name'] = $period_to_include;
@@ -1048,22 +1044,26 @@ class HouseSearch extends OnlineSearch {
 		$days_booked = $this->getDaysBooked($blog_id, $lookup_id);
 		if ($days_booked === false) return;
 
+
+
 		foreach (self::$periodLateAvailability as $c => $period) {
 			$name = $period['name'];
 			if(!isset($period['dates'])) {
 				continue;
 			}
 			foreach ($period['dates'] as $date_range) {
+
 				$day_start_range = $date_range[0];  // First day
 				if (!$this->isAvailableForPeriod($date_range, $days_booked)) continue;
 
 				$month = date('m-Y', strtotime( $day_start_range ));
 				$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
 				$output = unserialize( $output[0]->rates );
-				$wn = $this->weekOfMonth( $day_start_range );
+				$wn = $this->getWeekNumberOfMonth( $day_start_range );
+				// --$wn;
 		
 				// $price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
-				$price_array = array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
+				$price_array = $output[$name][$wn] === '-1' || $output[$name][$wn] === '-2' ? '' : array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
 
 				if ( $price_array != null && !empty($price_array[$name]) ) {
 					$price = $price_array[$name];
@@ -1085,6 +1085,36 @@ class HouseSearch extends OnlineSearch {
 		}
 
 	 	$this->display = !empty($this->availableDates);
+	}
+
+	/**
+	 * Get weeknumber of a date starting from a friday
+	 *
+	 * @param [type] $date
+	 * @return void
+	 */
+	public function getWeekNumberOfMonth($date) {
+		// Convert the given date to a timestamp
+		$timestamp = strtotime($date);
+	
+		// Extract the year and month from the date
+		$year = date('Y', $timestamp);
+		$month = date('m', $timestamp);
+	
+		// Find the first Friday of the month
+		$firstFriday = strtotime("first Friday of $year-$month");
+	
+		// Calculate the difference in days between the given date and the first Friday
+		$dayDifference = ($timestamp - $firstFriday) / (60 * 60 * 24);
+	
+		// Calculate the week number
+		if ($dayDifference < 0) {
+			// If the given date is before the first Friday, return 0
+			return 0;
+		} else {
+			// Otherwise, calculate the week number (adding 1 because the first Friday starts week 1)
+			return floor($dayDifference / 7) + 1;
+		}
 	}
 
 	/**
