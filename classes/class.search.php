@@ -1920,6 +1920,7 @@ var_dump($active_day);
 		$seas = self::$seasonal;
 		$availableDates = count($this->availableDates);
 
+
 		if(self::$seasonal && count($this->availableDates) == 0 || self::$lateAvailability && count($this->availableDates) == 0) {
 			$this->display = false; return false;
 		}
