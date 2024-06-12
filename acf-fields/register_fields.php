@@ -17,6 +17,7 @@ if (function_exists("register_field_group")) {
 	include_once('register_fields_houses.php');
 	include_once('register_fields_options.php');
 	include_once('register_fields_seasonal.php');
+	include_once('register_fields_availability.php');
 	include_once('register_fields_special_offers.php');
 	include_once('register_fields_suppliers.php');
 	include_once('register_fields_taxonomies.php');
@@ -623,6 +624,13 @@ acf_add_local_field_group(array (
 				'param' => 'post_type',
 				'operator' => '==',
 				'value' => 'seasonal',
+			),
+		),
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'availability',
 			),
 		),
 	),

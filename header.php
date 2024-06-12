@@ -15,7 +15,7 @@
 ?><!DOCTYPE html>
 <html <?php	language_attributes();  ?>>
 <head>
-<!-- Design and development by Oliver Newth, www.olivernewth.com. Site ID = <?php echo get_current_blog_id(); ?> -->
+
 <meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 <meta name="p:domain_verify" content="e48da99e4d15bfacf41bf71c04f0ac90"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -39,7 +39,7 @@
 
 <body id="fe" <?php $id = 'site'.get_current_blog_id();  body_class($id); ?>>
 
-<div id="st-container" class="st-container">
+<div id="st-container" class="st-container cloudabove">
 <!-- content push wrapper -->
 <div class="st-pusher">
 
