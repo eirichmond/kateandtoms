@@ -374,10 +374,10 @@ function get_this_rate_ammount($property_rate) {
 						$rates[$i]['rate_'.$n] = number_format($amount, 0, '', ',') . ' ' . $astrix;
 					} elseif (strstr($amount,'+')) {
 						$amount = str_replace('+','',$amount);
-						$rates[$i]['rate_'.$n] = '+' . number_format($amount, 0, '', ',');
+						$rates[$i]['rate_'.$n] = '+' . number_format(floatval($amount), 0, '', ','); 
 					}
 				} else {
-					$rates[$i]['rate_'.$n] = number_format($amount, 0, '', ',');
+					$rates[$i]['rate_'.$n] = number_format(floatval( $amount ), 0, '', ',');
 				}
 
 
