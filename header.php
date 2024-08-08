@@ -39,7 +39,7 @@
 
 <body id="fe" <?php $id = 'site'.get_current_blog_id();  body_class($id); ?>>
 
-<div id="st-container" class="st-container cloudabove">
+<div id="st-container" class="st-container">
 <!-- content push wrapper -->
 <div class="st-pusher">
 
@@ -57,6 +57,8 @@
 
 
 <div id="header" class="affix">
+
+
 <?php if( extension_loaded('newrelic') ) { echo newrelic_get_browser_timing_header(); } ?>
 	<div class="ktmain_nav_cont">
 		<div class="container">
@@ -118,7 +120,7 @@
 					}
 
 					if ($id == 'site11') {
-						wp_nav_menu( 
+						wp_nav_menu(
 							array(
 								'theme_location' => 'top_menu',
 								'container_class' => 'menu-top-menu-container floatright nav-menu',
@@ -141,13 +143,13 @@
 	</div>
 	<div class="moblogo dhide">
 		<a href="/" title="<?php bloginfo('name'); ?>" rel="home" >
-		
+
 			<?php if($id != 'site11') { ?>
 				<img src="/wp-content/themes/clubsandwich/images/site-logo-<?php echo get_current_blog_id(); ?>.png" class="brand_logo" alt="<?php bloginfo('name'); ?>" />
 			<?php } else { ?>
 				<img src="https://kateandtoms.com/wp-content/uploads/2013/03/extraordinary-holidays.png" class="brand_logo" alt="<?php bloginfo('name'); ?>" />
 			<?php } ?>
-		
+
 		</a>
 	</div>
 	<div class="ktsub_nav_cont">
@@ -173,7 +175,7 @@
 					?>
 
 					<?php
-					wp_nav_menu( 
+					wp_nav_menu(
 						array(
 							'theme_location' => 'sub_menu',
 							'container_class' => 'menu-top-menu-container',
@@ -186,7 +188,7 @@
 					?>
 
 					<?php
-					wp_nav_menu( 
+					wp_nav_menu(
 						array(
 							'theme_location' => 'mobile_menu',
 							'container' => false,
@@ -199,7 +201,7 @@
 							<input placeholder="Search..." class="msearch" type="text">
 							</div>
 						</div>%3$s
-						
+
 						<li id="st-trigger-effects"><a href="#" data-effect="st-effect-3" data-toggle="modal">GET IN TOUCH</a></li>
 						</ul>',
 							'walker' => new KTS_Walker_Mobile_Nav_Menu()
@@ -213,4 +215,7 @@
 	</div>
 </div>
 <div class="openpad">
+
+
+<!-- <iframe width="100%" height="100%" src="https://my.matterport.com/show/?m=7DzAJrn9axy" frameborder="0" allowfullscreen allow="xr-spatial-tracking"></iframe> -->
 
