@@ -123,6 +123,18 @@
 			HouseSearch::seasonalSetup($beginning,$ending,$periodsToInclude);
 		}
 		
+		if (get_post_type() == 'availability') {
+			$inputs['availability'] = true;
+			$rolling_period = get_field('rolling_upcoming_period');
+			$periods_to_include = get_field('periods_to_include');
+			$show_associated_houses = get_field('show_associated_houses');
+			if($show_associated_houses) {
+				$avail_from_features = get_field('avail_from_features');
+			}
+			HouseSearch::get_availability_for_these_periods( $rolling_period, $periods_to_include, $avail_from_features );
+		}
+
+		
 		// Set to show all
 		if (array_key_exists('s', $inputs)) {
 			if ($inputs['s'] == '') {
@@ -276,6 +288,14 @@
 		}
 		return false;
 	}
+	
+	function isAvailabilityPage($inputs) {
+		if (isset($inputs['availability'])) {
+			if ($inputs['availability']) return true;
+		}
+		return false;
+	}
+
 
 
 	function getSearchDetailTitle($inputs, $area, $is_taxonomy) {
@@ -322,6 +342,7 @@
 	}
 	
 	function makeTaxonomyImage($image_id) {
+		$image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ? get_post_meta($image_id, '_wp_attachment_image_alt', true) : 'kate and tom\'s taxonomy';
 		$align = get_img_description($image_id);
 		$align = (!empty($align) ? $align : 'absoluteCenter');
 
@@ -329,7 +350,7 @@
 		$image = $image[0];
 		
 		echo '<div style="height:400px;"><div class="" style="height: 400px; overflow:hidden; ">';
-	    echo '<div class="cropped"><img src="'.$image.'" class="'.$align.' wp-post-image" /></div>';
+	    echo '<div class="cropped"><img src="'.$image.'" class="'.$align.' wp-post-image" alt="'.$image_alt.'" /></div>';
 	    echo '</div></div>';
 	}
 	
@@ -363,7 +384,7 @@
 	
 	if (isTaxonomyPage($inputs)) {
 		makeTaxonomyHeader($inputs);
-	} elseif (isSeasonalPage($inputs)) {
+	} elseif ( isSeasonalPage($inputs) || isAvailabilityPage($inputs) ) {
 		if (!has_post_thumbnail()) { echo '<div class="headspace"></div>'; }
 		else echo '<div class="h-responsive overflow-hidden flex justify-content-center align-items-center">'; the_post_thumbnail('huge', array('class' => 'attachment-post-thumbnail')); echo '</div>';
 	

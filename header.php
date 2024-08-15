@@ -15,7 +15,7 @@
 ?><!DOCTYPE html>
 <html <?php	language_attributes();  ?>>
 <head>
-<!-- Design and development by Oliver Newth, www.olivernewth.com. Site ID = <?php echo get_current_blog_id(); ?> -->
+
 <meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 <meta name="p:domain_verify" content="e48da99e4d15bfacf41bf71c04f0ac90"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -25,17 +25,14 @@
 ?></title>
 
 
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/<?php echo get_option('options_site_style'); ?>?r=1" media="screen" />
-<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile.css" media="screen" />
+<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/<?php echo get_option('options_site_style'); ?>?r=1" media="screen" />
+<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile.css" media="screen" />
 <link href='https://fonts.googleapis.com/css?family=News+Cycle:400,700|Oswald:400,300' rel='preload' type='text/css' as='style'>
 <link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/images/favicon.ico" />
 <!--[if IE 7]><link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/style-ie7.css?r=1" type="text/css" /><![endif]-->
 <!--[if IE 8]><link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/style-ie8.css?r=1" type="text/css" /><![endif]-->
 
 <?php wp_head(); ?>
-
-<script type="text/javascript" src="https://www.bugherd.com/sidebarv2.js?apikey=rqbdu1czooecjp8croiurq" async="true"></script>
-
 
 </head>
 
@@ -60,6 +57,8 @@
 
 
 <div id="header" class="affix">
+
+
 <?php if( extension_loaded('newrelic') ) { echo newrelic_get_browser_timing_header(); } ?>
 	<div class="ktmain_nav_cont">
 		<div class="container">
@@ -121,7 +120,7 @@
 					}
 
 					if ($id == 'site11') {
-						wp_nav_menu( 
+						wp_nav_menu(
 							array(
 								'theme_location' => 'top_menu',
 								'container_class' => 'menu-top-menu-container floatright nav-menu',
@@ -144,13 +143,13 @@
 	</div>
 	<div class="moblogo dhide">
 		<a href="/" title="<?php bloginfo('name'); ?>" rel="home" >
-		
+
 			<?php if($id != 'site11') { ?>
 				<img src="/wp-content/themes/clubsandwich/images/site-logo-<?php echo get_current_blog_id(); ?>.png" class="brand_logo" alt="<?php bloginfo('name'); ?>" />
 			<?php } else { ?>
 				<img src="https://kateandtoms.com/wp-content/uploads/2013/03/extraordinary-holidays.png" class="brand_logo" alt="<?php bloginfo('name'); ?>" />
 			<?php } ?>
-		
+
 		</a>
 	</div>
 	<div class="ktsub_nav_cont">
@@ -176,7 +175,7 @@
 					?>
 
 					<?php
-					wp_nav_menu( 
+					wp_nav_menu(
 						array(
 							'theme_location' => 'sub_menu',
 							'container_class' => 'menu-top-menu-container',
@@ -189,7 +188,7 @@
 					?>
 
 					<?php
-					wp_nav_menu( 
+					wp_nav_menu(
 						array(
 							'theme_location' => 'mobile_menu',
 							'container' => false,
@@ -202,7 +201,7 @@
 							<input placeholder="Search..." class="msearch" type="text">
 							</div>
 						</div>%3$s
-						
+
 						<li id="st-trigger-effects"><a href="#" data-effect="st-effect-3" data-toggle="modal">GET IN TOUCH</a></li>
 						</ul>',
 							'walker' => new KTS_Walker_Mobile_Nav_Menu()
@@ -216,4 +215,7 @@
 	</div>
 </div>
 <div class="openpad">
+
+
+<!-- <iframe width="100%" height="100%" src="https://my.matterport.com/show/?m=7DzAJrn9axy" frameborder="0" allowfullscreen allow="xr-spatial-tracking"></iframe> -->
 

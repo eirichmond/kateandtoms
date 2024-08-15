@@ -87,32 +87,22 @@ function create_robotstxt($output, $public) {
 		$output .= "User-agent: *\n";
 		$output .= "Disallow: /?\n";
 		$output .= "Disallow: /terms-and-conditions\n";
-		$output .= "Disallow: *availability\n";
-		$output .= "Disallow: *book\n";
-		$output .= "Disallow: *gallery\n";
-		$output .= "Disallow: *booknow\n";
+		// $output .= "Disallow: /houses/*/availability\n"; // removed due to crawlability
+		$output .= "Disallow: /book/d=\n";
+		$output .= "Disallow: /houses/*/gallery/\n";
+		$output .= "Disallow: /houses/*/booknow/\n";
 		$output .= "Disallow: /search\n";
 		$output .= "Disallow: /process-contact-forms\n";
 		$output .= "Disallow: /syncipro\n";
 		$output .= "Disallow: /wp-admin\n";
 		$output .= "Disallow: /?s=\n";
-		$output .= "User-agent: Sosospider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: Baiduspider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: AhrefsBot\n";
-		$output .= "Disallow: /\n";
+		$output .= "Allow: /availability\n";
+
 	}
 	if ($id == 24) {
 		$output = "";
 		$output .= "User-agent: *\n";
 		$output .= "Disallow: \n";
-		$output .= "User-agent: Sosospider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: Baiduspider\n";
-		$output .= "Disallow: /\n";
-		$output .= "User-agent: AhrefsBot\n";
-		$output .= "Disallow: /\n";
 	}
 	if($id == 1){
 		$output .= "Sitemap: https://bigcottage.com/sitemap_index.xml";
@@ -127,7 +117,8 @@ function create_robotstxt($output, $public) {
 		$output .= "Sitemap: https://partners.kateandtoms.com/sitemap_index.xml";
 	}
 	if($id == 11){
-		$output .= "Sitemap: https://kateandtoms.com/sitemap_index.xml";
+		$output .= "Sitemap: https://kateandtoms.com/sitemap_index.xml\n";
+		$output .= "Sitemap: https://kateandtoms.com/availability-sitemap.xml";
 	}
 	if($id == 12){
 		$output .= "Sitemap: https://weddings.kateandtoms.com/sitemap_index.xml";
@@ -141,6 +132,46 @@ function create_robotstxt($output, $public) {
 	return $output;
 }
 add_filter('robots_txt', 'create_robotstxt', 10, 2);
+
+/**
+ * Add noindex, nofollow for search strings that contain a date parameter.
+ */
+function kateandtoms_premium_no_index( $string = '' ) {
+    $url = $_SERVER["REQUEST_URI"];
+	$search_string = '/book/d=';
+	// Use strpos to check if the substring exists
+	if (strpos($url, $search_string) !== false) {
+		// Substring exists, do something
+		$string = 'noindex, nofollow';
+	}
+
+    return $string;
+}
+
+add_filter( 'wpseo_robots', 'kateandtoms_premium_no_index', 999 );
+
+/**
+ * Fix Yoast SEO robots.txt changes.
+ * https://wordpress.org/support/topic/disable-robots-txt-changing-by-yoast-seo/#post-16648736
+ */
+function kateandtoms_fix_yoast_seo_robots_txt() {
+
+	global $wp_filter;
+
+	if ( isset( $wp_filter['robots_txt']->callbacks ) && is_array( $wp_filter['robots_txt']->callbacks ) ) {
+
+		foreach ( $wp_filter['robots_txt']->callbacks as $callback_priority => $callback ) {
+			foreach ( $callback as $function_key => $function ) {
+
+				if ( 'filter_robots' === $function['function'][1] ) {
+					unset( $wp_filter['robots_txt']->callbacks[ $callback_priority ][ $function_key ] );
+				}
+			}
+		}
+	}
+}
+
+add_action( 'wp_loaded', 'kateandtoms_fix_yoast_seo_robots_txt' );
 
 //require_once('Custom-Meta-Boxes/custom-meta-boxes.php');
 
@@ -267,11 +298,11 @@ function misha_sources( $sources, $size_array, $image_src, $image_meta, $attachm
 	 */
 	$image_size_name = 'thumbnail'; // add_image_size('square500', 500, 500, true);
 	$breakpoint = 279;
- 
+
 	$upload_dir = wp_upload_dir();
- 
+
 	$img_url = $upload_dir['baseurl'] . '/' . str_replace( basename( $image_meta['file'] ), $image_meta['sizes'][$image_size_name]['file'], $image_meta['file'] );
- 
+
 	$sources[ $breakpoint ] = array(
 		'url'        => $img_url,
 		'descriptor' => 'w',
@@ -279,7 +310,7 @@ function misha_sources( $sources, $size_array, $image_src, $image_meta, $attachm
 	);
 	return $sources;
 }
- 
+
 add_filter('wp_calculate_image_srcset','misha_sources',10,5);
 
 add_action('cleanup_revisions', 'cleanup_revisions_callback');
@@ -289,10 +320,10 @@ function cleanup_revisions_callback() {
 	);
 	foreach ($blog_ids as $blog_id) {
 		switch_to_blog( $blog_id );
-		
+
 		$blogid = get_current_blog_id();
 		error_log('Current site ID: ' . $blogid);
-	
+
 		error_log('Clean up started: ' . date('Y-m-d h:i:s'));
 		$args = array(
 			'post_type' => 'any',
@@ -311,7 +342,7 @@ function cleanup_revisions_callback() {
 			);
 			$revisions = get_posts($args);
 			error_log(count($revisions) . ' revisions found for ' . $post->ID);
-	
+
 			$i = 1;
 			foreach ($revisions as $revision) {
 				if($i <= 10) {
@@ -322,7 +353,7 @@ function cleanup_revisions_callback() {
 					wp_delete_post( $revision->ID, true );
 					$i++;
 				}
-				
+
 			}
 			$n++;
 			error_log('completed '.$n);
@@ -331,8 +362,16 @@ function cleanup_revisions_callback() {
 	}
 }
 
+function custom_calculate_image_sizes($sizes, $size, $image_src) {
+    // Modify the sizes attribute based on your requirements
+    $custom_sizes = '(max-width: 300px) 300px';
+    // Return the modified sizes attribute
+    return $custom_sizes;
+}
+add_filter('wp_calculate_image_sizes', 'custom_calculate_image_sizes', 10, 3);
+
 function swap_image_source_to_production($attr, $attachment, $size) {
-	// make filter magic happen here... 
+	// make filter magic happen here...
 	$testurl = 'kateandtoms.test';
 	$stagedurl = 'staging.kateandtoms.com';
 	$attr["src"] = str_replace($testurl, 'kateandtoms.com', $attr["src"]);
@@ -344,18 +383,18 @@ function swap_image_source_to_production($attr, $attachment, $size) {
 }
 add_filter('wp_get_attachment_image_attributes', 'swap_image_source_to_production', 10, 3);
 
-// define the do_shortcode_tag callback 
-function filter_do_shortcode_tag( $output, $tag, $attr, $m ) { 
-	// make filter magic happen here... 
+// define the do_shortcode_tag callback
+function filter_do_shortcode_tag( $output, $tag, $attr, $m ) {
+	// make filter magic happen here...
 	$testurl = 'kateandtoms.test';
 	$stagedurl = 'staging.kateandtoms.com';
 	$output = str_replace($testurl, 'kateandtoms.com', $output);
 	$output = str_replace($stagedurl, 'kateandtoms.com', $output);
-	return $output; 
-}; 
-			
-// add the filter 
-add_filter( 'do_shortcode_tag', 'filter_do_shortcode_tag', 10, 4 ); 
+	return $output;
+};
+
+// add the filter
+add_filter( 'do_shortcode_tag', 'filter_do_shortcode_tag', 10, 4 );
 
 function tweakjp_rm_comments_att( $open, $post_id ) {
     $post = get_post( $post_id );
@@ -366,4 +405,65 @@ function tweakjp_rm_comments_att( $open, $post_id ) {
 }
 add_filter( 'comments_open', 'tweakjp_rm_comments_att', 10 , 2 );
 
+
+add_action('admin_init', function () {
+    // Redirect any user trying to access comments page
+    global $pagenow;
+
+    if ($pagenow === 'edit-comments.php') {
+        wp_safe_redirect(admin_url());
+        exit;
+    }
+
+    // Remove comments metabox from dashboard
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+
+    // Disable support for comments and trackbacks in post types
+    foreach (get_post_types() as $post_type) {
+        if (post_type_supports($post_type, 'comments')) {
+            remove_post_type_support($post_type, 'comments');
+            remove_post_type_support($post_type, 'trackbacks');
+        }
+    }
+});
+
+// Close comments on the front-end
+add_filter('comments_open', '__return_false', 20, 2);
+add_filter('pings_open', '__return_false', 20, 2);
+
+// Hide existing comments
+add_filter('comments_array', '__return_empty_array', 10, 2);
+
+// Remove comments page in menu
+add_action('admin_menu', function () {
+    remove_menu_page('edit-comments.php');
+});
+
+// Remove comments links from admin bar
+add_action('init', function () {
+    if (is_admin_bar_showing()) {
+        remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+    }
+});
+
+add_action('custom_save_houses', 'custom_save_houses_callback');
+function  custom_save_houses_callback(){
+	switch_to_blog( 1 );
+	// Retrieve all posts of custom post type 'houses'
+	$houses = get_posts(array(
+		'post_type' => 'houses',
+		'posts_per_page' => -1, // Get all posts
+	));
+
+	// Loop through each house post
+	foreach ($houses as $house) {
+		// Update and resave the post
+		wp_update_post(array(
+			'ID' => $house->ID,
+		));
+
+		// Optionally, you can output the post ID for each post processed
+		error_log( 'Post updated: ' . $house->ID );
+	}
+}
 ?>

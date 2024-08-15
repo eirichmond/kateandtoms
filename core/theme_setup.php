@@ -1,6 +1,5 @@
 <?php
 
-//define( 'CMB_PATH', get_template_directory() );
 
 // disable xmlrpc to reduce cpu outage 24 Nov 2015
 add_filter('xmlrpc_enabled', '__return_false');
@@ -19,11 +18,13 @@ remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'wp_head', 'remote_login_js_loader' );
 add_action( 'wp_loaded', 'overwrite_cf7_dynamic_shortcode' );
 
+
+
+
 /**
  * Add google tag manager code to head
  */
 
- 
 /**
  * setup GMT tag container ids
  *
@@ -39,6 +40,21 @@ function google_tag_manager_ids() {
 		'16' => 'GTM-MQFQTD8' // events
 	);
 	return $tag_manager;
+}
+
+/**
+ * ticktock
+ */
+add_action('wp_head', 'kts_ticktock_script');
+function kts_ticktock_script() {
+	echo '<script>
+	!function (w, d, t) {
+	  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+	  ttq.load("COL543JC77U8K5AP3PPG");
+	  ttq.page();
+	}(window, document, "ttq");
+	</script>';
 }
 
 /**
@@ -58,6 +74,7 @@ function kts_global_header_google_tag_manager() {
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','".$tag_manager[$blog_id]."');</script>
 	<!-- End Google Tag Manager -->";
+	$gtm_code .= '<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1068089463"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "AW-1068089463"); </script>';
 	if ( !is_admin() && $gtm_code ) {
 		echo $gtm_code;
 	}
@@ -78,8 +95,8 @@ function kts_global_header_font_awesome_kit() {
  * Add tacking to footer
  */
 add_action( 'wp_footer', 'kts_global_footer_tag_manager' );
-function kts_global_footer_tag_manager() { 
-	$blog_id = get_current_blog_id(); 
+function kts_global_footer_tag_manager() {
+	$blog_id = get_current_blog_id();
 	$tag_manager = google_tag_manager_ids();
 	if(!isset($tag_manager[$blog_id])) {
 		return;
@@ -168,7 +185,7 @@ function kts_link_attrs($atts, $item, $args, $depth) {
 		} else {
 			$args->after = '';
 		}
-		
+
 	}
 	if($args->theme_location ==  'mobile_menu' && $depth >= 1) {
 		$atts['class'] = 'subsubmenutoggler';
@@ -178,7 +195,7 @@ function kts_link_attrs($atts, $item, $args, $depth) {
 			$args->after = '';
 		}
 	}
-	
+
 
 	return $atts;
 }
@@ -194,8 +211,8 @@ add_filter('nav_menu_link_attributes', 'kts_link_attrs', 10, 4);
 // 		} else {
 // 			$args->after = '';
 // 		}
-	
-	
+
+
 // 		$classes[] = 'secondary-nav submenu';
 // 	}
 // 	return $classes;
@@ -328,7 +345,7 @@ function get_search_items_refactor() {
 		for ($n = 0; $n < 4; $n++) {
 			$location_photo = get_post_meta($ID, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_image', true);
 			$search_items[$x]['category'] = 'Locations';
-			
+
 			$search_items[$x]['url'] = str_replace('.test', '.com', get_post_meta($ID, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_set_custom', true));
 			$search_items[$x]['thumb'] = str_replace('.test', '.com', wp_get_attachment_image_url( $location_photo, 'thumbnail' ));
 			$search_items[$x]['label'] = get_post_meta($ID, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_title_text', true);
@@ -341,13 +358,13 @@ function get_search_items_refactor() {
 	$feature_id = 48958;
 	$key = 0;
 	$rowCount = get_post_meta($feature_id, 'widgets_'.$key.'_imageset', true);
-	
+
 	//$x = $i;
 	for ($i = 0; $i < $rowCount; $i++) {
-		for ($n = 0; $n < 4; $n++) { 
+		for ($n = 0; $n < 4; $n++) {
 			$feature_photo = get_post_meta($feature_id, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_image', true);
 			$search_items[$x]['category'] = 'Features';
-			
+
 			$search_items[$x]['url'] = str_replace('.test', '.com', get_post_meta($feature_id, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_set_custom', true));
 			$search_items[$x]['thumb'] = str_replace('.test', '.com', wp_get_attachment_image_url( $feature_photo, 'thumbnail' ));
 			$search_items[$x]['label'] = get_post_meta($feature_id, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_title_text', true);
@@ -367,7 +384,7 @@ function geebee_scripts() {
 
 	if(!is_page( 'syncipro' ) && !is_page( 'syncipro-update-rates' )) {
 
-		wp_enqueue_style('kandt-main-styles', get_template_directory_uri() .'/style.min.css', array(), '1.6', 'all');	
+		wp_enqueue_style('kandt-main-styles', get_template_directory_uri() .'/style.min.css', array(), '1.6', 'all');
 
 		wp_enqueue_style( 'kandt-font-awesome', get_template_directory_uri() .'/css/font-awesome.min.css' );
 
@@ -390,7 +407,7 @@ function geebee_scripts() {
 
 		wp_enqueue_script( 'kandt-katheader', get_template_directory_uri() . '/js/katHeader.jquery.js', array('jquery'), date('Y-m'), array( 'in_footer' => true, 'strategy' => 'defer' ));
 
-	
+
 		$search_items = get_search_items_refactor();
 		$search_items = array( 'searchItems' => $search_items );
 		wp_localize_script( 'kandt-autocomplete', 'object_name', $search_items );
@@ -413,27 +430,27 @@ add_action( 'wp_enqueue_scripts', 'geebee_scripts' );
  * @param [type] $url
  * @return void
  */
-// function kandt_defer_parsing_of_js( $url ) {
+function kandt_defer_parsing_of_js( $url ) {
 
-// 	// don't break WP Admin
-//     if ( is_user_logged_in() ) {
-// 		return $url; 
-// 	}
+	// don't break WP Admin
+    if ( is_user_logged_in() ) {
+		return $url;
+	}
 
-// 	// don't break other scripts
-//     if ( FALSE === strpos( $url, '.js' ) ) {
-// 		return $url;
-// 	}
+	// don't break other scripts
+    if ( FALSE === strpos( $url, '.js' ) ) {
+		return $url;
+	}
 
-// 	// don't defer jquery
-//     if ( strpos( $url, 'jquery.js' ) || strpos( $url, 'jquery.min.js' ) ) {
-// 		return $url;
-// 	}
+	// don't defer jquery
+    if ( strpos( $url, 'jquery.js' ) || strpos( $url, 'jquery.min.js' ) ) {
+		return $url;
+	}
 
-// 	// include defer for all other scripts
-//     return str_replace( ' src', ' defer src', $url );
-// }
-// add_filter( 'script_loader_tag', 'kandt_defer_parsing_of_js', 10 );
+	// include defer for all other scripts
+    return str_replace( ' src', ' defer src', $url );
+}
+add_filter( 'script_loader_tag', 'kandt_defer_parsing_of_js', 10 );
 
 /**
  * Preload CSS to help page speed
@@ -444,14 +461,14 @@ add_action( 'wp_enqueue_scripts', 'geebee_scripts' );
  * @param [type] $media
  * @return void
  */
-// function preload_filter( $html, $handle, $href, $media ){
-// 	if ( ! is_admin() ) {
-//         $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
-//             . '<noscript>' . $html . '</noscript>';
-// 	}
-//     return $html;
-// }
-// add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
+function preload_filter( $html, $handle, $href, $media ){
+	if ( ! is_admin() ) {
+        $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'preload\'">'
+            . '<noscript>' . $html . '</noscript>';
+	}
+    return $html;
+}
+//add_filter( 'style_loader_tag',  'preload_filter', 20, 4 );
 
 
 // hookup the ajax scripts to connect the browser js talk to the server #complete
@@ -522,13 +539,17 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
 		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
 
-		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
+		// array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
 
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => 'publish', 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
+		array( 'id' => 'offer_details_bc_only', 'desc' => 'offer details (BC only)', 'type' => 'text', 'cols' => 2 ),
+
+		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => array( 'publish', 'private' ), 'post_type' => 'houses', 'posts_per_page' => 50 ), 'cols' => 2 ),
 
 		//array( 'id' => 'offer_house', 'type' => 'select', 'name' => 'Select field', 'options' => array( 'option-1' => 'Option 1', 'option-2' => 'Option 2', 'option-3' => 'Option 3' ) ),
 
-		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
+
+		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 2 ),
+
 
 		array( 'id' => 'offer_date', 'type' => 'date', 'cols' => 2 ),
 
@@ -607,49 +628,12 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'ah_section_country',  'name' => 'Section Country', 'type' => 'checkbox' ),
 		array( 'id' => 'ah_section_town',  'name' => 'Section Town', 'type' => 'checkbox' ),
 
+	);
 
+	$availability_settings = array(
 
-
-/*
-		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
-		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
-
-		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
-
-		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
-
-		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
-
-		array( 'id' => 'offer_date', 'type' => 'date', 'cols' => 2 ),
-		array( 'id' => 'field-2', 'name' => 'Read-only text input field', 'type' => 'text', 'readonly' => true, 'default' => 'READ ONLY' ),
- 		array( 'id' => 'field-3', 'name' => 'Repeatable text input field', 'type' => 'text', 'desc' => 'Add up to 5 fields.', 'repeatable' => true, 'repeatable_max' => 5, 'sortable' => true ),
-
-		array( 'id' => 'field-4',  'name' => 'Small text input field', 'type' => 'text_small' ),
-		array( 'id' => 'field-5',  'name' => 'URL field', 'type' => 'url' ),
-
-
-
-		array( 'id' => 'field-8',  'name' => 'WYSIWYG field', 'type' => 'wysiwyg', 'options' => array( 'editor_height' => '100' ), 'repeatable' => true, 'sortable' => true ),
-
-		array( 'id' => 'field-9',  'name' => 'Textarea field', 'type' => 'textarea' ),
-		array( 'id' => 'field-10',  'name' => 'Code textarea field', 'type' => 'textarea_code' ),
-
-		array( 'id' => 'field-12', 'name' => 'Image upload field', 'type' => 'image', 'repeatable' => true, 'show_size' => true ),
-
-		array( 'id' => 'field-17', 'name' => 'Post select field (AJAX)', 'type' => 'post_select', 'use_ajax' => true ),
-		array( 'id' => 'field-17b', 'name' => 'Post select field (AJAX)', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'posts_per_page' => 8 ), 'multiple' => true  ),
-
-		array( 'id' => 'field-19', 'name' => 'Time input field', 'type' => 'time' ),
-		array( 'id' => 'field-20', 'name' => 'Date (unix) input field', 'type' => 'date_unix' ),
-		array( 'id' => 'field-21', 'name' => 'Date & Time (unix) input field', 'type' => 'datetime_unix' ),
-
-		array( 'id' => 'field-22', 'name' => 'Color', 'type' => 'colorpicker' ),
-
-		array( 'id' => 'field-23', 'name' => 'Location', 'type' => 'gmap' ),
-
-		array( 'id' => 'field-24', 'name' => 'Title Field', 'type' => 'title' ),
-
-*/
+		array( 'id' => 'show_associated_houses',  'name' => 'Enable', 'type' => 'checkbox' ),
+		array( 'id' => 'avail_from_features', 'name' => 'Feature includes', 'type' => 'taxonomy_select',  'taxonomy' => 'feature',  'multiple' => true ),
 
 	);
 
@@ -660,6 +644,15 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		'context'    => 'side',
         'priority'   => 'high',
   		'fields' => $settings
+	);
+
+	// include
+	$meta_boxes[] = array(
+		'title' => 'Only Applicable to Houses',
+		'pages' => array( 'availability' ),
+		'context'    => 'side',
+        'priority'   => 'high',
+  		'fields' => $availability_settings
 	);
 
 

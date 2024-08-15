@@ -29,7 +29,7 @@
 		foreach (HouseSearch::$houses as $house) {
 
 
-			//if($house->post_id == 75633) {
+			//if( in_array( $house->post_id, array( 55725 ) ) ) {
 
 				if ($house->locations !== false && $house->locations !== "0.000000") {
 					$locations = unserialize($house->locations);

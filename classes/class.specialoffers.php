@@ -89,6 +89,7 @@ class SpecialOffers {
 			$array[$ref]['houses'][$n]['image'] = $newoffer['offer_image'];
 			$array[$ref]['houses'][$n]['house'] = get_post($newoffer['offer_house']);
 			$array[$ref]['houses'][$n]['offer_details'] = $newoffer['offer_details'];
+			$array[$ref]['houses'][$n]['offer_details_bc_only'] = $newoffer['offer_details_bc_only'];
 			$array[$ref]['houses'][$n]['expiry_date'] = date('Ymd', strtotime($newoffer['offer_date']));
 
 			$n++;
@@ -237,6 +238,47 @@ class SpecialOffers {
 		echo '</div></div></div>';
 */
 	}
+
+	/**
+	 * check if a house qualifies for BC offers only
+	 *
+	 * @param int $id
+	 * @return void
+	 */
+	public function special_offer_bc_only($id) {
+		$boolean = false;
+		$array = array(
+			16914,
+			19733,
+			19660,
+			81970,
+			56703,
+			11105,
+			11069,
+			34285,
+			34215,
+			14767,
+			11105,
+			39234,
+			39236,
+			39595,
+			39584,
+			39253,
+			39223,
+			39234,
+			45716,
+			45725,
+			45723,
+			45755,
+			45772,
+			45721
+		);
+		if(in_array($id,$array)){
+			$boolean = true;
+		}
+		return $boolean;
+	}
+
 
 }
 ?>

@@ -25,6 +25,9 @@ function add_post_types() {
 	if($options['activate_seasonal']) {
 		seasonal_type();
 	}
+	if($options['activate_late_availability']) {
+		late_availability_type();
+	}
 }
 
 function houses_type() {
@@ -90,6 +93,41 @@ function supplier_type() {
 		'supports' => array( 'title', 'author' ),
 	); 
     register_post_type( 'suppliers', $args );
+}
+/**
+ * Add a late availability custom post type
+ *
+ * @return void
+ */
+function late_availability_type() {
+	$labels = array(
+		'name' => _x('Availability Periods', 'post type general name'),
+		'singular_name' => _x('Availability Period', 'post type singular name'),
+		'add_new' => _x('Add New', 'houses', 'availability'),
+		'add_new_item' => __('Add New Period', 'availability'),
+		'edit_item' => __('Edit Period', 'availability'),
+		'new_item' => __('New Period', 'availability'),
+		'all_items' => __('All Availability Periods', 'availability'),
+		'view_item' => __('View Period', 'availability'),
+		'search_items' => __('Search Availability Periods', 'availability'),
+		'not_found' =>  __('No Availability Periods found', 'houses'),
+		'not_found_in_trash' => __('No periods found in Trash', 'availability'), 
+		'parent_item_colon' => '',
+		'menu_name' => __('Avail. Periods', 'houses')
+	);
+	$args = array(
+		'labels' => $labels,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true, 
+		'show_in_menu' => true, 
+		'query_var' => true,
+		'rewrite' => true,
+		'has_archive' => false, 
+		'capability_type' => 'page',
+		'supports' => array( 'title', 'editor', 'thumbnail' ),
+	); 
+    register_post_type( 'availability', $args );
 }
 function seasonal_type() {
 	$labels = array(

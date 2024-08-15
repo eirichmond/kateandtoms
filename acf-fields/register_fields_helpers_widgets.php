@@ -131,6 +131,12 @@ if( function_exists('acf_add_local_field_group') ):
 					'value' => 'seasonal',
 					'order_no' => '0',
 				),
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'availability',
+					'order_no' => '0',
+				),
 			),
 			'allorany' => 'any',
 		),

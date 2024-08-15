@@ -15,10 +15,10 @@ get_header(); ?>
 			<div>
 				<?php if ($linkto) {
 					echo '<a href="'.esc_attr( $linkto ).'">';
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive" ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive",  ) );
 					echo '</a>';
 				} else {
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive" ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive",  ) );
 				}
 
 				// if ($tag_tit) {
@@ -28,7 +28,7 @@ get_header(); ?>
 				?>
 			</div>
 
-		<?php if ($c === 5) break; } ?>
+		<?php if ($c === 3) break; } ?>
 
 	</div>
 </div>

@@ -25,6 +25,8 @@
 	Widget::createHeader($post->ID);
 	
 	$published_houses = get_published_house_titles();
+
+	$original_site = get_current_blog_id();
 	
 	switch_to_blog(11);
 	
@@ -35,7 +37,7 @@
 	
 	//var_dump($published_houses);
 	
-	//$site_id = get_current_blog_id();
+	$site_id = get_current_blog_id();
 	
 /*
 		if ($site_id == 10 || $site_id == 11) {
@@ -58,6 +60,7 @@
 			
 			foreach( $offers as $k => $offer ) {
 				
+				
 				$specialoffers->output_offer_section_header($offer);
 				
 				$house_count = 0;
@@ -71,7 +74,12 @@
 					//echo '<pre>'; print_r($house['house']->ID); echo '</pre>';
 					
 					//if ($site_id == 10 || $site_id == 11) {
-										
+						if( $original_site == 1 && $specialoffers->special_offer_bc_only( $house["house"]->ID )) {
+							$offer_details = $house['offer_details_bc_only'] != null ? $house['offer_details_bc_only'] : $house['offer_details'];
+						} else {
+							$offer_details = $house['offer_details'];
+						}
+
 						$display = check_offer_availablitity($house['house']->ID, $house['expiry_date']);
 						
 						//var_dump($display);
@@ -88,7 +96,7 @@
 								
 								$houseNew = new HouseSearch($key);
 								
-								$houseNew->displayHouse('pink', 356, $house['image'], $house['offer_details']);
+								$houseNew->displayHouse('pink', 356, $house['image'], $offer_details);
 															
 							}
 						}
