@@ -72,51 +72,51 @@ $seasonal_menu = array(
     'submenu' => array(
       array(
         'title' => 'January',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-january/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-january/',
       ),
       array(
         'title' => 'February',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-february/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-february/',
       ),
       array(
         'title' => 'March',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-march/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-march/',
       ),
       array(
         'title' => 'April',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-april/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-april/',
       ),
       array(
         'title' => 'May',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-may/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-may/',
       ),
       array(
         'title' => 'June',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-june/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-june/',
       ),
       array(
         'title' => 'July',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-july/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-july/',
       ),
       array(
         'title' => 'August',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-august/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-august/',
       ),
       array(
         'title' => 'September',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-september/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-september/',
       ),
       array(
         'title' => 'October',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-october/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-october/',
       ),
       array(
         'title' => 'November',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-november/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-november/',
       ),
       array(
         'title' => 'December',
-        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-december/',    
+        'url' => 'https://kateandtoms.com/seasonal/holiday-cottages-in-december/',
       )
     )
 
@@ -471,7 +471,7 @@ $kateandtoms_mobile_menu_items = array(
             'title' => 'Sleeps up to 40',
             'url' => '/size/holiday-cottages-sleeping-40/',
           ),
-        ),    
+        ),
       ),
       1 => array(
         'title' => 'Bedrooms',
@@ -510,7 +510,7 @@ $kateandtoms_mobile_menu_items = array(
             'title' => '12+',
             'url' => '/12-bedroom-luxury-houses-to-rent/',
           ),
-        ),    
+        ),
       ),
 
     )
@@ -575,9 +575,9 @@ array (
   array (
       array('url' => 'https://kateandtoms.com/about-us/', 'title' => 'about us',),
       array('url' => 'https://kateandtoms.com/our-blog/', 'title' => 'our blog',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-privacy-policy2-March-24.pdf', 'title' => 'privacy policy',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-cookie-policy-March-24.pdf', 'title' => 'cookie policy',),
-      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-terms-and-conditions-March-2024.pdf', 'title' => 'terms and conditions',),
+      array('url' => 'https://kateandtoms.com/privacy-policy/', 'title' => 'privacy policy',),
+      array('url' => 'https://kateandtoms.com/cookie-policy/', 'title' => 'cookie policy',),
+      array('url' => 'https://kateandtoms.com/terms-and-conditions/', 'title' => 'terms and conditions',),
       array('url' => 'https://kateandtoms.com/company-information', 'title' => 'company information',),
       array('url' => 'https://kateandtoms.com/faqs/', 'title' => 'faqs',),
       array('url' => 'https://kateandtoms.com/meet-the-team/', 'title' => 'meet the team',),
@@ -845,7 +845,7 @@ array (
                 'title' => 'Sleeps up to 40',
                 'url' => '/size/holiday-cottages-sleeping-40/',
               ),
-            ),    
+            ),
 	        ),
 	        1 => array(
 		        'title' => 'Bedrooms',
@@ -883,7 +883,7 @@ array (
 				'title' => '12+ Bedrooms',
 				'url' => '/features/12-bedroom-luxury-houses-to-rent/',
 			  ),
-            ),    
+            ),
 	        ),
         ),
       ),
@@ -894,17 +894,17 @@ array (
 	        0 => array(
 		        'title' => 'Search by Regions',
 		        'url' => '/search-by-regions/',
-            'submenu' => $location_by_regions    
+            'submenu' => $location_by_regions
 	        ),
 	        1 => array(
 		        'title' => 'Search by Towns',
 		        'url' => '/towns/',
-            'submenu' => $location_by_town    
+            'submenu' => $location_by_town
 	        ),
 	        2 => array(
 		        'title' => 'Search by Coast',
 		        'url' => '/search-by-coast/',
-            'submenu' => $location_by_coast    
+            'submenu' => $location_by_coast
 	        ),
         ),
       ),
