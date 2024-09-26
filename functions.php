@@ -87,7 +87,6 @@ function create_robotstxt($output, $public) {
 		$output .= "User-agent: *\n";
 		$output .= "Disallow: /?\n";
 		$output .= "Disallow: /terms-and-conditions\n";
-		// $output .= "Disallow: /houses/*/availability\n"; // removed due to crawlability
 		$output .= "Disallow: /book/d=\n";
 		$output .= "Disallow: /houses/*/gallery/\n";
 		$output .= "Disallow: /houses/*/booknow/\n";
@@ -97,7 +96,8 @@ function create_robotstxt($output, $public) {
 		$output .= "Disallow: /wp-admin\n";
 		$output .= "Disallow: /?s=\n";
 		$output .= "Allow: /availability\n";
-
+		$output .= "User-agent: SiteAuditBot\n";
+		$output .= "Disallow: /book/d=\n";
 	}
 	if ($id == 24) {
 		$output = "";
@@ -465,5 +465,28 @@ function  custom_save_houses_callback(){
 		// Optionally, you can output the post ID for each post processed
 		error_log( 'Post updated: ' . $house->ID );
 	}
+}
+
+add_action( 'cookies_banner_script', 'cookies_banner_script_callback' );
+function cookies_banner_script_callback() {
+	$id = get_current_blog_id(); ?>
+
+<!-- Start cookieyes banner -->
+
+<?php if( $id != 1 && $id != 24 ) { // must be from the kateandtoms.com network then ?>
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/6a3c4cd11a7e2ffa082da2a9/script.js"></script>
+<?php } ?>
+<?php if( $id == 1 ) { // must be from the bigcottage.com ?>
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/5546af7809e737bbbd68ac06/script.js"></script>
+<?php } ?>
+<?php if( $id == 24 ) { // must be from the themoult.co.uk ?>
+
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/d46dac612d09c54a98133354/script.js"></script>
+<?php } ?>
+
+
+<!-- End cookieyes banner -->
+
+<?php
 }
 ?>

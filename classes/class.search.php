@@ -44,7 +44,7 @@ class OnlineSearch {
 	 * @var bool
 	 */
 	protected static $specified_availability_dates;
-	
+
 	/**
 	 * What features should be included.
 	 * @var array
@@ -151,7 +151,7 @@ class OnlineSearch {
 		$timezone = new DateTimeZone('Europe/London');
 		// Create a new DateTime object with the current date and time in the specified timezone
 		$currentDateTime = new DateTime('now', $timezone);
-		
+
 		// Clone the current DateTime object to create a new one
 		$endDateTime = clone $currentDateTime;
 		$endDateTime->modify('+'.$rolling_period.' weeks');
@@ -282,7 +282,7 @@ class OnlineSearch {
 		// var_dump($category);
 		// var_dump($count);
 		// var_dump(self::$adverts);
-		
+
 		if($count) {
 
 		$show = (4-(($count)%4))%4;
@@ -606,7 +606,7 @@ class HouseSearch extends OnlineSearch {
 		}
 				// Use the data like you would have normally...
 
-		
+
 
 	}
 
@@ -620,7 +620,7 @@ class HouseSearch extends OnlineSearch {
 	public static function generateMonthArray($startDate, $endDate) { // Function to generate an array of months between two dates
 		$start = new DateTime($startDate);
 		$end = new DateTime($endDate);
-	
+
 		$months = array();
 	    // Include the start month
 		$months[] = $start->format('m-Y');
@@ -629,10 +629,10 @@ class HouseSearch extends OnlineSearch {
 			$start->modify('+1 month');
 			$months[] = $start->format('m-Y');
 		}
-	
+
 		return $months;
 	}
-	
+
 
 	public static function getHouseAvailability($blog_id, $post_id) {
         return self::getFilteredArrayWithObjects(self::$availability, $blog_id, $post_id);
@@ -870,7 +870,7 @@ class HouseSearch extends OnlineSearch {
 	//['s', 'date', 'dtype', 'taxonomies', 'size', 'smin', 'smax' ,'lall', 'fall', 'type', 'seasonal']
 	// 'type' refers to a specific size search
 	public function completeChecks($vars) {
-        
+
 		if (array_key_exists('size', $vars))
 			if ($vars['size'] !== false)
 				$this->generalSizeCheck($vars['size']);
@@ -1061,7 +1061,7 @@ class HouseSearch extends OnlineSearch {
 				$output = unserialize( $output[0]->rates );
 				$wn = $this->getWeekNumberOfMonth( $day_start_range );
 				// --$wn;
-		
+
 				// $price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
 				$price_array = $output[$name][$wn] === '-1' || $output[$name][$wn] === '-2' ? '' : array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
 
@@ -1096,17 +1096,17 @@ class HouseSearch extends OnlineSearch {
 	public function getWeekNumberOfMonth($date) {
 		// Convert the given date to a timestamp
 		$timestamp = strtotime($date);
-	
+
 		// Extract the year and month from the date
 		$year = date('Y', $timestamp);
 		$month = date('m', $timestamp);
-	
+
 		// Find the first Friday of the month
 		$firstFriday = strtotime("first Friday of $year-$month");
-	
+
 		// Calculate the difference in days between the given date and the first Friday
 		$dayDifference = ($timestamp - $firstFriday) / (60 * 60 * 24);
-	
+
 		// Calculate the week number
 		if ($dayDifference < 0) {
 			// If the given date is before the first Friday, return 0
@@ -1189,7 +1189,7 @@ class HouseSearch extends OnlineSearch {
 		if ($days_booked === false) return;
 
 		self::$dates_to_check = $this->map_dates_to_check($s_date_type, $dates_to_check);
-		
+
 		$day_start = $dates_to_check[0];  // First day
 
 		$day_end = $dates_to_check[count($dates_to_check) - 1]; // Last day
@@ -1251,10 +1251,10 @@ class HouseSearch extends OnlineSearch {
 
         $next_checkin_day = new DateTime($date->format('Y-m-d'), new DateTimeZone('Europe/London'));
         $previous_checkin_day = new DateTime($date->format('Y-m-d'), new DateTimeZone('Europe/London'));
-        
+
         $next_checkin_day = $next_checkin_day->modify('next '.$checkin_day);
         $previous_checkin_day = $previous_checkin_day->modify('last '.$checkin_day);
-        
+
         $interval = $date->diff($next_checkin_day);
         if($interval->days > $bookable_days) {
             $closest_checkin_day = $previous_checkin_day;
@@ -1282,7 +1282,7 @@ class HouseSearch extends OnlineSearch {
 			// add the first date to check if date type is NOT midweek
 			$dates[] = $check_from;
 		}
-		
+
 		for($i = 1; $i <= $bookable_days; $i++) {
 			$dates[] = date('Y-m-d',strtotime($check_from . '+'.$i.' days'));
 		}
@@ -1574,7 +1574,7 @@ var_dump($active_day);
 				array( $blog_id, $post_id, $month )
 			)
 		);
-		
+
 		return $rates[0];
 	}
 
@@ -1585,18 +1585,18 @@ var_dump($active_day);
 
 		// 	$month = date('m-Y', strtotime( $day_start ));
 		// 	$output = $this::findMatchingArrays( $blog_id, $lookup_id, $month );
-			
+
 		// 	$days_booked = unserialize($output->rates);
 
 		// } else {
 
 			$output = self::getHouseRates($blog_id, $lookup_id);
-	
+
 			if (empty($output)) return false;
-	
+
 			$sliced = array_slice($output, 0, 1);
 			$first_month = array_shift($sliced);
-	
+
 			$days_booked = unserialize($first_month->rates);
 
 		//}
@@ -1664,7 +1664,7 @@ var_dump($active_day);
 		} else {
 			$weeks = 1;
 		}
-        
+
 
         for ($i = 1; $i <= $elapsed; $i++) {
             $dayfind = $cut . (strlen($i) < 2 ? '0' . $i : $i);
@@ -1684,7 +1684,7 @@ var_dump($active_day);
 			//Apply above formula.
 			return $this->weekOfYear($date) - $this->weekOfYear($firstOfMonth);
 	}
-	
+
 	public function weekOfYear($date) {
 		$weekOfYear = intval(date("W", $date));
 		if (date('n', $date) == "1" && $weekOfYear > 51) {
@@ -1751,7 +1751,7 @@ var_dump($active_day);
 		foreach($prices as $k => $price) {
 			// if($price == '-1') {
 			// 	continue;
-			// } 
+			// }
 			$new_prices[$i] = $price;
 			$i++;
 		}
@@ -1762,7 +1762,7 @@ var_dump($active_day);
 
 
 	/**
-	 * get number of week for a friday 
+	 * get number of week for a friday
 	 *
 	 * @param string $date
 	 * @return int $fridays
@@ -1781,11 +1781,11 @@ var_dump($active_day);
 			return 1;
 		}
 		return count($fridays);
-		
+
 	}
 
 	/**
-	 * get number of week for a monday 
+	 * get number of week for a monday
 	 *
 	 * @param string $date
 	 * @return int $mondays
@@ -1804,7 +1804,7 @@ var_dump($active_day);
 			return 1;
 		}
 		return count($mondays);
-		
+
 	}
 
 	private function getPricesToShow($periods, $day_start) {
@@ -1872,7 +1872,7 @@ var_dump($active_day);
 
 		return $prices_to_show;
     }
-    
+
     public function check_first_may_2020() {
         $cockup = false;
 
@@ -1914,7 +1914,7 @@ var_dump($active_day);
 	 * Produces the search box as required.
 	 */
 	public function displayHouse($color = 'yellow', $height = 306, $offerimg = false, $offer = false) {
-        
+
         //if($this->post_title == 'Swallows Croft')
 
 		$seas = self::$seasonal;
@@ -1958,7 +1958,7 @@ var_dump($active_day);
 		if (strpos($this->post_thumbnail, $staging) !== false) {
 			$image = $this->post_thumbnail = str_replace($staging, $web, $this->post_thumbnail);
 		}
-		
+
 		$sleeps_min = floor($this->sleeps_min);
 		$sleeps_max = floor($this->sleeps_max);
   		$location_text = $this->location_text;
@@ -1982,7 +1982,7 @@ var_dump($active_day);
 			(self::$additional_height ? 'search-add_height_'.self::$additional_height : ''),
 			'">',
 			// do_action('houses_specials_banner',$this->ID),
-			'<img src="'.$image.'" alt="' . $title . '" style="width:100%" />',
+			'<img src="'.$image.'" alt="' . $title . '" style="width:100%" width="280px" height="280px" />',
 			'<span class="text bg-'.$color.'"><h2 class="entry-title bg-' . $color . '">' . $title . '</h2></span>';
 
 		echo '<div class="house_desc">', ($this->winterText === true && $brief_desc_winter != "" ? $brief_desc_winter : $brief_desc),'</div>';
@@ -2231,7 +2231,7 @@ var_dump($active_day);
 				}
 			}
 			$values = str_replace('+', '', str_replace('*', '', str_replace(' ', '', $values)));
-			
+
 			echo ($fromAll != true && count($rates) == 1 && $plus == false ? ' - ' : ' from '), $currency, $this->convert_from_price($values), '<br/>';
 		}
 		echo '</div>';

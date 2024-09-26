@@ -80,13 +80,26 @@ function kts_global_header_google_tag_manager() {
 	}
 }
 
+
+
+/**
+ * Add Font Awesome Kit
+ */
+add_action( 'wp_head', 'kts_global_header_trust_pilot', 10 );
+function kts_global_header_trust_pilot() {
+	$output = "<!-- TrustBox script -->
+<script type='text/javascript' src='//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js' async></script>
+<!-- End TrustBox script -->";
+	echo $output;
+}
+
 /**
  * Add Font Awesome Kit
  */
 add_action( 'wp_head', 'kts_global_header_font_awesome_kit', 10 );
 function kts_global_header_font_awesome_kit() {
 	$output = "<!-- Font Awesome Kit -->
-	<script src='https://kit.fontawesome.com/20f36f4160.js' crossorigin='anonymous'></script>
+	<script src='https://kit.fontawesome.com/3cd8965234.js' crossorigin='anonymous'></script>
 	<!-- End Font Awesome Kit -->";
 	echo $output;
 }
@@ -706,12 +719,12 @@ add_action( 'wp_footer', 'mycustom_wp_footer' );
 
 function mycustom_wp_footer() {
 	?>
-	<script type="text/javascript">
-	document.addEventListener( 'wpcf7mailsent', function( event ) {
-	    window.location.replace("/thank-you");
-	}, false );
-	</script>
-	<?php
+<script type="text/javascript">
+document.addEventListener('wpcf7mailsent', function(event) {
+	window.location.replace("/thank-you");
+}, false);
+</script>
+<?php
 }
 */
 
