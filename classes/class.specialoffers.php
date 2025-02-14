@@ -185,7 +185,7 @@ class SpecialOffers {
 				<div class="container">
 					<div class="row">
 						<div class="span6">
-							<h1 class="page-title">'.$offer['title'].'</h1>
+							<h2 class="page-title">'.$offer['title'].'</h2>
 						</div>';
 						if (is_array($subtexts) && !empty($subtexts)){
 							echo '<div class="span3 title_pad">

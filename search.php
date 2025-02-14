@@ -1,5 +1,4 @@
-<?php
-	get_header();
+<?php get_header();
 	include('search-navbar.php');
 	if(is_post_type_archive( 'houses')) {
 		$element_id = 'topper';
@@ -7,6 +6,8 @@
 		$element_id = 'not-topper';
 	}
 ?>
+
+
 <div id="<?php echo $element_id; ?>" style="background:#fff;">
 	<div id="content">
 		<div class="house_main_container">
@@ -15,4 +16,5 @@
 		</div>
 	</div>
 </div>
+
 <?php get_footer(); ?>

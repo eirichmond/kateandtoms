@@ -1,5 +1,3 @@
-
-
 @media (max-width: 667px) {
 	body {
 		min-width: 100%;
@@ -42,91 +40,91 @@
 		padding: 0 12px;
 	}
 	.logo a {
-	    display: inline-block;
+		display: inline-block;
 		float: left;
 	}
 	.ktsub_nav_cont {
 		transition:all 0.3s ease;
 		height:0px;
-  	}
+	}
 	.ktsub_nav_cont.toggled {
 		height: auto;
- 	}
+	}
 	.page .widget.widget_imagematrix {
-	    display: block;
+		display: block;
 	}
 	.widget_imagematrix .row.top {
-	    margin: 0px;
-	    padding: 0px;
+		margin: 0px;
+		padding: 0px;
 	}
 	.widget_imagematrix.bottom {
-	    padding-bottom: 0px;
+		padding-bottom: 0px;
 	}
 	.span6.square .imgset_wrap_fill {
-	    height: 187px;
-	    min-height: inherit;
+		height: 187px;
+		min-height: inherit;
 	}
 	.span6.rectangle {
 		margin: 0px;
 	}
 	.mobilesearch a {
-	    display: inline-block;
-	    background: #fff;
-	    padding: 7px 20px;
+		display: inline-block;
+		background: #fff;
+		padding: 7px 20px;
 	}
 	.mobilesearch a:focus {
 		text-decoration: none;
 		color: inherit;
 	}
-	
+
 	.mobilesearch a:hover {
 		color: #898169;
 		text-decoration: none;
-  	}
-	  
+	}
+
 	h2 {
 		text-align: center;
 	}
 
 	h2.span12.type_title {
-	    font-size: 18px;
-	    padding: 25px 0px;
+		font-size: 18px;
+		padding: 25px 0px;
 	}
 
 	h1.page-title.standard.span6 {
-	    margin: 10px 0px 0px;
-	    font-size: 1.5em;
+		margin: 10px 0px 0px;
+		font-size: 1.5em;
 	}
-	
+
 	.archive .menu_links {
-	    margin: 0px 20px 10px;
+		margin: 0px 20px 10px;
 	}
 	.modal {
 		z-index: 99999;
 	}
 	.image-block {
-	    display: none;
+		display: none;
 	}
-	
+
 	.house_desc, .house_meta, .house_meta .offer_details {
 		height: inherit;
 	}
-	
+
 	.house_meta .floatleft {
 		float: inherit;
 	}
-	
+
 	.house_desc {
 		font-size: 14px;
 	}
-	
+
 	.house_meta {
 		font-size: 13px;
 	}
 
 	#pin {
-	    top: 96px;
-	    z-index: 10;
+		top: 96px;
+		z-index: 10;
 		left:0;
 		right:0;
 	}
@@ -136,26 +134,26 @@
 	.searchall {
 		display: none;
 	}
-	
+
 	.mobilesearch a i.icon-search {
-	    font-size:1.5em;
-	    color:#bbbbbb;
+		font-size:1.5em;
+		color:#bbbbbb;
 	}
 	.nav-menu {
 		transition:all 0.3s ease;
 		height:0px;
 		overflow: hidden;
- 	}
- 	.toggled .nav-menu {
+	}
+	.toggled .nav-menu {
 		min-height: auto;
 		height: auto;
- 	}
+	}
 	.ktsub_nav_cont li {
-		 display: block;
-	 }
- 	.ktsub_nav_cont .btn.btn-2.floatright {
-	 	display: none;
- 	}
+		display: block;
+	}
+	.ktsub_nav_cont .btn.btn-2.floatright {
+		display: none;
+	}
 	.ktsub_nav_cont .span3, .ktsub_nav_cont .span4, .ktsub_nav_cont .span5 {
 		display: none;
 	}
@@ -165,12 +163,12 @@
 	.ktsub_nav_cont #menu-top-menu li {
 		display: block;
 		padding: 12px;
-	}	
+	}
 	.page-title_cont {
-	    text-align: center;
-	    padding: 0px 20px;
-	    border-bottom: 0px;
-	    min-height: inherit;
+		text-align: center;
+		padding: 0px 20px;
+		border-bottom: 0px;
+		min-height: inherit;
 	}
 	.search-container {
 		clear: both;
@@ -188,20 +186,20 @@
 		height: 180px!important;
 	}
 	input.sf_input.width_variant {
-	    width: 80%;
+		width: 80%;
 		background-image: url("../img/search-mobile.png");
 		background-position: 7px 7px;
 		background-repeat: no-repeat;
 		padding-left: 25px;
- 	}
+	}
 	span.sf_block {
-	    display: flex;
+		display: flex;
 	}
 	.nopad p {
-	    margin: 0px;
-	}	
+		margin: 0px;
+	}
 	.page-title_cont .dhide input.sf_input.width_variant {
-	    display: block;
+		display: block;
 	}
 	.widget {
 		padding: 0px;
@@ -213,34 +211,34 @@
 		padding: 20px;
 	}
 	.widget.widget_fourimage {
-		padding: 0px;	
+		padding: 0px;
 	}
 	.widget.widget_text h2 {
 		margin-bottom: 0px;
 		padding: 22px;
 		line-height: 1.5em;
-    }
-    #sf_sb {
+	}
+	#sf_sb {
 		width: 90% !important;
 		top: 51px !important;
 		left: 5% !important;
-    }
-    .menu-top-menu-container {
-	    float: none;
-	    display: none;
-    }
+	}
+	.menu-top-menu-container {
+		float: none;
+		display: none;
+	}
 	.cropped {
 		height: 180px;
 	}
 	.ftwide {
-	    display: none;
+		display: none;
 	}
 	.mfooter {
 		display: block;
 		background: #343434;
-	    color: #acaaaa;
-	    padding: 20px;
-	    font-size: 1em;
+		color: #acaaaa;
+		padding: 20px;
+		font-size: 1em;
 	}
 	.mfooter .katlogo {
 		float: left;
@@ -258,9 +256,9 @@
 		width: 30px;
 		height: 30px;
 		text-align: center;
-  	}
+	}
 	.mfooter .social li a, .mfooter .social li a:hover {
-	    color: #acaaaa;
+		color: #acaaaa;
 	}
 	.mobnav {
 		float: right;
@@ -273,8 +271,8 @@
 		margin-top: 0px;
 	}
 	input#datepicker2 {
-	    width: 199px;
-	    background: none;
+		width: 199px;
+		background: none;
 		font-size: inherit;
 	}
 	.btn-group {
@@ -283,27 +281,27 @@
 	}
 	#searchBar .btn-group button {
 		width: 31.33333%;
-	}	
+	}
 	#sleeps-btn-filter {
-	    display: none;
+		display: none;
 	}
 	#locations-btn-filter {
 		display: none;
 	}
 	.span3.search1, .span3.searchsize, .span3.search3, .span3.search4 {
-	    width: 97%;
+		width: 97%;
 	}
 	#features-filter > .btn-group {
 		display: none;
 	}
 	a.letsgo {
-	    background: #646E21;
-	    display: block;
-	    padding: 3.444%;
-	    color: #fff;
-	    font-size: 1.5em;
-	    text-decoration: none;
-	    margin: 10px 0;
+		background: #646E21;
+		display: block;
+		padding: 3.444%;
+		color: #fff;
+		font-size: 1.5em;
+		text-decoration: none;
+		margin: 10px 0;
 	}
 	.widget_button ul {
 		width: 100%;
@@ -317,9 +315,9 @@
 		margin: 0px;
 		display: inline;
 		padding: 5px 10px;
-  	}
+	}
 	.single-houses .menu_links {
-	    text-align: center;
+		text-align: center;
 		margin: 0;
 	}
 	.house_page_meta_single {
@@ -331,7 +329,7 @@
 	.house_page_meta.extended a {
 		margin: 0px 10px;
 		font-size: 0.8em;
-  	}
+	}
 
 	.site1 .page-title, .site10 .page-title, .site6 .page-title, .site5 .page-title, .site4 .page-title {
 		margin: 18px 0 10px;
@@ -346,75 +344,75 @@
 		width: inherit;
 	}
 	li.title {
-	    display: block;
+		display: block;
 	}
-	
+
 	.modal {
 		top: 2%;
 		left: 4%;
 		right:4%;
 		bottom: 2%;
 	}
-	
+
 	.intouch-left {
-	    display: none;
+		display: none;
 	}
-	
+
 	.intouch-right {
-	    width: 90%;
-	    padding: 15px 2%;
-	    float: none;
-	    margin: 0 auto;
-    }
+		width: 90%;
+		padding: 15px 2%;
+		float: none;
+		margin: 0 auto;
+	}
 	.wpcf7-form-control-wrap textarea {
-	    height: 70px;
-	    padding: 10px;
+		height: 70px;
+		padding: 10px;
 	}
 	.use-floating-validation-tip span.wpcf7-not-valid-tip {
 		top:100%;
 		left: 5%;
 	}
 	.top_label, .gitwrap p {
-	    font-size: 0.8em;
+		font-size: 0.8em;
 	}
 	#mobilenav {
 		display: block;
 	}
 	#mobilenav li {
-	    padding: 12px;
+		padding: 12px;
 	}
-	
+
 	#mobilenav li a {
-	    text-transform: uppercase;
-	    color: #000;
-	    letter-spacing: 1px;
+		text-transform: uppercase;
+		color: #000;
+		letter-spacing: 1px;
 	}
-	
+
 	#results-filter {
 		display: none;
 		position: absolute;
 		top: 0;
 		right: 50px;
 	}
-	
+
 	li.orspace {
-	    display: none;
+		display: none;
 	}
-	
+
 	.widget.widget_button {
-	    padding: 0px 0px 50px;
-	    margin: 0px;
+		padding: 0px 0px 50px;
+		margin: 0px;
 	}
-	
+
 	.widget.widget_button li {
-	    padding:1px;
+		padding:1px;
 	}
-	
+
 	.widget_fourimage.notitle .mpadder {
-	    padding: 0px;
+		padding: 0px;
 	}
 	.widget_fourimage .mpadder {
-	    padding: 20px;
+		padding: 20px;
 	}
 	.widget_fourimage .row img:nth-child(4n+1),
 	.widget_fourimage .row img:nth-child(4n+2),
@@ -425,9 +423,9 @@
 	.widget_reviews {
 		display: none;
 	}
-	
+
 	.widget_vidleft .content, .widget_vidright .content {
-	    padding: 20px;
+		padding: 20px;
 	}
 
 	.house_bottom .span12 h2, .gallery h2 {
@@ -443,25 +441,25 @@
 		margin: 0;
 		padding: 0;
 	}
-	.gallery-item { 
+	.gallery-item {
 		margin-bottom: 20px;
 	}
 	.facts {
-	    padding: 0px 20px;
-	}	
+		padding: 0px 20px;
+	}
 
 	.span3.advert {
-	    display: none;
+		display: none;
 	}
 	.advertarea {
 		display: none;
 	}
 
 	select.mautosel {
-	    width: 100%;
-	    height: 51px;
-	    text-transform: uppercase;
-	    color: #b5b5b5;
+		width: 100%;
+		height: 51px;
+		text-transform: uppercase;
+		color: #b5b5b5;
 		padding: 5px 10px 2px;
 		letter-spacing: 0px;
 		margin-bottom: 9px;
@@ -469,15 +467,15 @@
 		position: relative;
 		font-size: 13px;
 	}
-	
+
 	.accordion-group .btn {
 		margin: 0 5px;
 	}
-	
+
 	.search-add_height_1, .search-add_height_2, .search-add_height_3, .search-add_height_4 {
 		height: auto!important;
 	}
-	
+
 	#mseloader {
 		display: none;
 		background: url('/wp-admin/images/wpspin_light.gif') no-repeat;
@@ -488,7 +486,7 @@
 		height: 16px;
 		margin: 5px 5px 0;
 	}
-	
+
 	#msbh {
 		width: 100%;
 		padding: 0;
@@ -497,65 +495,65 @@
 		position: absolute;
 		top: 0px;
 	}
-	
+
 	.ktsub_nav_cont #searchform {
 		margin-left: 8px;
 		margin-right: 8px;
 	}
-	
+
 	#header input[type="text"] {
-	    padding:5px 5px 5px 25px;
+		padding:5px 5px 5px 25px;
 		margin:0;
 		width:100%;
 	}
-	
+
 	.page .top-title, .page .top-title .absoluteCenterWrapper {
 		height: 150px;
 	}
-	
+
 	.page-template-page-special-offers-php .mobilesearch {
-	    display: none;
+		display: none;
 	}
 	.page-template-page-special-offers-php .span4.title_pad.dhide.nopad {
-	    display: none;
+		display: none;
 	}
 
 	.page-template-page-special-offers-php .span4.title_pad.mhide {
-	    display: block;
-	    padding: 0px;
+		display: block;
+		padding: 0px;
 	}
 	.text_above {
-	    display: none;
+		display: none;
 	}
 	.moblogo {
 		height: 48px;
-    	padding: 0px 23px;
-	    background-color: #fff;
+		padding: 0px 23px;
+		background-color: #fff;
 	}
 	.openpad {
 		padding-top:96px;
 	}
-	
+
 	.close.house-search {
-	    position: absolute;
-	    z-index: 10000;
-	    right: 0;
-	    top: 3px;
+		position: absolute;
+		z-index: 10000;
+		right: 0;
+		top: 3px;
 	}
-	
+
 	ul.ui-widget-content#ui-id-2 {
-	    background: #fff;
-        left: 5% !important;
-	    width: 90% !important;
+		background: #fff;
+		left: 5% !important;
+		width: 90% !important;
 	}
-	
+
 	ul#ui-id-2 .sf_text {
-	    font-size: 14px !important;
-	    padding: 0px;
+		font-size: 14px !important;
+		padding: 0px;
 	}
-	
+
 	ul#ui-id-2 .sf_small {
-	    font-size:10.5px !important;
+		font-size:10.5px !important;
 	}
 	ul#ui-id-2 .ui-menu-item a {
 		padding: 0px;
@@ -564,72 +562,72 @@
 	#sf_val {
 		overflow: inherit;
 	}
-	
+
 	/* Hide specific widget types from all sites */
-	
+
 	.page .widget {
 		display: none;
-	} 
+	}
 	.page .widget_imageset {
 		display: block;
 	}
-	
+
 	/* bring them back for this page only */
 	.page-id-31327 .widget {
-	    display: block;
+		display: block;
 	}
 	.page-id-31327 .container > .row > .span4.title_pad.mhide {
-	    display: block;
+		display: block;
 	}
-	
+
 	.page-id-31327 .container > .row > .dhide.mobilesearch {
-	    display: none;
+		display: none;
 	}
-	
+
 	.page-id-31327 .container > .row > .span4.title_pad.dhide.nopad {
-	    display:none;
+		display:none;
 	}
 	.page-id-31327 .container > .row > .span8.title_pad.mhide {
-	    display:block;
-	}	
+		display:block;
+	}
 	.page-id-31327 .widget.widget_6.widget_cta.color5 {
-	    padding: 20px 0;
+		padding: 20px 0;
 	}
 
 	/* Always show one of the images on each home page. Assume either even or odd */
-	
-	.home.page .widget_3.widget_wideimage, 
+
+	.home.page .widget_3.widget_wideimage,
 	.home.page .widget_4.widget_wideimage {
 		display: block;
 	}
-	
+
 	/* Site specific display of imageset items */
-	
+
 	/* BCC: Hide first three */
-	.site1.home.page #bigholidays, 
-	.site1.home.page #bigweekends, 
-	.site1.home.page #findabigcottage, 
-	
+	.site1.home.page #bigholidays,
+	.site1.home.page #bigweekends,
+	.site1.home.page #findabigcottage,
+
 	/* LCH: Hide first one */
-	.site4.home.page #findacountryhouse, 
-	
+	.site4.home.page #findacountryhouse,
+
 	/* Corporate: Hide all */
-	.site16.home.page .widget_imageset, 
-	
+	.site16.home.page .widget_imageset,
+
 	/* Weddings: Hide all */
-	.site12.home.page .widget_imageset, 
-	
+	.site12.home.page .widget_imageset,
+
 	/* Escapes: Hide all */
-	.site7.home.page .widget_imageset, 
-	
-	 /* Holidays: Hide first two */
-	.site13.home.page #findaluxurycottage, 
+	.site7.home.page .widget_imageset,
+
+	/* Holidays: Hide first two */
+	.site13.home.page #findaluxurycottage,
 	.site13.home.page #greatbritishdestinations
 	{
-		display: none; 
+		display: none;
 	}
-	
-	.site13.page.page-template-default .mobilesearch, 
+
+	.site13.page.page-template-default .mobilesearch,
 	.site13.page.page-template-default .title_pad {
 		display: none;
 	}
@@ -642,40 +640,40 @@
 	.site13.page.page-template-default .widget_hybrid h2 {
 		margin: 20px 0;
 	}
-	
+
 	.site9.home.page .page-title_cont .nopad {
 		display: none;
 	}
-	
+
 	/* Override bootstraps form elemnts */
-	
+
 	select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
 	{
 	font-size: 1em;
 	padding: 20px 10px;
 	margin-bottom: 5px;
 	}
-	
+
 	.top_label {
-	    display: none;
+		display: none;
 	}
 
 	.top_label.show {
-	    display: inherit;
+		display: inherit;
 	}
 
 	.third.hidem {
-	    display: none;
+		display: none;
 	}
-	
+
 input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-as-date {
-    display: grid;
+	display: grid;
 }
 .number-of-adults input, .number-of-children input, .nature-of-stay input, .checkin input, .checkout input, .age-range-from input, .age-range-to input {
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 
-	
+
 	@font-face {
 		font-family: 'EntypoRegular';
 		src: url('fonts/entypo.eot');
@@ -686,7 +684,7 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 		font-weight: normal;
 		font-style: normal;
 	}
-	
+
 	@font-face {
 		font-family: 'EntypoSocialRegular';
 		src: url('fonts/entypo-social.eot');
@@ -697,21 +695,21 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 		font-weight: normal;
 		font-style: normal;
 	}
-	
+
 	.entypo {
 		font-family: 'EntypoRegular';
 		font-size: 2em;
 		font-weight: normal;
 		line-height: 0;
 	}
-	
+
 	.entypo-social {
 		font-family: 'EntypoSocialRegular';
 		font-size: 2em;
 		font-weight: normal;
 		line-height: 0;
 	}
-	
+
 	.entypo.phone:before{ content:'\1F4DE'; }
 	.entypo.mobile:before{ content:'\1F4F1'; }
 	.entypo.mouse:before{ content:'\E789'; }
@@ -950,7 +948,7 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 	.entypo.cc-remix:before{ content:'\1F54F'; }
 	.entypo.db-logo:before{ content:'\1F5F9'; }
 	.entypo.db-shape:before{ content:'\1F5FA'; }
-	
+
 	.entypo-social.github:before{ content:'\F300'; }
 	.entypo-social.c-github:before{ content:'\F301'; }
 	.entypo-social.flickr:before{ content:'\F303'; }
@@ -997,7 +995,7 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 	.entypo-social.google-circles:before{ content:'\F351'; }
 	.entypo-social.vk:before{ content:'\F354'; }
 	.entypo-social.smashing:before{ content:'\F357'; }
-	
+
 	.seventeen .span8, .seventeen .span4 {
 		width: 100%;
 	}
@@ -1011,8 +1009,8 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 		text-align: left;
 	}
 	.seventeen .entry-content {
-	    font-size: 13px;
-        min-height: 30px;
+		font-size: 13px;
+		min-height: 30px;
 	}
 }
 /* Specific fixes for iPad horizontal */
@@ -1070,7 +1068,7 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 		padding: 10px 0 0 10px;
 	}
 	div#comments {
-	    margin: 0 20px;
+		margin: 0 20px;
 	}
 	.image-block .row .span3 {
 		margin-bottom: 5px!important;
@@ -1186,10 +1184,10 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 		float: right;
 	}
 	.house_meta.offer_details {
-	    height: 72px;
+		height: 72px;
 	}
 	.box_text {
-	    min-height: 120px;
+		min-height: 120px;
 	}
 	.seventeen .span8, .seventeen .span4 {
 		width: 97.3%;
@@ -1208,7 +1206,6 @@ input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-required.wpcf7-validates-
 
 @media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape) {
 	.box_text {
-	    min-height: 120px;
+		min-height: 120px;
 	}
 }
-

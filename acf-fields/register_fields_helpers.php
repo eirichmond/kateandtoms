@@ -18,9 +18,9 @@ function kat_field($type, $key, $label, $name, $order, $row_id = null, $colors =
         'name' => $name,
         'order_no' => $order
     );
-    
 
-    
+
+
     switch ($type) {
         case 'text':
             return $default + array(
@@ -362,7 +362,7 @@ function kat_field($type, $key, $label, $name, $order, $row_id = null, $colors =
 				'row_limit' => '',
 				'layout' => 'table',
 				'button_label' => 'Add List Items'
-			);				
+			);
 		case 'chequered_inner_section':
 			return $default + array(
 				'type' => 'repeater',
@@ -455,7 +455,7 @@ function kat_field($type, $key, $label, $name, $order, $row_id = null, $colors =
 				'layout' => 'row',
 				'button_label' => 'Add Step'
 			);
-			
+
 		case 'column_set':
             return $default + array(
                 'type' => 'repeater',
@@ -562,7 +562,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
     );
     $c       = 0;
     switch ($type) {
-	    
+
         case 'standard_widget':
             return $default + array(
                 'sub_fields' => array(
@@ -584,7 +584,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
                 )
             );
         case 'footer_standard_widget':
-        
+
             return $default + array(
                 'sub_fields' => array(
                     kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
@@ -673,7 +673,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 					kat_field('color_radio', 'field_widget_imgset_color', 'Background colour', 'color_scheme', $c++, $row_id, 'all'),
 					kat_field('vendor_stats_inner_section', 'vendor_stats_inner_section', 'List items', 'vendor_stats_inner_section', $c++, $row_id),
 				)
-			);	
+			);
 		case 'partner_features_section':
 			return $default + array(
 				'sub_fields' => array(
@@ -693,7 +693,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 					kat_field('wysiwyg_basic', 'right_col_text', 'Right Column Text', 'right_col_text', $c++, $row_id),
 				)
 			);
-	
+
 
 		case 'partner_stats_section':
 			return $default + array(
@@ -706,7 +706,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 					kat_field('wysiwyg_basic', 'stats_text_bottom', 'Text', 'stats_text_bottom', $c++, $row_id),
 				)
 			);
-	
+
 		case 'partner_testimonials_section':
 			return $default + array(
 				'sub_fields' => array(
@@ -715,7 +715,7 @@ function kat_widget_row($type, $label, $name, $row_id) {
 					kat_field('partner_testimonials', 'partner_testimonial', 'Testimonials', 'partner_testimonials', $c++, $row_id),
 				)
 			);
-		
+
 		case 'partner_steps_section':
 			return $default + array(
 				'sub_fields' => array(
@@ -828,11 +828,25 @@ function kat_widget_row($type, $label, $name, $row_id) {
             return $default + array(
                 'sub_fields' => array(
                     kat_field('text', 'cta_title', 'Title', 'title', $c++, $row_id),
+                    kat_field('true_false', 'cta_heading_type', 'Set Title as H1', 'heading_type', $c++, $row_id),
                     kat_field('textarea', 'cta_sub', 'Subtext', 'subtext', $c++, $row_id),
                     kat_field('text', 'cta_button_text', 'Button Text', 'button', $c++, $row_id),
                     kat_field('color_radio', 'cta_button_color', 'Button Colour', 'button_color', $c++, $row_id),
                     kat_field('text', 'cta_button_url', 'Button Url', 'button_url', $c++, $row_id),
                     kat_field('color_radio', 'cta_background_color', 'Background Colour', 'background_color', $c++, $row_id)
+                )
+            );
+         case 'trustpilot_micro_combo_widget':
+            return $default + array(
+                'sub_fields' => array(
+                    kat_field('color_radio', 'trustpilot_micro_combo__background_color', 'Background Colour', 'background_color', $c++, $row_id)
+                )
+            );
+         case 'youtube_widget':
+            return $default + array(
+                'sub_fields' => array(
+                    kat_field('color_radio', 'youtube_background_color', 'Background Colour', 'background_color', $c++, $row_id),
+                    kat_field('text', 'youtube_content', 'Feed ShortCode', 'youtube_content', $c++, $row_id)
                 )
             );
    }
@@ -847,7 +861,20 @@ function kat_term_widget_row($key_id, $type, $label, $name, $row_id)  {
     );
     $c       = 0;
     switch ($type) {
-	    
+         case 'trustpilot_micro_combo_widget':
+            return $default + array(
+                'sub_fields' => array(
+                    kat_field('color_radio', 'trustpilot_micro_combo__background_color', 'Background Colour', 'background_color', $c++, $row_id)
+                )
+            );
+         case 'youtube_widget':
+            return $default + array(
+                'sub_fields' => array(
+                    kat_field('color_radio', 'youtube_background_color', 'Background Colour', 'background_color', $c++, $row_id),
+                    kat_field('text', 'youtube_content', 'Feed ShortCode', 'youtube_content', $c++, $row_id)
+
+                )
+            );
         case 'standard_widget':
             return $default + array(
                 'sub_fields' => array(
@@ -869,7 +896,7 @@ function kat_term_widget_row($key_id, $type, $label, $name, $row_id)  {
                 )
             );
         case 'footer_standard_widget':
-        
+
             return $default + array(
                 'sub_fields' => array(
                     kat_field('text', 'field_widget_title', 'Title', 'title', $c++, $row_id),
@@ -1130,7 +1157,7 @@ function kat_colors_array($type) {
         'color15' => 'Colour 15',
         'color16' => 'Colour 16'
     );
-    
+
     $greys = array(
         'color17' => 'Colour 17',
         'color18' => 'Colour 18',
@@ -1181,7 +1208,7 @@ function kat_set_pages_array()
 
     $choices['/']       = 'Home Page';
     $choices['/houses'] = 'Search All Houses';
-     
+
     $post_types = array(
         'houses',
         'seasonal',
@@ -1231,7 +1258,7 @@ function kat_dates_array($month_count = 33)
         '' => ''
     );
     for ($c = 0; $c < $month_count; $c++) {
-	    
+
         $value            = date('m-Y', strtotime('first day of +'.$c.' month'));
         $label            = date('M y', strtotime('first day of +'.$c.' month'));
         $periods[$value]  = $label;

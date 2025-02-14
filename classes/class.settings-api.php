@@ -1,5 +1,4 @@
 <?php
-
 /**
  * weDevs Settings API wrapper class
  *
@@ -11,7 +10,6 @@
  */
 if ( !class_exists( 'WeDevs_Settings_API' ) ):
 class WeDevs_Settings_API {
-
     /**
      * settings sections array
      *
@@ -35,7 +33,6 @@ class WeDevs_Settings_API {
      */
     function admin_enqueue_scripts() {
         wp_enqueue_style( 'wp-color-picker' );
-
         wp_enqueue_media();
         wp_enqueue_script( 'wp-color-picker' );
         wp_enqueue_script( 'jquery' );
@@ -380,10 +377,8 @@ class WeDevs_Settings_API {
      * @param array   $args settings field args
      */
     function callback_password( $args ) {
-
         $value = esc_attr( $this->get_option( $args['id'], $args['section'], $args['std'] ) );
         $size  = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
-
         $html  = sprintf( '<input type="password" class="%1$s-text" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>', $size, $args['section'], $args['id'], $value );
         $html  .= $this->get_field_description( $args );
 
@@ -412,21 +407,17 @@ class WeDevs_Settings_API {
      * @return mixed
      */
     function sanitize_options( $options ) {
-
         if ( !$options ) {
             return $options;
         }
-
         foreach( $options as $option_slug => $option_value ) {
             $sanitize_callback = $this->get_sanitize_callback( $option_slug );
-
             // If callback is set, call it
             if ( $sanitize_callback ) {
                 $options[ $option_slug ] = call_user_func( $sanitize_callback, $option_value );
                 continue;
             }
         }
-
         return $options;
     }
 
@@ -441,14 +432,12 @@ class WeDevs_Settings_API {
         if ( empty( $slug ) ) {
             return false;
         }
-
         // Iterate over registered fields and see if we can find proper callback
         foreach( $this->settings_fields as $section => $options ) {
             foreach ( $options as $option ) {
                 if ( $option['name'] != $slug ) {
                     continue;
                 }
-
                 // Return the callback name
                 return isset( $option['sanitize_callback'] ) && is_callable( $option['sanitize_callback'] ) ? $option['sanitize_callback'] : false;
             }
@@ -466,13 +455,10 @@ class WeDevs_Settings_API {
      * @return string
      */
     function get_option( $option, $section, $default = '' ) {
-
         $options = get_option( $section );
-
         if ( isset( $options[$option] ) ) {
             return $options[$option];
         }
-
         return $default;
     }
 
@@ -483,20 +469,15 @@ class WeDevs_Settings_API {
      */
     function show_navigation() {
         $html = '<h2 class="nav-tab-wrapper">';
-
         $count = count( $this->settings_sections );
-
         // don't show the navigation if only one section exists
         if ( $count === 1 ) {
             return;
         }
-
         foreach ( $this->settings_sections as $tab ) {
             $html .= sprintf( '<a href="#%1$s" class="nav-tab" id="%1$s-tab">%2$s</a>', $tab['id'], $tab['title'] );
         }
-
         $html .= '</h2>';
-
         echo $html;
     }
 
@@ -612,7 +593,6 @@ class WeDevs_Settings_API {
 
     function _style_fix() {
         global $wp_version;
-
         if (version_compare($wp_version, '3.8', '<=')):
         ?>
         <style type="text/css">
@@ -623,7 +603,5 @@ class WeDevs_Settings_API {
         <?php
         endif;
     }
-
 }
-
 endif;

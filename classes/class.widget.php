@@ -246,6 +246,12 @@ class Widget {
 				if ($value == 'wide_widget') {
 					new WideImageWidget($id, $key, $term);
 				}
+				if ($value == 'trustpilot_micro_combo_widget') {
+					new TrustPilotMicroCombo($id, $key, $term);
+				}
+				if ($value == 'youtube_widget') {
+					new YouTubeFeed($id, $key, $term);
+				}
 			}
 		}
 	}
@@ -270,6 +276,12 @@ class Widget {
 				}
 				if ($value == 'wide_widget') {
 					new WideImageWidget($id, $key, $term);
+				}
+				if ($value == 'trustpilot_micro_combo_widget') {
+					new TrustPilotMicroCombo($id, $key, $term);
+				}
+				if ($value == 'youtube_widget') {
+					new YouTubeFeed($id, $key, $term);
 				}
 			}
 		}
@@ -346,6 +358,12 @@ class Widget {
 			}
 			elseif ($value == 'cta_widget') {
 				new CTAWidget($ID, $key);
+			}
+			elseif ($value == 'trustpilot_micro_combo_widget') {
+				new TrustPilotMicroCombo($ID, $key, $term = null);
+			}
+			elseif ($value == 'youtube_widget') {
+				new YouTubeFeed($ID, $key, $term = null);
 			}
 			elseif ($value == 'partner_header_section') {
 				new PartnerHeaderSection($ID, $key);
@@ -745,9 +763,9 @@ class StandardWidget extends Widget {
 		if ($with_text == true) { echo '<div class="text_above">';}
 		if (is_array($this->images)) {
 			echo '<img loading="lazy" class="span3 four1" src="'.$this->images[0]['thumbnail'].'" scrset="'.$this->images[0]['srcset'].'" alt="'.$this->images[0]['alt'].'" width="280px" height="280px" />
-				<img loading="lazy" class="span3 four2" src="'.$this->images[1]['thumbnail'].'" scrset="'.$this->images[0]['srcset'].'" alt="'.$this->images[0]['alt'].'" width="280px" height="280px" />
-				<img loading="lazy" class="span3 four3" src="'.$this->images[2]['thumbnail'].'" scrset="'.$this->images[0]['srcset'].'" alt="'.$this->images[0]['alt'].'" width="280px" height="280px" />
-				<img loading="lazy" class="span3 four4" src="'.$this->images[3]['thumbnail'].'" scrset="'.$this->images[0]['srcset'].'" alt="'.$this->images[0]['alt'].'" width="280px" height="280px" />';
+				<img loading="lazy" class="span3 four2" src="'.$this->images[1]['thumbnail'].'" scrset="'.$this->images[1]['srcset'].'" alt="'.$this->images[1]['alt'].'" width="280px" height="280px" />
+				<img loading="lazy" class="span3 four3" src="'.$this->images[2]['thumbnail'].'" scrset="'.$this->images[2]['srcset'].'" alt="'.$this->images[2]['alt'].'" width="280px" height="280px" />
+				<img loading="lazy" class="span3 four4" src="'.$this->images[3]['thumbnail'].'" scrset="'.$this->images[3]['srcset'].'" alt="'.$this->images[3]['alt'].'" width="280px" height="280px" />';
 		}
 		if ($with_text == true) { echo '</div>';}
 	}
@@ -816,6 +834,7 @@ class ScriptWidget extends Widget {
 class CTAWidget extends Widget {
 
 	private $title;
+	private $heading_type;
 	private $subtext;
 	private $buttontext;
 	private $buttoncolour;
@@ -849,6 +868,7 @@ class CTAWidget extends Widget {
 		// Can assume it is normal post type
 		else {
 			$this->title = get_post_meta($ID, 'widgets_'.$key.'_title', true);
+			$this->heading_type = get_post_meta($ID, 'widgets_'.$key.'_heading_type', true);
 			$this->subtext = get_post_meta($ID, 'widgets_'.$key.'_subtext', true);
 			$this->buttontext = get_post_meta($ID, 'widgets_'.$key.'_button', true);
 			$this->buttoncolour = get_post_meta($ID, 'widgets_'.$key.'_button_color', true);
@@ -865,10 +885,106 @@ class CTAWidget extends Widget {
 
 	private function ctacontent() {
 			echo '<div class="span12">';
-			echo '<h2>'.$this->title.'</h2>';
+			if( $this->heading_type == '1' ) {
+				echo '<h1>'.$this->title.'</h1>';
+			} else {
+				echo '<h2>'.$this->title.'</h2>';
+			}
 			echo '<h3>'.$this->subtext.'</h3>';
 			echo '<li><a href="'.$this->buttonurl.'" class="btn '.$this->buttoncolour.'">'.$this->buttontext.'</a></li>';
 			echo '</div>';
+	}
+
+}
+
+/**
+ * Defines functionality for standard widgets.
+ * Supports the following layouts:
+ *
+ * Supports all post types and taxonomies
+ *
+ * @package kate-and-toms
+ * @author  Elliott Richmond
+ * @copyright Kate and Tom's Ltd 2013
+ */
+class TrustPilotMicroCombo extends Widget {
+
+	private $title;
+	private $subtext;
+	private $buttontext;
+	private $buttoncolour;
+	private $backgroundcolour;
+
+	/**
+	 * Setup new widget area.
+	 * @param int|string Integer of post, or if string taxonomy in format of type_taxID, eg location_4
+	 * @param int The key of the widget on page (starting from 0), so if fourth ID = 3
+	 */
+	public function __construct($ID, $key, $term) {
+
+		$this->backgroundcolour = get_post_meta($ID, 'widgets_'.$key.'_background_color', true);
+
+		echo '<div class="widget widget_'.$key.' trustpilot_micro_combo_widget '.$this->backgroundcolour.'"><div class="container main_body"><div class="row">';
+		$this->tpcontent();
+		echo '</div></div></div>';
+	}
+
+	private function tpcontent() {
+			echo '<div class="span12">';
+			// threre might be a better way to check this and that the
+			echo '<!-- TrustBox widget - Micro Combo -->
+					<div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b6ffb0d04a076446a9af" data-businessunit-id="5cd41de1c4dd7a0001be3a14" data-style-height="20px" data-style-width="100%">
+					<a href="https://uk.trustpilot.com/review/www.kateandtoms.com" target="_blank" rel="noopener">Trustpilot</a>
+					</div>
+					<!-- End TrustBox widget -->';
+			echo '</div>';
+	}
+
+}
+
+/**
+ * Defines functionality for YouTube Feed widgets.
+ * Supports the following layouts:
+ *
+ * Supports all post types and taxonomies
+ *
+ * @package kate-and-toms
+ * @author  Elliott Richmond
+ * @copyright Kate and Tom's Ltd 2013
+ */
+class YouTubeFeed extends Widget {
+
+	// background colour var
+	private $backgroundcolour;
+	// content var
+	private $youtube_content;
+
+	/**
+	 * Setup new widget area.
+	 * @param int|string Integer of post, or if string taxonomy in format of type_taxID, eg location_4
+	 * @param int The key of the widget on page (starting from 0), so if fourth ID = 3
+	 */
+	public function __construct( $ID, $key, $term ) {
+
+		if($term) {
+			$this->backgroundcolour = get_term_meta($ID, $term == 'termtop' ? 'top_widgets_'.$key.'_background_color' : 'bottom_widgets_'.$key.'_background_color', true);
+			$this->youtube_content = get_term_meta($ID,  $term == 'termtop' ? 'top_widgets_'.$key.'_youtube_content' : 'bottom_widgets_'.$key.'_youtube_content', true);
+		} else {
+			$this->backgroundcolour = get_post_meta($ID, 'widgets_'.$key.'_background_color', true);
+			$this->youtube_content = get_post_meta($ID, 'widgets_'.$key.'_youtube_content', true);
+		}
+
+
+		echo '<div class="widget widget_'.$key.' youtube_widget '.$this->backgroundcolour.'"><div class="container main_body"><div class="row">';
+		$this->ytcontent();
+		echo '</div></div></div>';
+	}
+
+	private function ytcontent() {
+
+		echo '<div class="span12">';
+		echo do_shortcode( $this->youtube_content );
+		echo '</div>';
 	}
 
 }
@@ -2103,6 +2219,8 @@ class Matrix5SetWidget extends Widget {
 				$link = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_links_to', true);
 			}
 			$image = wp_get_attachment_image_src(get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_image', true), $imagesize[$layindex][$i]);
+			$image_id = get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_image', true);
+			$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 
 			$array[] = array(
 				'link' => $link,
@@ -2111,7 +2229,7 @@ class Matrix5SetWidget extends Widget {
 				'title' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_title', true),
 				'subtitle' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_subtitle', true),
 				'id' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_image', true),
-				'alt' => get_post_meta($this->id, 'widgets_'.$this->key.'_matrix_5_set_'.$i.'_matrix_item_title', true)
+				'alt' => $image_alt
 			);
 		}
 

@@ -56,7 +56,7 @@
 	<div class="container footer">
 		<div class="row">
 			<div class="span10">
-				<img loading="lazy" class="katlogo" src="<?php bloginfo('template_directory'); ?>/images/katandtoms-trans.jpg" alt="kate and toms logo">
+				<img loading="lazy" class="katlogo mhide" src="<?php bloginfo('template_directory'); ?>/images/katandtoms-trans.jpg" alt="kate and toms logo">
 			</div>
 
 
@@ -65,7 +65,7 @@
 
 				<ul class="sharing-icons pull-right">
 					<li>
-						<a href="https://uk.linkedin.com/company/the-big-cottage-company" target="_blank">
+						<a href="https://www.linkedin.com/company/kate-and-toms" target="_blank">
 							<i class="fa-brands fa-linkedin fa-2xl"></i>
 
 						</a>
@@ -105,12 +105,15 @@
 		</div>
 		<div class="row">
 			<div class="span4">
-				<img loading="lazy" class="extra-strap" src="<?php bloginfo('template_directory'); ?>/images/extstrap.jpg" alt="extraordinary holidays, celebrations and adventures">
+				<img loading="lazy" class="extra-strap mhide" src="<?php bloginfo('template_directory'); ?>/images/extstrap.jpg" alt="extraordinary holidays, celebrations and adventures">
 			</div>
-			<div class="span8">
-				<div class="menu-top-menu-container floatright">
 
-					<div class="footertp" style="margin-right:-15px;">
+			<?php 	if ( get_current_blog_id() !== 1 ) { ?>
+
+			<div class="span8">
+				<div class="floatright">
+
+					<div class="footertp">
 						<!-- TrustBox widget - Micro Star -->
 						<div class="trustpilot-widget" data-locale="en-GB" data-template-id="5419b732fbfb950b10de65e5" data-businessunit-id="5cd41de1c4dd7a0001be3a14" data-style-height="24px" data-style-width="100%" data-theme="dark">
 							<a href="https://uk.trustpilot.com/review/www.kateandtoms.com" target="_blank" rel="noopener">Trustpilot</a>
@@ -120,6 +123,9 @@
 
 				</div>
 			</div>
+
+			<?php } ?>
+
 		</div>
 	</div>
 </div>

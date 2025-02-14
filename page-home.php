@@ -6,7 +6,6 @@ $homePhotos = get_post_custom_values('image_rotator');
 $homePhotos = unserialize($homePhotos[0]);
 get_header(); ?>
 
-
 <div class="clholder">
 	<div class="homecslider">
 
@@ -15,10 +14,11 @@ get_header(); ?>
 		<div>
 			<?php if ($linkto) {
 					echo '<a href="'.esc_attr( $linkto ).'">';
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive",  ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive", "loading" => "lazy", "sizes" => "(max-width: 300px) 300px, (max-width: 768px) 768px, (max-width: 992px) 1200px, (max-width: 1200px) 1600px, 100vw" ) );
 					echo '</a>';
 				} else {
-					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive",  ) );
+					echo wp_get_attachment_image( $image_id, 'huge', "", array( "class" => "img-responsive", "loading" => "lazy", "sizes" => "(max-width: 300px) 300px, (max-width: 768px) 768px, (max-width: 992px) 1200px, (max-width: 1200px) 1600px, 100vw"
+ ) );
 				}
 
 				// if ($tag_tit) {
@@ -70,5 +70,30 @@ get_header(); ?>
 
 <?php Widget::createWidgets($post->ID); ?>
 
+<!-- <div class="widget widget_15 widget_hybrid fourimage color14">
+	<div class="container main_body">
+		<div class="row">
+			<div class="mpadder">
+				<div class="span12">
+					<?php //echo do_shortcode( '[youtube-feed feed=1]' ); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+
+<!-- <div class="widget widget_15 widget_hybrid fourimage color14">
+	<div class="container main_body">
+		<div class="row">
+			<div class="mpadder">
+				<div class="span12">
+					<?php //echo do_shortcode( '[instagram-feed feed=1]' ); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
 
 <?php get_footer(); ?>
+

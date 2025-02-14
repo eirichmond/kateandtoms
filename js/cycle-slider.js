@@ -1,5 +1,5 @@
-(function( $ ) {
-	'use strict';
+(function ($) {
+	"use strict";
 
 	/**
 	 * All of the code for your public-facing JavaScript source
@@ -29,29 +29,27 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	$(function() {
-        var cycler = $('.cslider').cycle({
+	$(function () {
+		var cycler = $(".cslider").cycle({
 			delay: 250,
-            speed: 1000,
-			timeout: 3000
-        });
-        
-		var homecycler = $('.homecslider').cycle({
-            delay: 1000,
-            speed: 1000,
-			slides: '> div'
-        });
+			speed: 1000,
+			timeout: 3000,
+		});
 
-		var textSlider = $('#newtextSlider').cycle({
+		var homecycler = $(".homecslider").cycle({
+			delay: 1000,
+			speed: 1000,
+			loader: true,
+			slides: "> div",
+		});
+
+		var textSlider = $("#newtextSlider").cycle({
 			timeout: 7000,
-            speed: 1000,
-			slides: '> .sliders div',
-			slideClass: 'span9 offset2 cycle-slide'
-        });
-
-
-	});	
-
+			speed: 1000,
+			slides: "> .sliders div",
+			slideClass: "span9 offset2 cycle-slide",
+		});
+	});
 
 	// #newtextSlider {
 	// 	display: flex;
@@ -72,8 +70,4 @@
 	//   #newtextSlider :nth-child(4) {
 	// 	order: 3;
 	//   }
-	  
-
-})( jQuery );
-
-
+})(jQuery);

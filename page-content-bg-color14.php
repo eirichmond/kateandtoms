@@ -8,7 +8,7 @@ get_header(); ?>
 <?php if ( has_post_thumbnail() ) { ?>
 	<div style="height:400px; text-align:center;">
 		<div class="absoluteCenterWrapper" style="height: 400px; overflow:hidden; ">
-			<?php the_post_thumbnail('full', array('class' => 'absoluteCenter'));?>
+			<?php the_post_thumbnail( 'full', array( 'class' => 'absoluteCenter' ) ); ?>
 		</div>
 	</div>
 <?php } ?>

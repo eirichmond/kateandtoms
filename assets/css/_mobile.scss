@@ -1,5 +1,25 @@
 @media (max-width: 668px) {
 
+	.footertp {
+		margin-right: 0;
+	}
+
+	.site1 {
+		.sharing-icons.pull-right {
+			margin-bottom: 0px;
+		}
+	}
+	.sharing-icons.pull-right {
+		float: none;
+		display: flex;
+		justify-content: center;
+		margin-bottom: 25px;
+	}
+
+	.footer .floatright {
+		float:none;
+	}
+
 	.page-template-page-advent-calendar .widget_fourimage .row img:nth-child(4n+1) {
 		display: initial;
 	}
@@ -171,7 +191,7 @@
 	}
 
 	#pin {
-		top: 96px;
+		// top: 96px;
 		z-index: 10;
 		left: 0;
 		right: 0;
@@ -288,7 +308,8 @@
 
 	.widget.widget_text,
 	.widget.widget_galleryright,
-	.widget.widget_galleryleft {
+	.widget.widget_galleryleft,
+	.widget.trustpilot_micro_combo_widget{
 		padding: 20px;
 	}
 
@@ -1426,7 +1447,7 @@
 	}
 
 	#pin {
-	    top: 96px;
+	    // top: 96px;
 	    z-index: 10;
 		left:0;
 		right:0;
@@ -1510,7 +1531,7 @@
 	.box_text {
 		margin: 0px;
 	}
-	.widget.widget_text, .widget.widget_galleryright, .widget.widget_galleryleft {
+	.widget.widget_text, .widget.widget_galleryright, .widget.widget_galleryleft, .widget.trustpilot_micro_combo_widget {
 		padding: 20px;
 	}
 	.widget.widget_fourimage {
@@ -1865,11 +1886,13 @@
 	.page .widget {
 		/* display: none; */
 	}
+
 	.page .widget_imageset,
 	.page .widget.widget_cta {
 		display: block;
-		
+
 	}
+	.widget.widget_cta,
 	.page .widget.widget_cta {
 		padding: 40px 0;
 	}

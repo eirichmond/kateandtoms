@@ -1063,7 +1063,8 @@ class HouseSearch extends OnlineSearch {
 				// --$wn;
 
 				// $price_array = $this->getPrices($blog_id, $lookup_id, $name, $day_start_range);
-				$price_array = $output[$name][$wn] === '-1' || $output[$name][$wn] === '-2' ? '' : array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
+				$contains_astrix = !str_contains($output[$name][$wn], '*');
+				$price_array = $output[$name][$wn] === '-1' || $output[$name][$wn] === '-2' || $contains_astrix ? '' : array( $name => preg_replace("/[^0-9.]/", "", $output[$name][$wn]) );
 
 				if ( $price_array != null && !empty($price_array[$name]) ) {
 					$price = $price_array[$name];
@@ -1129,8 +1130,8 @@ class HouseSearch extends OnlineSearch {
 		$taxonomy = 'feature';
 		$terms = wp_get_post_terms($id, $taxonomy);
 		$term_ids = wp_list_pluck( $terms, 'term_id' );
-		$matches = array_intersect($features, $term_ids);
-		if($matches) {
+		// $matches = array_intersect($features, $term_ids);
+		if($term_ids) {
 			$bool = true;
 		}
 		return $bool;

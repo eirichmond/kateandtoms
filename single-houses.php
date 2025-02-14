@@ -78,24 +78,24 @@
 	$image_ids = get_post_meta($post->ID, 'widgets_'.$separator_key.'_separator_rotator');
 
 	$whisthis = $house->getImages('huge', 5);
-	
+
 	?>
-	
+
 	<div class="clholder <?php echo $house->getPage(); ?>">
 		<div class="cslider">
-			
+
 			<?php do_action('house_specials_banner'); ?>
 
 			<?php if ($house->getPage() == 'more' && !empty($image_ids[0])) { ?>
 
 				<?php $c = 0; foreach ($image_ids[0] as $image_id) { $c++; ?>
-					<?php echo wp_get_attachment_image( $image_id, 'large', "", array( "class" => "img-responsive" ) );  ?>
+					<?php echo wp_get_attachment_image( $image_id, 'large', "", array( "class" => "img-responsive", "loading" => "lazy", "sizes" => "(max-width: 300px) 300px, (max-width: 768px) 768px, (max-width: 992px) 1200px, (max-width: 1200px) 1600px, 100vw" ) );  ?>
 				<?php if ($c === 5) break; } ?>
 
 			<?php } else { ?>
-			
+
 				<?php foreach ($whisthis as $k => $image_data) { ?>
-					<?php echo wp_get_attachment_image( $image_data['id'], 'large', "", array( "class" => "img-responsive" ) );  ?>
+					<?php echo wp_get_attachment_image( $image_data['id'], 'large', "", array( "class" => "img-responsive", "loading" => "lazy", "sizes" => "(max-width: 300px) 300px, (max-width: 768px) 768px, (max-width: 992px) 1200px, (max-width: 1200px) 1600px, 100vw" ) );  ?>
 				<?php } ?>
 
 			<?php } ?>
@@ -124,7 +124,7 @@
 </div>
 <div class="span6 menu_links">
 
-	<?php if($post->ID != 37696)  { ?> 
+	<?php if($post->ID != 37696)  { ?>
 
 		<span id="st-trigger-effects">
 			<a href="#enquire" role="button" data-effect="st-effect-3" class="btn btn-1">Enquire</a>
@@ -141,11 +141,11 @@
 <!-- 	<a  href="#enquire" role="button" data-toggle="modal" data-backdrop="static" class="btn btn-1">Enquire</a> -->
 	<a class="btn btn-2 <?php if ($house->getPage() === 'availability') echo 'active'; ?>" href="/houses/<?= $post->post_name;?>/availability/<?= $preview; ?>">Availability</a>
 
-	<?php if($post->ID != 37696)  { ?> 
+	<?php if($post->ID != 37696)  { ?>
 		<a class="btn btn-3 <?php if ($house->getPage() === 'book' || $house->getPage() === 'booknow') echo 'active'; ?>" href="/houses/<?= $post->post_name;?>/booknow/<?= $preview; ?>">Book Now</a>
 		<!-- <a class="btn btn-3 <?php if ($house->getPage() === 'book' || $house->getPage() === 'booknow') echo 'active'; ?>" href="/book-now/">Book Now</a> -->
 	<?php } ?>
-		
+
 <!-- 	<a class="btn btn-1 <?php if ($house->getPage() === 'more')  echo 'active'; ?>" href="/houses/<?= $post->post_name;?>/more/<?= $preview; ?>">Book Now!</a> -->
 
 	<div class="house_page_meta extended">
@@ -181,6 +181,7 @@
 
 		$house->startPageWrap();
 		echo '<div id="page-content" >';
+
 		echo '<div class="widget facts"><h2 class="aligncenter">Select a date to book your stay</h2></div>';
 		//if (get_field('availability_general_text')) echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
 
@@ -208,7 +209,16 @@
 			if (get_field('availability_general_text')) echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
 		}
 
+		echo '<div id="floater">';
+		echo '<h2 class="aligncenter">Select a date to book your stay</h2>';
+		echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
+		echo '</div>';
+
+		echo '<div id="availability-cals">';
 		$availability = new HouseAvailability($post->ID);
+		echo '</div>';
+
+
 
 		echo '</div>';
 		$house->endPageWrap();

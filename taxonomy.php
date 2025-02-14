@@ -1,3 +1,2 @@
 <?php
-	include('search.php'); 
-?>
+	require 'search.php';

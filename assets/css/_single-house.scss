@@ -1,0 +1,35 @@
+
+#floater {
+	transition: all .8s ease-in-out;
+	position: fixed;
+	bottom: -800px;
+	padding: 1em 1em;
+	left: 0;
+	margin: 0 auto;
+  	width: auto;
+	@media (min-width: 667px){
+		width: 1180px;
+		left: inherit;
+	}
+	&.active-float {
+		bottom: 0;
+		background: #fff;
+
+	}
+	table {
+		display: none;
+	}
+}
+
+// #floater > .widget {
+//     background: none;
+// }
+
+// #floater > .widget h2 {
+//   margin: 0;
+//   padding: 0em 0;
+// }
+// #floater p {
+//   font-size: 0.8em;
+//   line-height: 1.5em;
+// }

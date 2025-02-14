@@ -1,4 +1,4 @@
-<?php 
+<?php
 if( function_exists('acf_add_local_field_group') ):
 $top_widgets_fields = array();
 
@@ -21,6 +21,8 @@ $top_widgets_fields = array();
             kat_widget_row('video_widget', 'Video widget', 'video_widget', $c++),
             kat_widget_row('virtual_widget', 'Virtual widget', 'virtual_widget', $c++),
 */
+			'term_trustpilot_micro_combo_widget' => kat_term_widget_row('term_trustpilot_micro_combo_widget', 'trustpilot_micro_combo_widget', 'Trustpilot Micro Combo', 'trustpilot_micro_combo_widget', $c++),
+			'term_youtube' => kat_term_widget_row('term_youtube', 'youtube_widget', 'YouTube Feed', 'youtube_widget', $c++),
 			'image_set_term_widget' => kat_term_widget_row('image_set_term_widget','image_set', 'Navigation Image Set', 'image_set', $c++),
 // 			kat_widget_row('reviews_widget', 'Reviews Widget', 'reviews_widget', $c++),
 			'button_widget_term_widget' => kat_term_widget_row('button_widget_term_widget', 'button_widget', 'Button Widget', 'button_widget', $c++),
@@ -32,23 +34,23 @@ $top_widgets_fields = array();
 			kat_widget_row('cta_widget', 'CTA', 'cta_widget', $c++),
 			kat_widget_row('separator_widget', 'Separator Widget', 'separator_widget', $c++),
 */
-			
+
 		),
-		'sub_fields' => 
+		'sub_fields' =>
 		array (
-	
+
 		),
 		'button_label' => '+ Add Widget',
 	);
-	
-		
+
+
 	acf_add_local_field_group(array (
 		'id' => 'toptermwidgets',
 		'title' => 'Top Widgets',
 		'fields' => array($top_widgets_fields),
-		'location' => 
+		'location' =>
 		array (
-			'rules' => 
+			'rules' =>
 			array (
 /*
 				array (
@@ -105,11 +107,11 @@ $top_widgets_fields = array();
 			),
 			'allorany' => 'any',
 		),
-		'options' => 
+		'options' =>
 		array (
 			'position' => 'normal',
 			'layout' => 'no_box',
-			'hide_on_screen' => 
+			'hide_on_screen' =>
 			array (
 				0 => 'the_content',
 				1 => 'comments',
@@ -119,6 +121,6 @@ $top_widgets_fields = array();
 		'menu_order' => 2,
 	));
 
-endif;	
+endif;
 //}
 ?>

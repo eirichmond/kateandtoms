@@ -54,6 +54,8 @@ if( function_exists('acf_add_local_field_group') ):
 			kat_widget_row('single_image_link', 'Single Image Link', 'single_image_link', $c++),
 			kat_widget_row('faq_group', 'FAQs Group', 'faq_group', $c++),
 			kat_widget_row('cta_widget', 'CTA', 'cta_widget', $c++),
+			kat_widget_row('trustpilot_micro_combo_widget', 'Trustpilot Micro Combo', 'trustpilot_micro_combo_widget', $c++),
+			kat_widget_row('youtube_widget', 'YouTube Feed', 'youtube_widget', $c++),
 			/** New Widgets for partners page */
 			kat_widget_row('partner_header_section', 'Partner Header Section', 'partner_header_section', $c++),
 			kat_widget_row('partner_content_section', 'Partner Content Section', 'partner_content_section', $c++),

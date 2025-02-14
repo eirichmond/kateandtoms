@@ -575,17 +575,17 @@ array (
   array (
       array('url' => 'https://kateandtoms.com/about-us/', 'title' => 'about us',),
       array('url' => 'https://kateandtoms.com/our-blog/', 'title' => 'our blog',),
-      array('url' => 'https://kateandtoms.com/privacy-policy/', 'title' => 'privacy policy',),
-      array('url' => 'https://kateandtoms.com/cookie-policy/', 'title' => 'cookie policy',),
-      array('url' => 'https://kateandtoms.com/terms-and-conditions/', 'title' => 'terms and conditions',),
-      array('url' => 'https://kateandtoms.com/company-information', 'title' => 'company information',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-privacy-policy2-March-24.pdf', 'title' => 'privacy policy',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-cookie-policy-March-24.pdf', 'title' => 'cookie policy',),
+      array('url' => 'https://docs.kateandtoms.com/packs/kateandtoms-terms-and-conditions-August-2024.pdf', 'title' => 'terms and conditions',),
+      array('url' => 'https://kateandtoms.com/company-information/', 'title' => 'company information',),
       array('url' => 'https://kateandtoms.com/faqs/', 'title' => 'faqs',),
       array('url' => 'https://kateandtoms.com/meet-the-team/', 'title' => 'meet the team',),
   ),
   'legacy_footer_menu_destinations' =>
   array (
       array('url' => 'https://kateandtoms.com/lake-district-cottages/', 'title' => 'lake district cottages',),
-      array('url' => 'https://kateandtoms.com/location/cotswolds/', 'title' => 'cotswold cottages',),
+      array('url' => 'https://kateandtoms.com/cotswold-cottages/', 'title' => 'cotswold cottages',),
       array('url' => 'https://kateandtoms.com/location/cornwall/', 'title' => 'luxury cornwall cottages',),
       array('url' => 'https://kateandtoms.com/location/devon-cottages/', 'title' => 'cottages in devon',),
       array('url' => 'https://kateandtoms.com/location/liverpool/', 'title' => 'liverpool party apartments',),
@@ -593,7 +593,7 @@ array (
   'legacy_footer_menu_join_us' =>
   array (
       array('url' => 'https://partners.kateandtoms.com/holiday-house-owners/', 'title' => 'holiday house owners',),
-      array('url' => 'https://kateandtoms.com/join-us', 'title' => 'careers'),
+      array('url' => 'https://kateandtoms.com/join-us/', 'title' => 'careers'),
       //array('url' => 'https://partners.kateandtoms.com/activity-providers/', 'title' => 'activity providers',),
       //array('url' => 'https://partners.kateandtoms.com/jobs-and-internships/', 'title' => 'jobs and internships',),
   ),

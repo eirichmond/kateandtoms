@@ -1,23 +1,16 @@
-<?php
-	global $katglobals;
-
-	$desktop = $katglobals['site_desktop_menus'];
-	$desktop_default = $katglobals['site_desktop_menus_default'];
-
-	$mobile = $katglobals['site_mobile_menus'];
-	$mobile_default = $katglobals['site_mobile_menus_default'];
-
-	$desktop_menu = (array_key_exists(get_current_blog_id(), $desktop) ? $desktop[get_current_blog_id()] : $desktop_default);
-
-	$mobile_menu = (array_key_exists(get_current_blog_id(), $mobile) ? $mobile[get_current_blog_id()] : $mobile_default);
-	$enquire_id = $katglobals['enquire_mappings_default'][get_current_blog_id()];
-
-?>
 <!DOCTYPE html>
 <html <?php	language_attributes();  ?>>
-
+<?php
+	global $katglobals;
+	$desktop = $katglobals['site_desktop_menus'];
+	$desktop_default = $katglobals['site_desktop_menus_default'];
+	$mobile = $katglobals['site_mobile_menus'];
+	$mobile_default = $katglobals['site_mobile_menus_default'];
+	$desktop_menu = (array_key_exists(get_current_blog_id(), $desktop) ? $desktop[get_current_blog_id()] : $desktop_default);
+	$mobile_menu = (array_key_exists(get_current_blog_id(), $mobile) ? $mobile[get_current_blog_id()] : $mobile_default);
+	$enquire_id = $katglobals['enquire_mappings_default'][get_current_blog_id()];
+?>
 	<head>
-
 		<meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 		<meta name="p:domain_verify" content="e48da99e4d15bfacf41bf71c04f0ac90" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -25,23 +18,15 @@
 	if (!empty($customtitle)) echo $customTitle.' - '.get_bloginfo();
 	else { wp_title(' - ', true, 'right'); }
 ?></title>
-
-
 		<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/<?php echo get_option('options_site_style'); ?>?r=1" media="screen" />
 		<link rel="preload" type="text/css" href="<?php bloginfo('template_directory'); ?>/css/mobile.css" media="screen" />
 		<link href='https://fonts.googleapis.com/css?family=News+Cycle:400,700|Oswald:400,300' rel='preload' type='text/css' as='style'>
 		<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/images/favicon.ico" />
 		<!--[if IE 7]><link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/style-ie7.css?r=1" type="text/css" /><![endif]-->
 		<!--[if IE 8]><link rel="stylesheet" href="<?php bloginfo('template_directory'); ?>/css/style-ie8.css?r=1" type="text/css" /><![endif]-->
-
 		<?php wp_head(); ?>
-
 	</head>
-
-	<?php do_action('cookies_banner_script');?>
-
 	<body id="fe" <?php $id = 'site'.get_current_blog_id();  body_class($id); ?>>
-
 		<div id="st-container" class="st-container">
 			<!-- content push wrapper -->
 			<div class="st-pusher">
@@ -66,22 +51,20 @@
 					<div class="ktmain_nav_cont">
 						<div class="container">
 
-							<h1 class="visually-hidden">
+
 								<?php
-					if (is_home() || is_front_page()) {
-						// You are on the homepage
-						echo "Large Holiday Homes | Extraordinary Holidays, Celebrations & Adventures";
-					} elseif ( is_category() ) {
-						// You are on a category archive page
-						single_cat_title();
-					} elseif ( is_tag() ) {
-						// You are on a category archive page
-						single_tag_title();
-					} else {
-						echo "Large Holiday Homes | Extraordinary Holidays, Celebrations & Adventures";
-					}
-				?>
-							</h1>
+									if (is_home() || is_front_page()) {
+										// You are on the homepage
+										echo "<h2 class='visually-hidden'>Large Holiday Homes | Extraordinary Holidays, Celebrations & Adventures</h2>";
+									} elseif ( is_category() ) {
+										// You are on a category archive page
+										echo '<h1 class="visually-hidden">' . single_cat_title() . '</h1>';
+									} elseif ( is_tag() ) {
+										// You are on a category archive page
+										echo '<h1 class="visually-hidden">' . single_tag_title() . '</h1>';
+									}
+								?>
+
 
 							<div class="logo span2">
 								<a href="<?php echo get_blogaddress_by_id(11); ?>" title="Kate &amp; Tom's" rel="home"></a>
@@ -221,3 +204,4 @@
 
 
 					<!-- <iframe width="100%" height="100%" src="https://my.matterport.com/show/?m=7DzAJrn9axy" frameborder="0" allowfullscreen allow="xr-spatial-tracking"></iframe> -->
+
