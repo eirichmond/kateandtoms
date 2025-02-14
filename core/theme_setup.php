@@ -397,17 +397,6 @@ function get_search_items_refactor() {
  */
 function geebee_scripts() {
 
-	if( is_singular('houses') ) {
-		wp_enqueue_script( 'kandt-single-house', get_template_directory_uri() .'/js/single-house.js', array(),
-			date( 'Y-m-d ssdf' ),
-			array(
-				'in_footer' => false,
-				'strategy'  => 'defer',
-			)
-		);
-	}
-
-
 	if ( ! is_page( 'syncipro' ) && ! is_page( 'syncipro-update-rates' ) ) {
 
 		wp_enqueue_style( 'kandt-main-styles', get_template_directory_uri() . '/style.min.css', array(), '1.6', 'all' );

@@ -3230,9 +3230,6 @@ a.search-block:link,a.search-block:visited{color:#574f3a;font-weight:400}
 .align-items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 .entry-meta{min-height:5em}
 .blog article .wp-post-image{height:180px;-o-object-fit:cover;object-fit:cover}
-#floater{-webkit-transition:all .8s ease-in-out;transition:all .8s ease-in-out;position:fixed;bottom:-800px;padding:1em 1em;left:0;margin:0 auto;width:auto}
-#floater.active-float{bottom:0;background:#fff}
-#floater table{display:none}
 @media all and (device-width:768px) and (device-height:1024px) and (orientation:portrait){body,.container,.widget,.main_body_cont,#content,.ftwide{width:768px;margin:0}
 body{min-width:768px;max-width:768px}
 #slidedeck_frame{width:760px;overflow:hidden}
@@ -3308,7 +3305,6 @@ div#comments{margin:0 20px}
 .seventeen header.entry-header{min-height:230px}
 .seventeen .entry-content{min-height:80px}
 }@media all and (device-width:1024px) and (device-height:768px) and (orientation:landscape){.box_text{min-height:120px}
-}@media(min-width:667px){#floater{width:1180px;left:inherit}
 }@media(min-width:980px){.nav-collapse.collapse{height:auto !important;overflow:visible !important}
 }@media(min-width:1200px){.homecslider{height:auto}
 .clholder{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:hidden;height:500px}

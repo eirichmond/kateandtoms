@@ -181,7 +181,6 @@
 
 		$house->startPageWrap();
 		echo '<div id="page-content" >';
-
 		echo '<div class="widget facts"><h2 class="aligncenter">Select a date to book your stay</h2></div>';
 		//if (get_field('availability_general_text')) echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
 
@@ -209,16 +208,7 @@
 			if (get_field('availability_general_text')) echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
 		}
 
-		echo '<div id="floater">';
-		echo '<h2 class="aligncenter">Select a date to book your stay</h2>';
-		echo '<div class="house_custom_area">' . get_field('availability_general_text') . '</div>';
-		echo '</div>';
-
-		echo '<div id="availability-cals">';
 		$availability = new HouseAvailability($post->ID);
-		echo '</div>';
-
-
 
 		echo '</div>';
 		$house->endPageWrap();

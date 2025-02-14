@@ -1,4 +1,4 @@
-<?php
+<?php 
 // disable xmlrpc to reduce cpu outage 24 Nov 2015
 add_filter('xmlrpc_enabled', '__return_false');
 
@@ -21,7 +21,7 @@ add_action( 'wp_loaded', 'overwrite_cf7_dynamic_shortcode' );
 
 add_action( 'wp_head', 'kat_include_hotjar' );
 function kat_include_hotjar() {
-
+	
 // 	$output = "<!-- Hotjar Tracking Code for http://www.kateandtoms.com -->
 // <script>
 // (function(h,o,t,j,a,r){
@@ -35,7 +35,7 @@ function kat_include_hotjar() {
 // </script>";
 
 // 	if(!is_singular( 'houses' )) {
-// 		echo $output;
+// 		echo $output;			
 // 	}
 
 }
@@ -52,7 +52,7 @@ register_sidebar(array(
     'before_title' => '<h2>',
     'after_title' => '</h2>'
 ));
-
+   
 function clubsandwich_theme_setup() {
     add_theme_support('automatic-feed-links');
 }
@@ -65,11 +65,11 @@ function wpcf7_change_to_blog1() {
 
 function kat_upload_dir( $args ) {
     $args['path']    = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['path'] );
-    $args['url']     = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['url'] );
-    $args['basedir'] = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['basedir'] );
-    $args['baseurl'] = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['baseurl'] );
-    $args['url']     = preg_replace( '/\/files\//i', '/wp-content/uploads/', $args['url'] );
-    $args['baseurl'] = preg_replace( '/\/files/i', '/wp-content/uploads', $args['baseurl'] );
+    $args['url']     = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['url'] );   
+    $args['basedir'] = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['basedir'] );   
+    $args['baseurl'] = preg_replace( '/\/blogs.dir\/([0-9]{1}|[0-9]{2})\/files/i', '/uploads', $args['baseurl'] );   
+    $args['url']     = preg_replace( '/\/files\//i', '/wp-content/uploads/', $args['url'] );   
+    $args['baseurl'] = preg_replace( '/\/files/i', '/wp-content/uploads', $args['baseurl'] );   
     return $args;
 }
 
@@ -98,7 +98,7 @@ function new_relic_admin() {
     }
 }
 
-function overwrite_cf7_dynamic_shortcode() {
+function overwrite_cf7_dynamic_shortcode() { 
     function get_title_of_page( $atts ) {
         if (is_archive() || is_search()) {
             return 'Archive or search page';
@@ -113,7 +113,7 @@ function overwrite_cf7_dynamic_shortcode() {
     }
     remove_shortcode('CF7_get_post_var');
     add_shortcode( 'CF7_get_post_var', 'get_title_of_page' );
-}
+} 
 
 
 function get_search_items_refactor() {
@@ -128,7 +128,7 @@ function get_search_items_refactor() {
 		WHERE blog_id = ".$blog_id."
 		ORDER BY sleeps_max ".$order."
 	");
-
+	
 	// first get all the houses and put them in a category of 'Houses'
 	$search_items = array();
 	$i = 0;
@@ -140,16 +140,16 @@ function get_search_items_refactor() {
 		$search_items[$i]['desc'] = $house->brief_description;
 		$i++;
 	}
-
+	
 	// then get all the locations from the locations page widgets
 	// use the locations house id
 	$feature_id = 27142;
 	$key = 0;
 	$rowCount = get_post_meta($feature_id, 'widgets_'.$key.'_imageset', true);
-
+	
 	$x = $i;
 	for ($i = 0; $i < $rowCount; $i++) {
-		for ($n = 0; $n < 4; $n++) {
+		for ($n = 0; $n < 4; $n++) { 
 			$location_photo = get_post_meta($feature_id, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_image', true);
 			$search_items[$x]['category'] = 'Locations';
 			$search_items[$x]['url'] = get_post_meta($feature_id, 'widgets_'.$key.'_imageset_'.$i.'_row_'.$n.'_set_custom', true);
@@ -168,18 +168,17 @@ function get_search_items_refactor() {
  * Enqueue scripts and styles.
  */
 function geebee_scripts() {
-
 	wp_enqueue_style( 'kandt-font-awesome', get_template_directory_uri() .'/css/font-awesome.min.css' );
-
+	
 	wp_enqueue_style( 'kandt-zoom-style', get_template_directory_uri() .'/css/zoom.css' );
 	wp_enqueue_script( 'kandt-zoom', get_template_directory_uri() . '/js/jquery.zoom.min.js', array('jquery'));
 	wp_enqueue_script( 'kandt-zoom-fired', get_template_directory_uri() . '/js/zoom-script.js');
-
+		
 	wp_enqueue_script( 'kandt-autocomplete', get_template_directory_uri() . '/js/jquery.autocomplete.js', array('jquery','jquery-ui-autocomplete'), true );
-
+	
 	$search_items = get_search_items_refactor();
-
-
+	
+	
 	$search_items = array( 'searchItems' => $search_items );
 	wp_localize_script( 'kandt-autocomplete', 'object_name', $search_items );
 
@@ -198,21 +197,21 @@ add_action( 'wp_enqueue_scripts', 'geebee_scripts' );
 function cmb_sample_metaboxes( array $meta_boxes ) {
 
 	// Example of all available fields
-
+	
 	$fields = array(
 		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
 		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
-
+		
 		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
-
+		
 		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => true, 'query' => array( 'post_status' => 'publish', 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
-
+		
 		//array( 'id' => 'offer_house', 'type' => 'select', 'name' => 'Select field', 'options' => array( 'option-1' => 'Option 1', 'option-2' => 'Option 2', 'option-3' => 'Option 3' ) ),
 
 		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
 
 		array( 'id' => 'offer_date', 'type' => 'date', 'cols' => 2 ),
-
+		
 /*
 		array( 'id' => 'field-2', 'name' => 'Read-only text input field', 'type' => 'text', 'readonly' => true, 'default' => 'READ ONLY' ),
  		array( 'id' => 'field-3', 'name' => 'Repeatable text input field', 'type' => 'text', 'desc' => 'Add up to 5 fields.', 'repeatable' => true, 'repeatable_max' => 5, 'sortable' => true ),
@@ -270,23 +269,23 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 			)
 		)
 	);
-
+	
 
 
 
 	$settings = array(
-
+		
 		array( 'id' => 'show_associated_houses',  'name' => 'Enable', 'type' => 'checkbox' ),
 		array( 'id' => 'ah_from_features', 'name' => 'Feature includes', 'type' => 'taxonomy_select',  'taxonomy' => 'feature',  'multiple' => true ),
 		array( 'id' => 'ah_from_locations', 'name' => 'Location includes', 'type' => 'taxonomy_select',  'taxonomy' => 'location',  'multiple' => true ),
 
-
+		
 /*
 		array( 'id' => 'offer_period_identitfier', 'type' => 'text', 'cols' => 1 ),
 		array( 'id' => 'offer_period_name', 'type' => 'text', 'cols' => 2 ),
-
+		
 		array( 'id' => 'offer_image', 'type' => 'image', 'size' => 'height=50&width=75&crop=1', 'cols' => 1 ),
-
+		
 		array( 'id' => 'offer_house', 'type' => 'post_select', 'use_ajax' => false, 'query' => array( 'post_type' => 'houses', 'posts_per_page' => -1 ), 'cols' => 2 ),
 
 		array( 'id' => 'offer_details',  'type' => 'text', 'cols' => 3 ),
@@ -298,7 +297,7 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'field-4',  'name' => 'Small text input field', 'type' => 'text_small' ),
 		array( 'id' => 'field-5',  'name' => 'URL field', 'type' => 'url' ),
 
-
+		
 
 		array( 'id' => 'field-8',  'name' => 'WYSIWYG field', 'type' => 'wysiwyg', 'options' => array( 'editor_height' => '100' ), 'repeatable' => true, 'sortable' => true ),
 
@@ -321,7 +320,7 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
 		array( 'id' => 'field-24', 'name' => 'Title Field', 'type' => 'title' ),
 
 */
-
+		
 	);
 
 
@@ -332,8 +331,8 @@ function cmb_sample_metaboxes( array $meta_boxes ) {
         'priority'   => 'high',
   		'fields' => $settings
 	);
-
-
+	
+	
 	return $meta_boxes;
 
 }
